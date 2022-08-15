@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "MonyPet",
+    "slug": "MonyPet",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
