@@ -13,17 +13,17 @@ export default function App() {
       <View style={{alignItems:'center', justifyContent:'space-evenly', marginTop:50, flexDirection:'row'}}>
         <Image 
         style={{width:'30%', height:100, borderRadius:15}}
-        source={require('./cachorro.jpg')}
+        source={require('../assets/images/cachorro.jpg')}
         />
 
         <Image 
         style={{width:'30%', height:100, borderRadius:15}}
-        source={require('./cachorro.jpg')}
+        source={require('../assets/images/cachorro.jpg')}
         />
 
         <Image 
         style={{width:'30%', height:100, borderRadius:15}}
-        source={require('./cachorro.jpg')}
+        source={require('../assets/images/cachorro.jpg')}
         />
       </View>
       <View style={{ alignItems:'center', justifyContent:'space-evenly', marginTop:5, flexDirection:'row'}}>
