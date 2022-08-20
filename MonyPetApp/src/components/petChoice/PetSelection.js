@@ -13,7 +13,7 @@ export default props => {
 
 const styles = StyleSheet.create({
     circle: {
-      backgroundColor: 'black',
+      backgroundColor: '#7255AB',
       borderRadius: 100,
       width: 140,
       height: 140,

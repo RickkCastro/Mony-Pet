@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, ImageBackground, TouchableOpacity, Image} from 
 import Constants from 'expo-constants';
 import { AntDesign } from '@expo/vector-icons';
 
-import PetSelection from '../components/petChoice/petSelection';
+import PetSelection from './PetSelection';
 
 export default function App() {
   return (
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
   },
   circle: {
-    backgroundColor: 'black',
+    backgroundColor: '#7255AB',
     borderRadius: 100,
     width: 140,
     height: 140,
