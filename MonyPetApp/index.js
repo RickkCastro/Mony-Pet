@@ -1,6 +1,6 @@
 import { registerRootComponent } from 'expo';
 
-import App from './Project/pages/petChoice.js';
+import App from './src/components/petAdd/PagePetAdd.js';
 
 // registerRootComponent calls AppRegistry.registerComponent('main', () => App);
 // It also ensures that whether you load the app in Expo Go or in a native build,
