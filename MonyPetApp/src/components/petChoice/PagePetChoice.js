@@ -1,43 +1,45 @@
 import * as React from 'react';
-import { StyleSheet, Text, View, ImageBackground, TouchableOpacity, Image, ScrollView} from 'react-native';
-import Constants from 'expo-constants';
+import { StyleSheet, Text, View, ImageBackground, TouchableOpacity, Image, ScrollView, SafeAreaView} from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 
 import PetSelection from './PetSelection';
+const themeColor = '#461EA2'
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <ImageBackground source={require('../../assets/images/BackgroundTelaEscolhaPet.jpg')} resizeMode='stretch' style={styles.backgroudImage}>
+    <SafeAreaView style={styles.container}>
+      <ImageBackground source={require('../../assets/images/BgTelaEscolhaPet.png')} resizeMode='cover' style={styles.backgroudImage}>
         {/* Titulo */}
-        <View style={{flex: 1, alignItems:'center', justifyContent:'flex-start', marginTop: 50}}> 
-            <Text style={{fontSize:45, fontWeight:'bold', color:'black', marginBottom: 10}}>MONY PET</Text>
+        <View style={{flex: 1, alignItems:'center', justifyContent:'center', marginTop: 15}}> 
             <View style={styles.line}>
-              <Image source={require('../../assets/images/logo(2).png')} style={styles.logo} resizeMode='stretch'/>
+              <Image source={require('../../assets/images/logo.png')} style={styles.logo} resizeMode='stretch'/>
             </View>
         </View>
 
         {/* Escolha de pet */}
-        <ScrollView horizontal={true} contentContainerStyle={styles.viewPetSelections}>
-          
-          <PetSelection name={'Athena'} animal={'dog'}/>
-          <PetSelection name={'Theo'} animal={'dog'}/>
-          <PetSelection name={'Athena'} animal={'dog'}/>
-          <PetSelection name={'Theo'} animal={'dog'}/>
-          <PetSelection name={'Athena'} animal={'dog'}/>
-          <PetSelection name={'Theo'} animal={'dog'}/>
-
-          <TouchableOpacity style={styles.circle}>
+        <View style={{flex: 2, justifyContent: 'center'}}>
+          <AntDesign name="caretup" size={30} color={themeColor}  style={{
+            marginBottom: 10,
+            alignSelf: 'center'
+          }}/>
+          <PetSelection/>
+          <AntDesign name="caretdown" size={30} color={themeColor}  style={{
+            marginTop: 10,
+            alignSelf: 'center'
+          }}/>
+        </View>
+        {/* Rodape */}
+        <View style={{flex: 1, justifyContent: 'flex-end'}}>
+          <TouchableOpacity style={styles.addButton}>
             <AntDesign name="plus" size={25} color="white"  style={{margin: 8}}/>
           </TouchableOpacity>
-        </ScrollView>
-        
-        {/* Rodapé */}
-        <View style={{flex:0.8, alignItems:'center', justifyContent:'flex-end', marginBottom:15}}>
-          <Text style={{color:'black', fontSize:16}}>copyright@MonyPet</Text>
+          
+          {/* Rodapé */}
+          <Text style={{color:'black', fontSize:12, alignSelf: 'center', marginBottom: 15}}>
+            COPYRIGHT@MonyPet</Text>
         </View>
       </ImageBackground>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -46,25 +48,17 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
-  viewPetSelections: {
-    alignItems:'center', 
-    justifyContent: 'center',
-    flexDirection: 'row',
-    marginHorizontal: 30,
-  },
   backgroudImage: {
     justifyContent:'center', 
-    flex:1, 
-    width:'100%', 
-    height:'100%',
+    flex:1,
   },
   logo: {
-    width: 82,
-    height: 92,
+    width: 241,
+    height: 105.8,
     marginBottom: 5
   },
   line: {
-    width: 110,
+    width: 200,
     borderEndWidth:0.2, borderStartWidth:0.2, borderColor: 'transparent',
     justifyContent: 'center',
     alignItems: 'center',
@@ -72,15 +66,14 @@ const styles = StyleSheet.create({
     borderBottomWidth: 5,
     borderRadius: 30,
   },
-  circle: {
-    backgroundColor: '#7255AB',
-    borderRadius: 100,
-    width: 140,
-    height: 140,
-    margin: 5,
-    padding: 35,
-    alignItems:'center', 
+  addButton: {
     justifyContent: 'center',
-    opacity: 0.8
+    alignItems: 'center',
+    height: 50,
+    width: 200,
+    backgroundColor: themeColor,
+    alignSelf: 'center',
+    marginBottom: 60,
+    borderRadius: 30,
   },
 });
