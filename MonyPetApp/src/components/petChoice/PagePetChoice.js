@@ -11,23 +11,12 @@ export default function App() {
       <ImageBackground source={require('../../assets/images/BgTelaEscolhaPet.png')} resizeMode='cover' style={styles.backgroudImage}>
         {/* Titulo */}
         <View style={{flex: 1, alignItems:'center', justifyContent:'center', marginTop: 15}}> 
-            <View style={styles.line}>
-              <Image source={require('../../assets/images/logo.png')} style={styles.logo} resizeMode='stretch'/>
-            </View>
+          <Image source={require('../../assets/images/logo.png')} style={styles.logo} resizeMode='stretch'/>
         </View>
 
         {/* Escolha de pet */}
-        <View style={{flex: 2, justifyContent: 'center'}}>
-          <AntDesign name="caretup" size={30} color={themeColor}  style={{
-            marginBottom: 10,
-            alignSelf: 'center'
-          }}/>
-          <PetSelection/>
-          <AntDesign name="caretdown" size={30} color={themeColor}  style={{
-            marginTop: 10,
-            alignSelf: 'center'
-          }}/>
-        </View>
+        <PetSelection/>
+
         {/* Rodape */}
         <View style={{flex: 1, justifyContent: 'flex-end'}}>
           <TouchableOpacity style={styles.addButton}>
@@ -56,15 +45,6 @@ const styles = StyleSheet.create({
     width: 241,
     height: 105.8,
     marginBottom: 5
-  },
-  line: {
-    width: 200,
-    borderEndWidth:0.2, borderStartWidth:0.2, borderColor: 'transparent',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderBottomColor: 'black',
-    borderBottomWidth: 5,
-    borderRadius: 30,
   },
   addButton: {
     justifyContent: 'center',
