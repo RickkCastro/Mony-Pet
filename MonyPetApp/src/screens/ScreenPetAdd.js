@@ -3,10 +3,7 @@ import { StyleSheet, Text, View, ImageBackground, TouchableOpacity, Image, FlatL
 import Constants from 'expo-constants';
 import { AntDesign } from '@expo/vector-icons';
 
-
-
-
-export default function PagePetAdd() {
+export function ScPetAdd() {
     return (
         <View style={styles.container}>
             {/* Cabeçalho */}

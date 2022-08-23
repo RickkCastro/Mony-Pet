@@ -9,6 +9,21 @@ const pets=[ //Dados para a flatList
   {
     id: '001', name: 'Bolt', animal: 'dog'
   },
+  {
+    id: '002', name: 'Mia', animal: 'cat'
+  },
+  {
+    id: '003', name: 'Athena', animal: 'dog'
+  },
+  {
+    id: '004', name: 'Scooby', animal: 'dog'
+  },
+  {
+    id: '005', name: 'Snoopy', animal: 'dog'
+  },
+  {
+    id: '006', name: 'Nala', animal: 'cat'
+  },
 ]
 
 

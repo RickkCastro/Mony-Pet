@@ -2,16 +2,16 @@ import * as React from 'react';
 import { StyleSheet, Text, View, ImageBackground, TouchableOpacity, Image, ScrollView, SafeAreaView} from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 
-import PetSelection from './PetSelection';
+import PetSelection from '../components/ScPetChoice/PetSelection';
 const themeColor = '#461EA2'
 
-export default function App() {
+export function ScPetChoice() {
   return (
     <SafeAreaView style={styles.container}>
-      <ImageBackground source={require('../../assets/images/BgTelaEscolhaPet.png')} resizeMode='cover' style={styles.backgroudImage}>
+      <ImageBackground source={require('../assets/images/BgTelaEscolhaPet.png')} resizeMode='cover' style={styles.backgroudImage}>
         {/* Titulo */}
         <View style={{flex: 1, alignItems:'center', justifyContent:'center', marginTop: 15}}> 
-          <Image source={require('../../assets/images/logo.png')} style={styles.logo} resizeMode='stretch'/>
+          <Image source={require('../assets/images/logo.png')} style={styles.logo} resizeMode='stretch'/>
         </View>
 
         {/* Escolha de pet */}
