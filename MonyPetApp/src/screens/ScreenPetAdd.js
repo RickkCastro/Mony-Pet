@@ -1,20 +1,23 @@
 import * as React from 'react';
-import { StyleSheet, Text, View, ImageBackground, TouchableOpacity, Image, FlatList, TextInput} from 'react-native';
+import { StyleSheet, Text, View, ImageBackground, TouchableOpacity, Image, FlatList, TextInput, ScrollView} from 'react-native';
 import Constants from 'expo-constants';
 import { AntDesign } from '@expo/vector-icons';
 
 export function ScPetAdd() {
-    return (
-        <View style={styles.container}>
-            {/* Cabeçalho */}
-            <View style={{alignItems:'center', justifyContent:'flex-start', marginTop: 50, marginBottom: 30}}> 
-                <TouchableOpacity style={styles.addPhoto}>
-                    <AntDesign name="plus" size={30} color="black"/>
-                </TouchableOpacity>
-            </View>
 
+    return (
+        <ScrollView style={styles.container} contentContainerStyle={{justifyContent: 'flex-end'}}>
+            {/* Cabeçalho */}
+            <View style={{alignItems: 'center', marginBottom: 30, marginTop: 20}}>
+                <ImageBackground source={require('../assets/images/DogAddImg.png')} resizeMode={'stretch'} imageStyle={{margin: 10}}> 
+                    <TouchableOpacity style={styles.addPhoto}>
+                        <AntDesign name="plus" size={30} color="black"/>
+                    </TouchableOpacity>
+                </ImageBackground>
+            </View>
+            
             {/* Inputs */}
-            <View style={{width: 300}}>
+            <View style={{marginHorizontal: 20}}>
                 <Text style={styles.lineText}>Insira o nome do seu pet:</Text>
                 <TextInput style={styles.txtInformation} placeholder={'Ex: Bartolomeu'}></TextInput>
 
@@ -27,73 +30,58 @@ export function ScPetAdd() {
                 <Text style={styles.lineText}>E quanto, ele(a) pesa:</Text>
                 <TextInput style={styles.txtInformation} placeholder={'Ex: 14,7 Kg'}></TextInput>
             </View>
-
-            <TouchableOpacity style={styles.styleButtom}>
-                    <Text style={{color:'white', fontSize:18}}>Adicionar</Text>
-            </TouchableOpacity>
-                
-            <Text style={{color:'black', fontSize:16, margin: 10}}>copyright@MonyPet</Text>
-
-        </View>
-
+            
+            <ImageBackground source={require('../assets/images/Onda.png')} resizeMode={'stretch'}>
+                <View style={{alignItems: 'center', height: 180, justifyContent: 'flex-end', paddingBottom: 10}}>
+                    <TouchableOpacity style={styles.styleButton}>
+                        <Text style={{color:'white', fontSize:18}}>Adicionar</Text>
+                    </TouchableOpacity>
+                        
+                    <Text style={{color:'black', fontSize:16, textAlign: 'center'}}>copyright@MonyPet</Text>
+                </View>
+            </ImageBackground>    
+        </ScrollView>
     );
 } 
 
 const styles = StyleSheet.create ({
-    container : {
+    container: {
         flex: 1,
         backgroundColor: '#fff',
-        paddingTop: Constants.statusBarHeight,
-        justifyContent: 'center',
-        alignItems: 'center',
     },
 
     addPhoto: {
-        borderWidth:2,
         borderColor:'black', 
-        borderRadius:20, 
-        height: 140,
-        width: 140,
         justifyContent: 'center',
         alignItems: 'center',
-        padding: 10,
-    },
-
-    imagemBackgroundIcon : {
-        width:'100%', 
-        height:'100%', 
-        alignItems:'center',
-        justifyContent:'center'
+        borderWidth: 1,
+        height: 120,
+        width: 120
     },
 
     txtInformation: {
         paddingHorizontal: 10,
         borderWidth:1,
-        borderColor:'#5A1AD9',
-        opacity:0.7,
+        borderColor:'#527BCB',
         borderRadius: 10,
-        marginBottom: 35,
+        marginBottom: 30,
         fontSize: 18,
+        backgroundColor: '#fff',
     },
 
     lineText: {
-        color:'#5A1AD9',
+        color:'#527BCB',
         fontSize: 20,
         marginBottom: 5,
     },
 
-    styleButtom: {
+    styleButton: {
         borderRadius:10, 
-        backgroundColor:'#5A1AD9', 
+        backgroundColor:'#461EA2', 
         alignItems:'center', 
-        justifyContent:'center', 
-        marginTop:60, 
+        justifyContent:'center',
         height:50,
         width: 300,
+        marginBottom: 10,
     },
-    waves: {
-        width: '100%',
-        justifyContent: 'center',
-        alignItems: 'center',
-    }
 });

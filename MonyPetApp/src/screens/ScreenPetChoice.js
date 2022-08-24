@@ -1,14 +1,17 @@
 import * as React from 'react';
 import { StyleSheet, Text, View, ImageBackground, TouchableOpacity, Image, ScrollView, SafeAreaView} from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
 import PetSelection from '../components/ScPetChoice/PetSelection';
 const themeColor = '#461EA2'
 
 export function ScPetChoice() {
+  const navigation = useNavigation()
+
   return (
-    <SafeAreaView style={styles.container}>
-      <ImageBackground source={require('../assets/images/BgTelaEscolhaPet.png')} resizeMode='cover' style={styles.backgroudImage}>
+    <View style={styles.container}>
+      <ImageBackground source={require('../assets/images/BgTelaEscolhaPet.png')} resizeMode='cover' style={{flex: 1}}>
         {/* Titulo */}
         <View style={{flex: 1, alignItems:'center', justifyContent:'center', marginTop: 15}}> 
           <Image source={require('../assets/images/logo.png')} style={styles.logo} resizeMode='stretch'/>
@@ -19,7 +22,7 @@ export function ScPetChoice() {
 
         {/* Rodape */}
         <View style={{flex: 1, justifyContent: 'flex-end'}}>
-          <TouchableOpacity style={styles.addButton}>
+          <TouchableOpacity style={styles.addButton} onPress={() => navigation.navigate('ScPetAdd')}>
             <AntDesign name="plus" size={25} color="white"  style={{margin: 8}}/>
           </TouchableOpacity>
           
@@ -28,7 +31,7 @@ export function ScPetChoice() {
             COPYRIGHT@MonyPet</Text>
         </View>
       </ImageBackground>
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -37,13 +40,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
-  backgroudImage: {
-    justifyContent:'center', 
-    flex:1,
-  },
   logo: {
-    width: 241,
-    height: 105.8,
+    width: 210.25,
+    height: 123.5,
     marginBottom: 5
   },
   addButton: {
