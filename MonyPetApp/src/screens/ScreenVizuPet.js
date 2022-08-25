@@ -6,7 +6,7 @@ import {FontAwesome} from '@expo/vector-icons';
 
 export function ScVizuPet() {
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
     {/* Cabeçalho */}
     <View style={{alignItems: 'center', marginBottom: 20, marginTop:10}}>
         <ImageBackground source={require('../assets/images/DogAddImg.png')} resizeMode={'stretch'} imageStyle={{margin: 10}}> 
@@ -91,8 +91,9 @@ export function ScVizuPet() {
 
 const styles = StyleSheet.create ({
   container: {
-    flex: 1,
+    minHeight: '92%',
     backgroundColor: '#fff',
+    justifyContent: 'space-between',
   },
 
   addPhoto: {

@@ -6,7 +6,7 @@ import { AntDesign } from '@expo/vector-icons';
 export function ScPetAdd() {
 
     return (
-        <ScrollView style={styles.container} contentContainerStyle={{justifyContent: 'flex-end'}}>
+        <ScrollView contentContainerStyle={styles.container}>
             {/* Cabeçalho */}
             <View style={{alignItems: 'center', marginBottom: 30, marginTop: 20}}>
                 <ImageBackground source={require('../assets/images/DogAddImg.png')} resizeMode={'stretch'} imageStyle={{margin: 10}}> 
@@ -46,8 +46,9 @@ export function ScPetAdd() {
 
 const styles = StyleSheet.create ({
     container: {
-        flex: 1,
+        minHeight: '92%',
         backgroundColor: '#fff',
+        justifyContent: 'space-between',
     },
 
     addPhoto: {
