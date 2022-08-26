@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { StyleSheet, Text, View, ImageBackground, TouchableOpacity, Image, ScrollView, SafeAreaView} from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
 
+import { useNavigation } from '@react-navigation/native';
 import PetSelection from '../components/ScPetChoice/PetSelection';
 const themeColor = '#461EA2'
 
-export function ScPetChoice() {
+export function ScPetChoice(props) {
   const navigation = useNavigation()
 
   return (
