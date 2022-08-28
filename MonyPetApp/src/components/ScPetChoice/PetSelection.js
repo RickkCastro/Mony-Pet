@@ -1,53 +1,53 @@
-import * as React from "react";
+import * as React from 'react'
 import {
   StyleSheet,
   Text,
   View,
   TouchableOpacity,
   FlatList,
-} from "react-native";
-import { FontAwesome5 } from "@expo/vector-icons";
-import { AntDesign } from "@expo/vector-icons";
+} from 'react-native'
+import { FontAwesome5 } from '@expo/vector-icons'
+import { AntDesign } from '@expo/vector-icons'
 
-import { useNavigation } from "@react-navigation/native";
-import { useFocusEffect } from "@react-navigation/native";
+import { useNavigation } from '@react-navigation/native'
+import { useFocusEffect } from '@react-navigation/native'
 
-import { useAsyncStorage } from "@react-native-async-storage/async-storage";
+import { useAsyncStorage } from '@react-native-async-storage/async-storage'
 
-const themeColor = "#461EA2";
+const themeColor = '#461EA2'
 
 export default () => {
-  const navigation = useNavigation();
-  const [petsData, setPetsData] = React.useState([]);
+  const navigation = useNavigation()
+  const [petsData, setPetsData] = React.useState([])
 
-  const { getItem, removeItem } = useAsyncStorage("@monypet:pets");
+  const { getItem } = useAsyncStorage('@monypet:pets')
 
   async function handleFetchData() {
-    const response = await getItem();
-    const data = response ? JSON.parse(response) : [];
-    setPetsData(data);
+    const response = await getItem()
+    const data = response ? JSON.parse(response) : []
+    setPetsData(data)
   }
 
   useFocusEffect(
     React.useCallback(() => {
-      handleFetchData();
+      handleFetchData()
     }, [])
-  );
+  )
 
   return (
-    <View style={{ flex: 2, justifyContent: "center", alignSelf: "center" }}>
+    <View style={{ flex: 2, justifyContent: 'center', alignSelf: 'center' }}>
       <AntDesign
         name="caretup"
         size={petsData.length > 4 ? 30 : 0}
         color={themeColor}
         style={{
           marginBottom: 10,
-          alignSelf: "center",
+          alignSelf: 'center',
         }}
       />
 
       <FlatList
-        contentContainerStyle={petsData.length > 4 ? "" : styles.flatList}
+        contentContainerStyle={petsData.length > 4 ? '' : styles.flatList}
         refreshing={true}
         numColumns={2}
         data={petsData}
@@ -58,9 +58,10 @@ export default () => {
             <TouchableOpacity
               style={styles.circle}
               onPress={() =>
-                navigation.navigate("ScVizuPet", { petId: item.id })
-              }
-            >
+                navigation.navigate('ScVizuPet', {
+                  petId: item.id,
+                })
+              }>
               <FontAwesome5
                 name={item.petType}
                 size={28}
@@ -69,7 +70,7 @@ export default () => {
               />
               <Text style={styles.txtName}>{item.petName}</Text>
             </TouchableOpacity>
-          );
+          )
         }}
       />
 
@@ -79,12 +80,12 @@ export default () => {
         color={themeColor}
         style={{
           marginTop: 10,
-          alignSelf: "center",
+          alignSelf: 'center',
         }}
       />
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   circle: {
@@ -94,17 +95,17 @@ const styles = StyleSheet.create({
     height: 140,
     margin: 5,
     padding: 35,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     opacity: 0.98,
   },
   txtName: {
-    color: "white",
-    textAlign: "center",
+    color: 'white',
+    textAlign: 'center',
     fontSize: 18,
   },
   flatList: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: 'center',
   },
-});
+})

@@ -1,10 +1,15 @@
 {
   "expo": {
-    "name": "MonyPetApp",
-    "slug": "MonyPetApp",
-    "version": "1.0.0",
+    "name": "Mony Pet",
+    "slug": "Monitore seu pet",
+    "version": "0.1.0",
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "185973ad-03f4-4008-941a-5d5b9855324d"
+      }
+    }
   }
 }
