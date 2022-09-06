@@ -12,7 +12,7 @@ import {
 import { AntDesign } from '@expo/vector-icons'
 
 import { useNavigation } from '@react-navigation/native'
-import PetSelection from '../components/ScPetChoice/PetSelection'
+import PetSelection from './components/PetSelection'
 const themeColor = '#461EA2'
 
 export function ScPetChoice(props) {
@@ -21,7 +21,7 @@ export function ScPetChoice(props) {
   return (
     <View style={styles.container}>
       <ImageBackground
-        source={require('../assets/images/BgTelaEscolhaPet.png')}
+        source={require('../../assets/images/BgTelaEscolhaPet.png')}
         resizeMode="cover"
         style={{ flex: 1 }}>
         {/* Titulo */}
@@ -33,7 +33,7 @@ export function ScPetChoice(props) {
             marginTop: 15,
           }}>
           <Image
-            source={require('../assets/images/logo.png')}
+            source={require('../../assets/images/logo.png')}
             style={styles.logo}
             resizeMode="stretch"
           />

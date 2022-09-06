@@ -7,7 +7,8 @@ import { FontAwesome } from '@expo/vector-icons';
 
 import styles from './styles';
 
-import RegisterBox from '../../components/ScHome/RegisterBox';
+import RegisterBox from './components/RegisterBox';
+import TipsBox from './components/tipsBox';
 
 export function ScHome({ route, navigation }) {
     const { petId, petType } = route.params
@@ -43,18 +44,7 @@ export function ScHome({ route, navigation }) {
                 </View>
 
                 {/* Dicas */}
-                <Text style={styles.scrollTitle}> Dicas: </Text>
-                <View style={styles.tipsStyle}>
-                    <TouchableOpacity>
-                        <AntDesign name="left" size={36} color="#527BCB" />
-                    </TouchableOpacity>
-                    <Text style={{ color: '#527BCB', paddingVertical: 20, paddingHorizontal: 40, fontSize: 18, textAlign: 'center' }}>
-                        Sabia que cachorros são lindos?
-                    </Text>
-                    <TouchableOpacity>
-                        <AntDesign name="right" size={36} color="#527BCB" />
-                    </TouchableOpacity>
-                </View>
+                <TipsBox/>
 
                 {/* Registros */}
                 <View style={styles.regViewStyles}>

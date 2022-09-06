@@ -4,7 +4,7 @@ import { Routes } from ".";
 const { Screen, Navigator } = createNativeStackNavigator();
 
 import { ScPetAdd } from "../screens/ScreenPetAdd";
-import { ScPetChoice } from "../screens/ScreenPetChoice";
+import { ScPetChoice } from "../screens/petChoice/ScreenPetChoice";
 import { ScVizuPet } from "../screens/ScreenVizuPet";
 import { ScHome } from "../screens/Home/ScreenHome";
 
