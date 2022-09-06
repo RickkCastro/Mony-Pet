@@ -85,14 +85,14 @@ export function ScPetAdd({ navigation }) {
       {/* Cabeçalho */}
       <View style={styles.header}>
         <TouchableOpacity
-          style={{ marginLeft: 15 }}
+          style={styles.headerButtons}
           onPress={() => navigation.goBack()}>
           <AntDesign name="close" size={24} color="black" />
         </TouchableOpacity>
 
         <Text style={styles.lineText}>Adicionar Pet</Text>
 
-        <TouchableOpacity style={{ marginLeft: 15 }}>
+        <TouchableOpacity style={styles.headerButtons}>
           <AntDesign name="close" size={24} color="transparent" />
         </TouchableOpacity>
       </View>
@@ -267,5 +267,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: 'gray',
     paddingRight: 10,
+  },
+  headerButtons: {
+    height: 30,
+    width: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginHorizontal: 10,
   },
 })
