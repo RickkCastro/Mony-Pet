@@ -3,10 +3,10 @@ import { Routes } from ".";
 
 const { Screen, Navigator } = createNativeStackNavigator();
 
-import { ScreenA } from "../screens/ScreenA";
 import { ScPetAdd } from "../screens/ScreenPetAdd";
 import { ScPetChoice } from "../screens/ScreenPetChoice";
 import { ScVizuPet } from "../screens/ScreenVizuPet";
+import { ScHome } from "../screens/Home/ScreenHome";
 
 //Armazenar todas as telas no navigator
 export function StackRoutes() {
@@ -19,6 +19,7 @@ export function StackRoutes() {
       <Screen name="ScPetChoice" component={ScPetChoice} />
       <Screen name="ScPetAdd" component={ScPetAdd} />
       <Screen name="ScVizuPet" component={ScVizuPet} />
+      <Screen name="ScHome" component={ScHome}/>
     </Navigator>
   );
 }

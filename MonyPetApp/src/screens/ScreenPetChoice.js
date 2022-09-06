@@ -42,7 +42,7 @@ export function ScPetChoice(props) {
         {/* Escolha de pet */}
         <PetSelection />
 
-        {/* Rodape */}
+        {/* Botao de adicionar */}
         <View style={{ flex: 1, justifyContent: 'flex-end' }}>
           <TouchableOpacity
             style={styles.addButton}

@@ -27,7 +27,7 @@ export function ScPetAdd({ navigation }) {
   const [petType, setPetType] = React.useState('dog')
 
   const { getItem, setItem } = useAsyncStorage('@monypet:pets')
-
+  // Dados do Pet
   async function handleSavePet() {
     try {
       if (petName != '') {
@@ -48,7 +48,7 @@ export function ScPetAdd({ navigation }) {
         const petsData = [...previousPets, newPet]
 
         setItem(JSON.stringify(petsData))
-
+        // Adição de Pet
         Toast.show({
           type: 'success',
           text1: 'Pet adicionado',
@@ -57,6 +57,7 @@ export function ScPetAdd({ navigation }) {
 
         navigation.goBack()
       } else {
+        // Aviso de erro
         Toast.show({
           type: 'error',
           text1: 'ERRO',
@@ -64,6 +65,7 @@ export function ScPetAdd({ navigation }) {
         })
       }
     } catch (error) {
+      // Aviso de erro
       console.log(error)
       Toast.show({
         type: 'error',
@@ -73,12 +75,14 @@ export function ScPetAdd({ navigation }) {
   }
 
   return (
+    // Barra de informações
     <View
       style={{
         flex: 1,
         paddingTop: Constants.statusBarHeight,
         backgroundColor: 'white',
       }}>
+      {/* Cabeçalho */}
       <View style={styles.header}>
         <TouchableOpacity
           style={{ marginLeft: 15 }}
@@ -93,6 +97,7 @@ export function ScPetAdd({ navigation }) {
         </TouchableOpacity>
       </View>
 
+      {/* Rolagem */}
       <ScrollView contentContainerStyle={styles.scrollStyle}>
         <View
           style={{
@@ -100,6 +105,7 @@ export function ScPetAdd({ navigation }) {
             marginBottom: 30,
             marginTop: 20,
           }}>
+          {/* Imagem de Fundo */}
           <ImageBackground
             source={require('../assets/images/DogAddImg.png')}
             resizeMode={'stretch'}
@@ -110,14 +116,16 @@ export function ScPetAdd({ navigation }) {
           </ImageBackground>
         </View>
 
+        {/* Barra de nome */}
         <View style={{ marginHorizontal: 20 }}>
           <Text style={styles.lineText}>Insira o nome do seu pet:</Text>
           <TextInput
             style={styles.txtInformation}
-            placeholder={'Ex: Bartolomeu'}
+            placeholder={'Ex: Rex'}
             placeholderTextColor="gray"
             onChangeText={setPetName}></TextInput>
 
+          {/* Seleção de Espécie */}
           <Text style={styles.lineText}>Ele(a) é um:</Text>
           <RadioButton.Group
             onValueChange={(newValue) => {
@@ -146,13 +154,15 @@ export function ScPetAdd({ navigation }) {
             </View>
           </RadioButton.Group>
 
+          {/* Barra de idade */}
           <Text style={styles.lineText}>Agora, a idade do seu pet:</Text>
           <TextInput
             style={styles.txtInformation}
-            placeholder={'Ex: 10'}
+            placeholder={'Ex: 6'}
             placeholderTextColor="gray"
             onChangeText={setPetYears}></TextInput>
 
+          {/* Barra de Raça */}
           <Text style={styles.lineText}>E qual é a raça dele(a):</Text>
           <TextInput
             style={styles.txtInformation}
@@ -160,14 +170,16 @@ export function ScPetAdd({ navigation }) {
             placeholderTextColor="gray"
             onChangeText={setPetRace}></TextInput>
 
+          {/* Barra de Peso */}
           <Text style={styles.lineText}>E quanto, ele(a) pesa:</Text>
           <TextInput
             style={styles.txtInformation}
-            placeholder={'Ex: 14,7 Kg'}
+            placeholder={'Ex: 3,2kg'}
             placeholderTextColor="gray"
             onChangeText={setPetWeight}></TextInput>
         </View>
 
+        {/* Botão de adição */}
         <ImageBackground
           source={require('../assets/images/Onda.png')}
           resizeMode={'stretch'}>
@@ -184,6 +196,7 @@ export function ScPetAdd({ navigation }) {
               <Text style={{ color: 'white', fontSize: 18 }}>Adicionar</Text>
             </TouchableOpacity>
 
+            {/* Direitos Autorais */}
             <Text
               style={{
                 color: 'black',

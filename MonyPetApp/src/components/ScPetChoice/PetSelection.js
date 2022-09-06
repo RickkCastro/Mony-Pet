@@ -51,15 +51,16 @@ export default () => {
         refreshing={true}
         numColumns={2}
         data={petsData}
-        keyExtractor={(item) => item.id} //Arrow function com param item
+        keyExtractor={(item) => item.id} //Arrow function com param. item
         renderItem={({ item }) => {
-          //Arrow function com param item com obj
+          //Arrow function com param. item com obj
           return (
             <TouchableOpacity
               style={styles.circle}
               onPress={() =>
-                navigation.navigate('ScVizuPet', {
+                navigation.navigate('ScHome', {
                   petId: item.id,
+                  petType: item.petType
                 })
               }>
               <FontAwesome5

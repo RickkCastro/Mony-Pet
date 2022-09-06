@@ -24,7 +24,8 @@ export function ScVizuPet({ route, navigation }) {
   const { petId } = route.params
   const { getItem, setItem } = useAsyncStorage('@monypet:pets')
   const [petData, setPetData] = useState({})
-
+  
+  // Aviso de carregagem de dados
   async function handleFetchData() {
     try {
       const response = await getItem()
@@ -45,6 +46,7 @@ export function ScVizuPet({ route, navigation }) {
     }, [])
   )
 
+  // Alerta de exclusão de dados 
   async function handleRemovePet() {
     Alert.alert('Aviso!', 'Deseja realmente excluir o pet e seus registros?', [
       {
@@ -57,7 +59,8 @@ export function ScVizuPet({ route, navigation }) {
       },
     ])
   }
-
+  
+  // Remoção de item
   async function removeItem() {
     try {
       const response = await getItem()
@@ -72,7 +75,8 @@ export function ScVizuPet({ route, navigation }) {
         text1: 'Pet excluído',
         text2: `Poxa que pena!`,
       })
-
+      
+      // Aviso de exclusão de Pet
       navigation.goBack()
     } catch {
       console.log(error)
@@ -82,7 +86,8 @@ export function ScVizuPet({ route, navigation }) {
       })
     }
   }
-
+  
+  // Barra de informações
   return (
     <View
       style={{
@@ -106,7 +111,8 @@ export function ScVizuPet({ route, navigation }) {
           <FontAwesome name="trash" size={24} color="black" />
         </TouchableOpacity>
       </View>
-
+      
+      {/* Rolagem */}
       <ScrollView contentContainerStyle={styles.scroll}>
         <View
           style={{
@@ -114,6 +120,7 @@ export function ScVizuPet({ route, navigation }) {
             marginBottom: 20,
             marginTop: 10,
           }}>
+            {/* Imagem de fundo */}
           <ImageBackground
             source={require('../assets/images/DogAddImg.png')}
             resizeMode={'stretch'}
@@ -123,7 +130,8 @@ export function ScVizuPet({ route, navigation }) {
             </TouchableOpacity>
           </ImageBackground>
         </View>
-
+        
+        {/* Informações de Nome */}
         <View style={{ marginHorizontal: 30 }}>
           <Text style={styles.lineText}> Nome do seu pet:</Text>
           <View style={{ flexDirection: 'row' }}>
@@ -135,7 +143,8 @@ export function ScVizuPet({ route, navigation }) {
               <FontAwesome name="pencil" size={20} color="#461EA2" />
             </TouchableOpacity>
           </View>
-
+          
+          {/* Informações de Idade */}
           <Text style={styles.lineText}>Idade do seu pet:</Text>
           <View style={{ flexDirection: 'row' }}>
             <TextInput
@@ -146,7 +155,8 @@ export function ScVizuPet({ route, navigation }) {
               <FontAwesome name="pencil" size={20} color="#461EA2" />
             </TouchableOpacity>
           </View>
-
+          
+          {/* Informações de Raça */}
           <Text style={styles.lineText}>Raça:</Text>
           <View style={{ flexDirection: 'row' }}>
             <TextInput
@@ -157,7 +167,8 @@ export function ScVizuPet({ route, navigation }) {
               <FontAwesome name="pencil" size={20} color="#461EA2" />
             </TouchableOpacity>
           </View>
-
+          
+          {/* Informações de Peso */}
           <Text style={styles.lineText}>Peso:</Text>
           <View style={{ flexDirection: 'row' }}>
             <TextInput
@@ -168,7 +179,8 @@ export function ScVizuPet({ route, navigation }) {
               <FontAwesome name="pencil" size={20} color="#461EA2" />
             </TouchableOpacity>
           </View>
-
+          
+          {/* Informações de Pelagem */}
           <Text style={styles.lineText}>Tipo de Pelagem:</Text>
           <View style={{ flexDirection: 'row' }}>
             <TextInput
@@ -179,7 +191,8 @@ export function ScVizuPet({ route, navigation }) {
               <FontAwesome name="pencil" size={20} color="#461EA2" />
             </TouchableOpacity>
           </View>
-
+          
+          {/* Dados de Comportamento */}
           <Text style={styles.lineText}>Comportamento:</Text>
           <View style={{ flexDirection: 'row' }}>
             <TextInput
@@ -190,7 +203,8 @@ export function ScVizuPet({ route, navigation }) {
               <FontAwesome name="pencil" size={20} color="#461EA2" />
             </TouchableOpacity>
           </View>
-
+          
+          {/* Conteúdo de Espécie */}
           <Text style={styles.lineText}>Ele(a) é um:</Text>
           <RadioButton.Group value={petData.petType}>
             <View
@@ -214,7 +228,8 @@ export function ScVizuPet({ route, navigation }) {
               <Text style={styles.styleTextSelection}>Gato</Text>
             </View>
           </RadioButton.Group>
-
+          
+          {/* Informações de Descrição */}
           <Text style={styles.lineText}>Descrição:</Text>
           <View style={{ flexDirection: 'row' }}>
             <TextInput
@@ -249,7 +264,8 @@ export function ScVizuPet({ route, navigation }) {
             <TouchableOpacity style={styles.saveButton}>
               <Text style={{ color: 'white', fontSize: 18 }}>Salvar</Text>
             </TouchableOpacity>
-
+            
+            {/* Direitos Autorais */}
             <Text
               style={{
                 color: 'black',
@@ -350,6 +366,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginHorizontal: 10,
-    backgroundColor: 'red',
   },
 })
