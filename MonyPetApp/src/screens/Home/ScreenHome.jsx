@@ -44,7 +44,7 @@ export function ScHome({ route, navigation }) {
                 </View>
 
                 {/* Dicas */}
-                <TipsBox/>
+                <TipsBox petType={petType}/>
 
                 {/* Registros */}
                 <View style={styles.regViewStyles}>

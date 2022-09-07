@@ -43,11 +43,10 @@ export default StyleSheet.create({
     },
 
     tipsStyle: {
-        flexDirection: 'row',
         backgroundColor: '#ECE4FC',
         height: 250,
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'flex-end',
         marginHorizontal: 20,
         borderRadius: 20,
 
@@ -56,6 +55,10 @@ export default StyleSheet.create({
 
         justifyContent: 'space-around',
         padding: 20
+    },
+
+    tipsButton: {
+        marginTop: 10
     },
 
     menuButtons: {
