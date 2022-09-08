@@ -27,7 +27,22 @@ export default StyleSheet.create({
     monthStyle: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginTop: 10
+        marginTop: 10,
+        justifyContent: 'center',
+        marginHorizontal: 100
+      },
+
+    txtSelectDay: {
+        color: '#527BCB',
+        fontSize: 20,
+        marginBottom: 10,
+        textAlign: 'center',
+    },
+
+    txtDate: {
+        color: '#527BCB',
+        fontSize: 20,
+        textDecorationLine: 'underline',
     },
 
     scrollStyle: {
@@ -63,7 +78,7 @@ export default StyleSheet.create({
     },
 
     menuButtons: {
-        height:'8%',
+        height: '8%',
         backgroundColor: '#7658B0',
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,

@@ -67,19 +67,14 @@ export default function (props) {
         switch (value) {
             case 1:
                 return "#a54c1b"
-                break
             case 2:
                 return "#e1cc0f"
-                break
             case 3:
                 return "#7a7777"
-                break
             case 4:
                 return "#68b166"
-                break
             default:
                 return "#107d07"
-                break
         }
     }
 
@@ -93,8 +88,6 @@ export default function (props) {
                         return (
                             <Pressable
                                 style={item.value === restV ? [styles.selected, {borderColor: iconColor(item.value)}] : styles.unselected}
-
-
                                 onPress={() => setRestV(item.value)}>
                                 <MaterialCommunityIcons name={item.icon} size={iconSize} color={iconColor(item.value)} />
                             </Pressable>
@@ -116,8 +109,6 @@ export default function (props) {
                         return (
                             <Pressable
                                 style={item.value === tourV ? [styles.selected, {borderColor: iconColor(item.value)}] : styles.unselected}
-
-
                                 onPress={() => setTourV(item.value)}>
                                 <MaterialCommunityIcons name={item.icon} size={iconSize} color={iconColor(item.value)} />
                             </Pressable>
@@ -152,7 +143,6 @@ export default function (props) {
                     return (
                         <Pressable
                             style={item.value === moodV ? [styles.selected, {borderColor: iconColor(item.value)}] : styles.unselected}
-
                             onPress={() => setMoodV(item.value)}>
                             <MaterialCommunityIcons name={item.icon} size={iconSize} color={iconColor(item.value)} />
                         </Pressable>
@@ -174,7 +164,6 @@ export default function (props) {
                     return (
                         <Pressable
                             style={item.value === messV ? [styles.selected, {borderColor: iconColor(item.value)}] : styles.unselected}
-
                             onPress={() => setMessV(item.value)}>
                             <MaterialCommunityIcons name={item.icon} size={iconSize} color={iconColor(item.value)} />
                         </Pressable>
@@ -196,8 +185,6 @@ export default function (props) {
                     return (
                         <Pressable
                             style={item.value === feedingV ? [styles.selected, {borderColor: iconColor(item.value)}] : styles.unselected}
-
-
                             onPress={() => setFeedingV(item.value)}>
                             <MaterialCommunityIcons name={item.icon} size={iconSize} color={iconColor(item.value)} />
                         </Pressable>

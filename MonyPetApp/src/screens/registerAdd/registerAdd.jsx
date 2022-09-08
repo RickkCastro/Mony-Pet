@@ -1,23 +1,33 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, View, Image, TouchableOpacity, Text, ImageBackground, TextInput } from 'react-native';
+import { ScrollView, View, Image, TouchableOpacity, Text, ImageBackground, TextInput, Button } from 'react-native';
 import Constants from 'expo-constants';
 import { AntDesign } from '@expo/vector-icons';
-import styles  from './styles';
+
+import DateTimePicker from '@react-native-community/datetimepicker';
+
+import styles from './styles'
 
 import RadGruDog from './components/radGru';
 
-export function ScRegisterAdd({navigation, route}) {
-  const {petType} = route.params
 
-  const [date, setDate] = useState()
+export function ScRegisterAdd({ navigation, route }) {
+  const { petType } = route.params
 
-  useEffect(() => {
-    let date = new Date()
-    let today = date.getDate()
-    let month = date.getMonth() + 1
-    let day = ('0' + today).slice(-2) + '/' + ('0' + month).slice(-2)
-    setDate(day)
-  })
+  const [date, setDate] = useState(new Date())
+  const [showDP, setShowDP] = useState(false)
+
+  const onChangeDate = (event, selectedDate) => {
+    setShowDP(false)
+    setDate(selectedDate);
+  };
+
+  const formatDate = (date) => {
+    let d = date.getDate()
+    let mo = date.getMonth() + 1
+    let y = date.getFullYear()
+
+    return (('0' + d).slice(-2) + '/' + ('0' + mo).slice(-2) + '/' + y)
+  }
 
   return (
     <View
@@ -45,34 +55,34 @@ export function ScRegisterAdd({navigation, route}) {
       {/* Rolagem */}
       <ScrollView contentContainerStyle={styles.scrollStyle}>
 
-        <Text style={styles.txtDay}>Selecione o dia:</Text>
+        {/* Mes */}
+        <Text style={styles.txtSelectDay}>Selecione o dia:</Text>
+        <View>
+          <TouchableOpacity onPress={() => setShowDP(true)} style={styles.monthStyle}>
+            <AntDesign name="calendar" size={18} color="#527BCB" style={{ marginHorizontal: 5 }} />
+            <Text style={styles.txtDate}> {formatDate(date)} </Text>
+            <AntDesign name="caretdown" size={18} color="#527BCB" style={{ marginHorizontal: 5 }} />
+          </TouchableOpacity>
 
-
-         {/* Mes */}
-        <View style={styles.monthStyle}>
-          <TouchableOpacity>
-            <AntDesign name="left" size={24} color="black" />
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Text style={styles.lineText}>
-              {date}
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <AntDesign name="right" size={24} color="black" />
-          </TouchableOpacity>
+          {showDP && (
+            <DateTimePicker
+              value={date}
+              mode={'date'}
+              onChange={onChangeDate}
+            />
+          )}
         </View>
 
 
         {/* Registros */}
-        <RadGruDog petType={petType}/>
+        <RadGruDog petType={petType} />
 
-         {/* Descrição do pet */}
-         <Text style={styles.lineRegister}>Anotações do pet:</Text>
-            <TextInput
-              style={styles.txtDesc}
-              multiline={true}>
-            </TextInput>
+        {/* Descrição do pet */}
+        <Text style={styles.lineRegister}>Anotações do pet:</Text>
+        <TextInput
+          style={styles.txtDesc}
+          multiline={true}>
+        </TextInput>
 
         {/* Botão de adição */}
         <ImageBackground
