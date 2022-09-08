@@ -6,7 +6,9 @@ const { Screen, Navigator } = createNativeStackNavigator();
 import { ScPetAdd } from "../screens/ScreenPetAdd";
 import { ScPetChoice } from "../screens/petChoice/ScreenPetChoice";
 import { ScVizuPet } from "../screens/ScreenVizuPet";
-import { ScHome } from "../screens/Home/ScreenHome";
+import { ScHome } from "../screens/home/screenHome";
+import { ScRegisterAdd } from "../screens/registerAdd/registerAdd";
+
 
 //Armazenar todas as telas no navigator
 export function StackRoutes() {
@@ -20,6 +22,7 @@ export function StackRoutes() {
       <Screen name="ScPetAdd" component={ScPetAdd} />
       <Screen name="ScVizuPet" component={ScVizuPet} />
       <Screen name="ScHome" component={ScHome}/>
+      <Screen name="ScRegisterAdd" component={ScRegisterAdd}/>
     </Navigator>
   );
 }

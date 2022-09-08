@@ -7,7 +7,7 @@ import { FontAwesome } from '@expo/vector-icons';
 
 import styles from './styles';
 
-import RegisterBox from './components/RegisterBox';
+import RegisterBox from './components/registerBox';
 import TipsBox from './components/tipsBox';
 
 export function ScHome({ route, navigation }) {
@@ -15,7 +15,6 @@ export function ScHome({ route, navigation }) {
 
     return (
         <View style={styles.container}>
-            {/* Dicas e registros */}
             <ScrollView contentContainerStyle={styles.scrollStyle}>
                 {/* Header */}
                 <View style={styles.headerStyle}>
@@ -49,19 +48,19 @@ export function ScHome({ route, navigation }) {
                 {/* Registros */}
                 <View style={styles.regViewStyles}>
                     <Text style={styles.scrollTitle}> Últimos Registros: </Text>
-                    <RegisterBox emoji='emoticon-excited' color='darkgreen' date='20/11'
+                    <RegisterBox emoji='emoticon-excited' color='#107d07' date='20/11'
                         text='Lorem ipsum dolor sit amet, consectetur adipiscing elit.' />
 
-                    <RegisterBox emoji='emoticon-happy' color='green' date='20/11'
+                    <RegisterBox emoji='emoticon-happy' color='#68b166' date='20/11'
                         text='Lorem ipsum dolor sit amet, consectetur adipiscing elit.' />
 
-                    <RegisterBox emoji='emoticon-neutral' color='gray' date='20/11'
+                    <RegisterBox emoji='emoticon-neutral' color='#7a7777' date='20/11'
                         text='Lorem ipsum dolor sit amet, consectetur adipiscing elit.' />
 
                     <RegisterBox emoji='emoticon-sad' color='#ffb600' date='20/11'
                         text='Lorem ipsum dolor sit amet, consectetur adipiscing elit.' />
 
-                    <RegisterBox emoji='emoticon-angry' color='brown' date='20/11'
+                    <RegisterBox emoji='emoticon-angry' color='#a54c1b' date='20/11'
                         text='Lorem ipsum dolor sit amet, consectetur adipiscing elit.' />
                 </View>
 
@@ -77,7 +76,7 @@ export function ScHome({ route, navigation }) {
                     <Entypo name="area-graph" size={28} color="white" />
                 </TouchableOpacity>
 
-                <TouchableOpacity style={[styles.buttonsMenu, { height: 70, width: 70 }]}>
+                <TouchableOpacity style={[styles.buttonsMenu, { height: 70, width: 70 }]} onPress={() => navigation.navigate('ScRegisterAdd', {petType: petType})}>
                     <FontAwesome5 name="plus" size={38} color="white" />
                 </TouchableOpacity>
 

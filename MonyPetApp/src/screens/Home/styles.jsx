@@ -32,6 +32,7 @@ export default StyleSheet.create({
 
     scrollStyle: {
         width: '100%',
+        paddingBottom: 30,
     },
 
     scrollTitle: {
@@ -62,7 +63,7 @@ export default StyleSheet.create({
     },
 
     menuButtons: {
-        height:'12%',
+        height:'8%',
         backgroundColor: '#7658B0',
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
@@ -78,5 +79,6 @@ export default StyleSheet.create({
         backgroundColor: '#461EA2',
         width: 60,
         height: 60,
+        top: '-7%'
     },
 })
