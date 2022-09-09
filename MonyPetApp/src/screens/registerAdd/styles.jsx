@@ -61,7 +61,7 @@ export default StyleSheet.create({
 
   styleButton: {
     borderRadius: 10,
-    backgroundColor: '#461EA2',
+    backgroundColor: '#7153af',
     alignItems: 'center',
     justifyContent: 'center',
     height: 50,
@@ -107,7 +107,7 @@ export default StyleSheet.create({
   },
 
   styleCopyRight: {
-    color: 'black',
+    color: '#686767',
     fontSize: 12,
     alignSelf: 'center',
     marginTop: 10,

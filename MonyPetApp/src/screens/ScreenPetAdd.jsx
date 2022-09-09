@@ -18,6 +18,7 @@ import { RadioButton } from 'react-native-paper'
 import uuid from 'react-native-uuid'
 import { useAsyncStorage } from '@react-native-async-storage/async-storage'
 import Toast from 'react-native-toast-message'
+import Header1 from '../components/header1'
 
 export function ScPetAdd({ navigation }) {
   const [petName, setPetName] = React.useState('')
@@ -83,19 +84,7 @@ export function ScPetAdd({ navigation }) {
         backgroundColor: 'white',
       }}>
       {/* Cabeçalho */}
-      <View style={styles.header}>
-        <TouchableOpacity
-          style={styles.headerButtons}
-          onPress={() => navigation.goBack()}>
-          <AntDesign name="close" size={24} color="black" />
-        </TouchableOpacity>
-
-        <Text style={styles.lineText}>Adicionar Pet</Text>
-
-        <TouchableOpacity style={styles.headerButtons}>
-          <AntDesign name="close" size={24} color="transparent" />
-        </TouchableOpacity>
-      </View>
+      <Header1 txt1={'Adicionar pet'} bt2Color={'transparent'} onPressBt1={() => navigation.goBack()}/>
 
       {/* Rolagem */}
       <ScrollView contentContainerStyle={styles.scrollStyle}>
@@ -199,7 +188,7 @@ export function ScPetAdd({ navigation }) {
             {/* Direitos Autorais */}
             <Text
               style={{
-                color: 'black',
+                color: '#686767',
                 fontSize: 12,
                 alignSelf: 'center',
                 marginTop: 10,
@@ -255,7 +244,7 @@ const styles = StyleSheet.create({
 
   styleButton: {
     borderRadius: 10,
-    backgroundColor: '#461EA2',
+    backgroundColor: '#7153af',
     alignItems: 'center',
     justifyContent: 'center',
     height: 50,

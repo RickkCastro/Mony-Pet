@@ -7,7 +7,9 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 
 import styles from './styles'
 
-import RadGruDog from './components/radGru';
+import RadGru from './components/radGru';
+
+import Header1 from '../../components/header1';
 
 
 export function ScRegisterAdd({ navigation, route }) {
@@ -38,19 +40,7 @@ export function ScRegisterAdd({ navigation, route }) {
       }}>
 
       {/* Cabeçalho */}
-      <View style={styles.header}>
-        <TouchableOpacity
-          style={styles.headerButtons}
-          onPress={() => navigation.goBack()}>
-          <AntDesign name="close" size={24} color="black" />
-        </TouchableOpacity>
-
-        <Text style={styles.lineText}>Adicione seus registros</Text>
-
-        <TouchableOpacity style={styles.headerButtons}>
-          <AntDesign name="close" size={24} color="transparent" />
-        </TouchableOpacity>
-      </View>
+      <Header1 txt1={'Adicionar registro'} bt2Color={'transparent'} onPressBt1={() => navigation.goBack()}/>
 
       {/* Rolagem */}
       <ScrollView contentContainerStyle={styles.scrollStyle}>
@@ -75,7 +65,7 @@ export function ScRegisterAdd({ navigation, route }) {
 
 
         {/* Registros */}
-        <RadGruDog petType={petType} />
+        <RadGru petType={petType} />
 
         {/* Descrição do pet */}
         <Text style={styles.lineRegister}>Anotações do pet:</Text>

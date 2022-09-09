@@ -4,7 +4,7 @@ import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
-import MonthPicker from 'react-native-month-year-picker';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 import styles from './styles';
 
@@ -14,22 +14,34 @@ import TipsBox from './components/tipsBox';
 export function ScHome({ route, navigation }) {
     const { petId, petType } = route.params
 
-    const [date, setDate] = useState(new Date());
-    const [showDP, setShowDP] = useState(false);
+    const [date1, setDate1] = useState(() => {
+        const date = new Date()
+        date.setMonth(date.getMonth() - 1)
+        return date
+    });
+    const [date2, setDate2] = useState(new Date());
 
-    const onChangeDate = (event, selectedDate) => {
-        setShowDP(false)
-        setDate(selectedDate);
+    const [showDP1, setShowDP1] = useState(false);
+    const [showDP2, setShowDP2] = useState(false);
+
+    const onChangeDate1 = (event, selectedDate) => {
+        setShowDP1(false)
+        setDate1(selectedDate);
+        console.log(selectedDate)
+    };
+
+    const onChangeDate2 = (event, selectedDate) => {
+        setShowDP2(false)
+        setDate2(selectedDate);
         console.log(selectedDate)
     };
 
     const formatDate = (date) => {
-        let mo = date.getMonth() - 1
+        let d = date.getDate()
+        let mo = date.getMonth() + 1
         let y = date.getFullYear()
 
-        const months = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']
-
-        return (months[mo] + '/' + y)
+        return (('0' + d).slice(-2) + '/' + ('0' + mo).slice(-2) + '/' + y)
     }
 
     return (
@@ -48,26 +60,44 @@ export function ScHome({ route, navigation }) {
                     </TouchableOpacity>
 
                     {/* Mes */}
-                    <TouchableOpacity onPress={() => setShowDP(true)} style={styles.monthStyle}>
-                        <AntDesign name="calendar" size={18} color="#527BCB" style={{ marginHorizontal: 5 }} />
-                        <Text style={styles.txtDate}> {formatDate(date)} </Text>
-                        <AntDesign name="caretdown" size={18} color="#527BCB" style={{ marginHorizontal: 5 }} />
-                    </TouchableOpacity>
+                    <View style={styles.datesView}>
+                        <TouchableOpacity onPress={() => setShowDP1(true)} style={styles.monthStyle}>
+                            <AntDesign name="calendar" size={13} color="#75739c" style={{ marginHorizontal: 5 }} />
+                            <Text style={styles.txtDate}> {formatDate(date1)} </Text>
+                            <AntDesign name="caretdown" size={13} color="#75739c" style={{ marginHorizontal: 5 }} />
+                        </TouchableOpacity>
 
-                    {showDP && (
-                        <MonthPicker
-                            onChange={onChangeDate}
-                            value={date}
-                        />
-                    )}
+                        {showDP1 && (
+                            <DateTimePicker
+                                value={date1}
+                                mode={'date'}
+                                onChange={onChangeDate1}
+                            />
+                        )}
 
+                        <Text style={styles.ateTxt}>Até</Text>
+
+                        <TouchableOpacity onPress={() => setShowDP2(true)} style={styles.monthStyle}>
+                            <AntDesign name="calendar" size={13} color="#75739c"/>
+                            <Text style={styles.txtDate}> {formatDate(date2)} </Text>
+                            <AntDesign name="caretdown" size={13} color="#75739c"/>
+                        </TouchableOpacity>
+
+                        {showDP2 && (
+                            <DateTimePicker
+                                value={date2}
+                                mode={'date'}
+                                onChange={onChangeDate2}
+                            />
+                        )}
+                    </View>
                 </View>
 
                 {/* Dicas */}
                 <TipsBox petType={petType} />
 
                 {/* Registros */}
-                <View style={styles.regViewStyles}>
+                <View>
                     <Text style={styles.scrollTitle}> Últimos Registros: </Text>
                     <RegisterBox emoji='emoticon-excited' color='#107d07' date='20/11'
                         text='Lorem ipsum dolor sit amet, consectetur adipiscing elit.' />
@@ -90,23 +120,23 @@ export function ScHome({ route, navigation }) {
             {/* Menu de botoes */}
             <View style={styles.menuButtons}>
                 <TouchableOpacity style={styles.buttonsMenu}>
-                    <FontAwesome5 name="home" size={28} color="white" />
+                    <FontAwesome5 name="home" size={28} color="#e7e6e6" />
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.buttonsMenu}>
-                    <Entypo name="area-graph" size={28} color="white" />
+                    <Entypo name="area-graph" size={28} color="#e7e6e6" />
                 </TouchableOpacity>
 
                 <TouchableOpacity style={[styles.buttonsMenu, { height: 70, width: 70 }]} onPress={() => navigation.navigate('ScRegisterAdd', { petType: petType })}>
-                    <FontAwesome5 name="plus" size={38} color="white" />
+                    <FontAwesome5 name="plus" size={38} color="#e7e6e6" />
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.buttonsMenu}>
-                    <Entypo name="calendar" size={28} color="white" />
+                    <Entypo name="calendar" size={28} color="#e7e6e6" />
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.buttonsMenu}>
-                    <FontAwesome name="gear" size={28} color="white" />
+                    <FontAwesome name="gear" size={28} color="#e7e6e6" />
                 </TouchableOpacity>
 
             </View>

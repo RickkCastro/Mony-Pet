@@ -10,49 +10,52 @@ export default StyleSheet.create({
     },
 
     headerStyle: {
-        height: 150,
         backgroundColor: 'white',
         alignItems: 'center',
         justifyContent: 'flex-end'
     },
 
     lineText: {
-        color: '#461EA2',
+        color: '#6c8ed1',
         fontSize: 20,
         marginBottom: 5,
         marginRight: 10,
         marginLeft: 10
     },
 
+    datesView: {
+        marginTop: 10,
+        alignItems: 'center',
+        flexWrap: 'wrap',
+    },
+
     monthStyle: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginTop: 10,
         justifyContent: 'center',
-        marginHorizontal: 100
-      },
+    },
 
-    txtSelectDay: {
-        color: '#527BCB',
-        fontSize: 20,
-        marginBottom: 10,
-        textAlign: 'center',
+    ateTxt: {
+        color: '#75739c',
+        fontSize: 16
     },
 
     txtDate: {
-        color: '#527BCB',
-        fontSize: 20,
+        color: '#75739c',
+        fontSize: 18,
         textDecorationLine: 'underline',
+        marginVertical: 10,
     },
 
     scrollStyle: {
         width: '100%',
-        paddingBottom: 30,
+        paddingVertical: 30,
+        justifyContent: 'flex-end'
     },
 
     scrollTitle: {
         textAlign: 'center',
-        color: '#527BCB',
+        color: '#75739c',
         marginTop: 30,
         fontSize: 20,
         marginBottom: 10
@@ -79,7 +82,7 @@ export default StyleSheet.create({
 
     menuButtons: {
         height: '8%',
-        backgroundColor: '#7658B0',
+        backgroundColor: '#927ac1',
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
         flexDirection: 'row',
@@ -91,9 +94,9 @@ export default StyleSheet.create({
         justifyContent: 'center',
         borderRadius: 50,
         alignItems: 'center',
-        backgroundColor: '#461EA2',
+        backgroundColor: '#7658b0',
         width: 60,
         height: 60,
-        top: '-7%'
+        top: '-7%',
     },
 })

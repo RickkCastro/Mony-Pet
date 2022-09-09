@@ -14,7 +14,7 @@ import { useFocusEffect } from '@react-navigation/native'
 
 import { useAsyncStorage } from '@react-native-async-storage/async-storage'
 
-const themeColor = '#461EA2'
+const themeColor = '#7b5eb4'
 
 export default () => {
   const navigation = useNavigation()

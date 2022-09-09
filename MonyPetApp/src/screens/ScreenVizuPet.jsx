@@ -20,6 +20,8 @@ import { useAsyncStorage } from '@react-native-async-storage/async-storage'
 import { useFocusEffect } from '@react-navigation/native'
 import Toast from 'react-native-toast-message'
 
+import Header1 from '../components/header1'
+
 export function ScVizuPet({ route, navigation }) {
   const { petId } = route.params
   const { getItem, setItem } = useAsyncStorage('@monypet:pets')
@@ -77,7 +79,7 @@ export function ScVizuPet({ route, navigation }) {
       })
       
       // Aviso de exclusão de Pet
-      navigation.goBack()
+      navigation.navigate('ScPetChoice')
     } catch {
       console.log(error)
       Toast.show({
@@ -96,21 +98,7 @@ export function ScVizuPet({ route, navigation }) {
         flex: 1,
       }}>
       {/* Cabeçalho */}
-      <View style={styles.header}>
-        <TouchableOpacity
-          style={styles.headerButtons}
-          onPress={() => navigation.goBack()}>
-          <AntDesign name="close" size={24} color="black" />
-        </TouchableOpacity>
-
-        <Text style={styles.lineText}>Informações do Pet</Text>
-
-        <TouchableOpacity
-          style={styles.headerButtons}
-          onPress={handleRemovePet}>
-          <FontAwesome name="trash" size={24} color="black" />
-        </TouchableOpacity>
-      </View>
+      <Header1 txt1={'Informações do pet'} bt2Color={'#747474'} onPressBt2={() => handleRemovePet()} onPressBt1={() => navigation.goBack()}/>
       
       {/* Rolagem */}
       <ScrollView contentContainerStyle={styles.scroll}>
@@ -310,7 +298,7 @@ const styles = StyleSheet.create({
   txtInformation: {
     paddingHorizontal: 10,
     borderWidth: 1,
-    borderColor: '#527BCB',
+    borderColor: '#859ac5',
     borderRadius: 10,
     marginBottom: 15,
     fontSize: 18,
@@ -322,7 +310,7 @@ const styles = StyleSheet.create({
   txtDesc: {
     padding: 10,
     borderWidth: 1,
-    borderColor: '#527BCB',
+    borderColor: '#859ac5',
     borderRadius: 10,
     marginBottom: 15,
     fontSize: 18,
@@ -347,7 +335,7 @@ const styles = StyleSheet.create({
   },
   saveButton: {
     borderRadius: 10,
-    backgroundColor: '#461EA2',
+    backgroundColor: '#7153af',
     alignItems: 'center',
     justifyContent: 'center',
     height: 50,

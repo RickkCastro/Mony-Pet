@@ -33,13 +33,13 @@ export default function (props) {
 
     return (
         <View>
-            <Text style={styles.scrollTitle}> Dicas: </Text>
+            <Text style={styles.scrollTitle}> Dicas e curiosidades: </Text>
             <TouchableOpacity style={styles.tipsStyle} onPress={() => changeTip()} activeOpacity={0.6}>
-                <Text style={{ color: '#527BCB', fontSize: 20, textAlign: 'center', flex: 1, textAlignVertical: 'center'}}>
+                <Text style={{ color: '#75739c', fontSize: 20, textAlign: 'center', flex: 1, textAlignVertical: 'center'}}>
                     {tipsList[tipsIndex]}
                 </Text>
 
-                <FontAwesome name="hand-pointer-o" size={40} color="#527BCB" style={styles.tipsButton}/>
+                <FontAwesome name="hand-pointer-o" size={40} color="#75739c" style={styles.tipsButton}/>
             </TouchableOpacity>
         </View>
     );
