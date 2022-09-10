@@ -50,7 +50,7 @@ export default StyleSheet.create({
     scrollStyle: {
         width: '100%',
         paddingVertical: 30,
-        justifyContent: 'flex-end'
+        justifyContent: 'flex-start'
     },
 
     scrollTitle: {
@@ -58,7 +58,7 @@ export default StyleSheet.create({
         color: '#75739c',
         marginTop: 30,
         fontSize: 20,
-        marginBottom: 10
+        marginBottom: 20
     },
 
     tipsStyle: {

@@ -27,13 +27,11 @@ export function ScHome({ route, navigation }) {
     const onChangeDate1 = (event, selectedDate) => {
         setShowDP1(false)
         setDate1(selectedDate);
-        console.log(selectedDate)
     };
 
     const onChangeDate2 = (event, selectedDate) => {
         setShowDP2(false)
         setDate2(selectedDate);
-        console.log(selectedDate)
     };
 
     const formatDate = (date) => {
@@ -78,9 +76,9 @@ export function ScHome({ route, navigation }) {
                         <Text style={styles.ateTxt}>Até</Text>
 
                         <TouchableOpacity onPress={() => setShowDP2(true)} style={styles.monthStyle}>
-                            <AntDesign name="calendar" size={13} color="#75739c"/>
+                            <AntDesign name="calendar" size={13} color="#75739c" />
                             <Text style={styles.txtDate}> {formatDate(date2)} </Text>
-                            <AntDesign name="caretdown" size={13} color="#75739c"/>
+                            <AntDesign name="caretdown" size={13} color="#75739c" />
                         </TouchableOpacity>
 
                         {showDP2 && (
@@ -99,22 +97,8 @@ export function ScHome({ route, navigation }) {
                 {/* Registros */}
                 <View>
                     <Text style={styles.scrollTitle}> Últimos Registros: </Text>
-                    <RegisterBox emoji='emoticon-excited' color='#107d07' date='20/11'
-                        text='Lorem ipsum dolor sit amet, consectetur adipiscing elit.' />
-
-                    <RegisterBox emoji='emoticon-happy' color='#68b166' date='20/11'
-                        text='Lorem ipsum dolor sit amet, consectetur adipiscing elit.' />
-
-                    <RegisterBox emoji='emoticon-neutral' color='#7a7777' date='20/11'
-                        text='Lorem ipsum dolor sit amet, consectetur adipiscing elit.' />
-
-                    <RegisterBox emoji='emoticon-sad' color='#ffb600' date='20/11'
-                        text='Lorem ipsum dolor sit amet, consectetur adipiscing elit.' />
-
-                    <RegisterBox emoji='emoticon-angry' color='#a54c1b' date='20/11'
-                        text='Lorem ipsum dolor sit amet, consectetur adipiscing elit.' />
+                    <RegisterBox petId={petId}/>
                 </View>
-
             </ScrollView>
 
             {/* Menu de botoes */}
@@ -127,7 +111,7 @@ export function ScHome({ route, navigation }) {
                     <Entypo name="area-graph" size={28} color="#e7e6e6" />
                 </TouchableOpacity>
 
-                <TouchableOpacity style={[styles.buttonsMenu, { height: 70, width: 70 }]} onPress={() => navigation.navigate('ScRegisterAdd', { petType: petType })}>
+                <TouchableOpacity style={[styles.buttonsMenu, { height: 70, width: 70 }]} onPress={() => navigation.navigate('ScRegisterAdd', { petType: petType, petId: petId })}>
                     <FontAwesome5 name="plus" size={38} color="#e7e6e6" />
                 </TouchableOpacity>
 

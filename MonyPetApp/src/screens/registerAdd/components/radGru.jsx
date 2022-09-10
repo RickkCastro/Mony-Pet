@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Text, Pressable } from 'react-native';
+import { View, StyleSheet, Text, Pressable, ImageBackground, TextInput, TouchableOpacity } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+
+import uuid from 'react-native-uuid'
+import { useAsyncStorage } from '@react-native-async-storage/async-storage'
+import Toast from 'react-native-toast-message'
+
+import styles from '../styles';
 
 const iconSize = 50
 
 export default function (props) {
     const petType = props.petType
+    const petId = props.petId
 
     const data = {
         mood: [
@@ -48,11 +55,16 @@ export default function (props) {
     }
 
     const dataCat = {
-        FurBall: [
-            { value: 1, text: 'Sim', icon: 'emoticon-angry' },
-            { value: 5, text: 'Não', icon: 'emoticon-excited' }
+        hairLoss: [
+            { value: 1, text: 'Demais', icon: 'emoticon-angry' },
+            { value: 2, text: 'Alta', icon: 'emoticon-sad' },
+            { value: 3, text: 'Acima do normal', icon: 'emoticon-neutral' },
+            { value: 4, text: 'Pouco acima do normal', icon: 'emoticon-happy' },
+            { value: 5, text: 'Normal', icon: 'emoticon-excited' }
         ]
     }
+
+    const [date, setDate] = useState(props.date)
 
     const [moodV, setMoodV] = useState(1)
     const [messV, setMessV] = useState(1)
@@ -61,6 +73,58 @@ export default function (props) {
     //Dog consts
     const [restV, setRestV] = useState(1)
     const [tourV, setTourV] = useState(1)
+
+    //Cat consts
+    const [hairLossV, setHairLossV] = useState(1)
+
+    const { getItem, setItem } = useAsyncStorage('@monypet:pets')
+
+    async function handleSaveReg() {
+        try {
+            const id = uuid.v4()
+            let newReg
+
+            if (petType == 'dog') {
+                newReg = {
+                    id,
+                    date,
+                    moodV,
+                    messV,
+                    feedingV,
+                    restV,
+                    tourV
+                }
+            } else {
+                newReg = {
+                    id,
+                    date,
+                    moodV,
+                    messV,
+                    feedingV,
+                    hairLossV
+                }
+            }
+
+            const response = await getItem()
+            const data = response ? JSON.parse(response) : []
+
+            const currentPet = data.find((pet) => pet.id === petId)
+
+            Toast.show({
+                type: 'success',
+                text1: 'Registro adicionado',
+            })
+
+            navigation.goBack()
+        } catch (error) {
+            // Aviso de erro
+            console.log(error)
+            Toast.show({
+                type: 'error',
+                text1: 'Não foi possível adicionar registro',
+            })
+        }
+    }
 
 
     const iconColor = (value) => {
@@ -87,7 +151,7 @@ export default function (props) {
                     {dataDog.rest.map((item) => {
                         return (
                             <Pressable
-                                style={item.value === restV ? [styles.selected, {borderColor: iconColor(item.value)}] : styles.unselected}
+                                style={item.value === restV ? [styles.selected, { borderColor: iconColor(item.value) }] : styles.unselected}
                                 onPress={() => setRestV(item.value)}>
                                 <MaterialCommunityIcons name={item.icon} size={iconSize} color={iconColor(item.value)} />
                             </Pressable>
@@ -108,7 +172,7 @@ export default function (props) {
                     {dataDog.tour.map((item) => {
                         return (
                             <Pressable
-                                style={item.value === tourV ? [styles.selected, {borderColor: iconColor(item.value)}] : styles.unselected}
+                                style={item.value === tourV ? [styles.selected, { borderColor: iconColor(item.value) }] : styles.unselected}
                                 onPress={() => setTourV(item.value)}>
                                 <MaterialCommunityIcons name={item.icon} size={iconSize} color={iconColor(item.value)} />
                             </Pressable>
@@ -129,7 +193,26 @@ export default function (props) {
     const catItens = () => {
         return (
             <View>
-
+                {/* //Queda de Pelo - hairLoss */}
+                <Text style={styles.lineRegister}>Como está a queda de pelo:</Text>
+                <View style={styles.backgroundRegister}>
+                    {dataCat.hairLoss.map((item) => {
+                        return (
+                            <Pressable
+                                style={item.value === hairLossV ? [styles.selected, { borderColor: iconColor(item.value) }] : styles.unselected}
+                                onPress={() => setHairLossV(item.value)}>
+                                <MaterialCommunityIcons name={item.icon} size={iconSize} color={iconColor(item.value)} />
+                            </Pressable>
+                        )
+                    })}
+                </View>
+                <View style={styles.viewTxt}>
+                    {dataCat.hairLoss.map((item) => {
+                        return (
+                            <Text style={styles.txt}> {item.text} </Text>
+                        )
+                    })}
+                </View>
             </View>
         )
     }
@@ -142,7 +225,7 @@ export default function (props) {
                 {data.mood.map((item) => {
                     return (
                         <Pressable
-                            style={item.value === moodV ? [styles.selected, {borderColor: iconColor(item.value)}] : styles.unselected}
+                            style={item.value === moodV ? [styles.selected, { borderColor: iconColor(item.value) }] : styles.unselected}
                             onPress={() => setMoodV(item.value)}>
                             <MaterialCommunityIcons name={item.icon} size={iconSize} color={iconColor(item.value)} />
                         </Pressable>
@@ -163,7 +246,7 @@ export default function (props) {
                 {data.mess.map((item) => {
                     return (
                         <Pressable
-                            style={item.value === messV ? [styles.selected, {borderColor: iconColor(item.value)}] : styles.unselected}
+                            style={item.value === messV ? [styles.selected, { borderColor: iconColor(item.value) }] : styles.unselected}
                             onPress={() => setMessV(item.value)}>
                             <MaterialCommunityIcons name={item.icon} size={iconSize} color={iconColor(item.value)} />
                         </Pressable>
@@ -184,7 +267,7 @@ export default function (props) {
                 {data.feeding.map((item) => {
                     return (
                         <Pressable
-                            style={item.value === feedingV ? [styles.selected, {borderColor: iconColor(item.value)}] : styles.unselected}
+                            style={item.value === feedingV ? [styles.selected, { borderColor: iconColor(item.value) }] : styles.unselected}
                             onPress={() => setFeedingV(item.value)}>
                             <MaterialCommunityIcons name={item.icon} size={iconSize} color={iconColor(item.value)} />
                         </Pressable>
@@ -198,58 +281,41 @@ export default function (props) {
                     )
                 })}
             </View>
-                
+
             {/* especifico e gato e cachorro */}
             {petType == 'dog' ? dogItens() : catItens()}
 
+            {/* Descrição do pet */}
+            <Text style={[styles.lineRegister, { color: '#5c79b2' }]}>Anotações do pet:</Text>
+            <TextInput
+                style={styles.txtDesc}
+                multiline={true}>
+            </TextInput>
+
+            {/* Botão de adição */}
+            <ImageBackground
+                source={require('../../../assets/images/Onda.png')}
+                resizeMode={'stretch'}>
+                <View
+                    style={{
+                        alignItems: 'center',
+                        height: 180,
+                        justifyContent: 'flex-end',
+                        paddingBottom: 10,
+                    }}>
+                    <TouchableOpacity
+                        style={styles.styleButton}
+                        onPress={() => handleSaveReg()}>
+                        <Text style={{ color: 'white', fontSize: 18 }}>Salvar</Text>
+                    </TouchableOpacity>
+
+                    {/* Direitos Autorais */}
+                    <Text
+                        style={styles.styleCopyRight}>
+                        COPYRIGHT@MonyPet
+                    </Text>
+                </View>
+            </ImageBackground>
         </View>
     )
 }
-
-const styles = StyleSheet.create({
-
-    lineRegister: {
-        color: '#527BCB',
-        fontSize: 18,
-        marginBottom: 3,
-        textAlign: 'center',
-        marginTop: 10
-    },
-
-    backgroundRegister: {
-        paddingHorizontal: 20,
-        backgroundColor: '#ece4fc',
-        alignSelf: 'center',
-        borderRadius: iconSize,
-        justifyContent: 'space-between',
-        flexDirection: 'row',
-        padding: 3
-    },
-
-    viewTxt: {
-        alignSelf: 'center',
-        marginTop: 5,
-        marginBottom: 20,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-    },
-
-    txt: {
-        textAlign: 'center',
-        fontSize: 11,
-        width: 54,
-        color: '#95addd'
-    },
-
-    selected: {
-        borderWidth: 1.8,
-        borderRadius: 100,
-        borderColor: '#a54c1b'
-    },
-
-    unselected: {
-        borderWidth: 1.8,
-        borderRadius: 100,
-        borderColor: 'transparent'
-    },
-})

@@ -6,14 +6,11 @@ import {
   ImageBackground,
   TouchableOpacity,
   Image,
-  ScrollView,
-  SafeAreaView,
 } from 'react-native'
 import { AntDesign } from '@expo/vector-icons'
 
 import { useNavigation } from '@react-navigation/native'
 import PetSelection from './components/PetSelection'
-const themeColor = '#461EA2'
 
 export function ScPetChoice(props) {
   const navigation = useNavigation()
@@ -58,7 +55,7 @@ export function ScPetChoice(props) {
           {/* Rodapé */}
           <Text
             style={{
-              color: 'black',
+              color: '#252424',
               fontSize: 12,
               alignSelf: 'center',
               marginBottom: 15,

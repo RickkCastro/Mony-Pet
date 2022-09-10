@@ -188,7 +188,7 @@ export function ScPetAdd({ navigation }) {
             {/* Direitos Autorais */}
             <Text
               style={{
-                color: '#686767',
+                color: '#252424',
                 fontSize: 12,
                 alignSelf: 'center',
                 marginTop: 10,

@@ -9,7 +9,7 @@ export default function(props){
         <TouchableOpacity
           style={styles.headerButtons}
           onPress={props.onPressBt1}>
-          <AntDesign name="close" size={24} color="#747474" />
+          <AntDesign name="close" size={24} color="#9a8db0" />
         </TouchableOpacity>
 
         <Text style={styles.lineText}>{props.txt1}</Text>
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
       },
 
       lineText: {
-        color: '#461EA2',
+        color: '#527bcb',
         fontSize: 20,
         marginBottom: 5,
         marginRight: 10,
