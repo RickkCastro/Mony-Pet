@@ -33,6 +33,7 @@ export default StyleSheet.create({
     color: '#7658b0',
     fontSize: 20,
     textDecorationLine: 'underline',
+    fontWeight: '700'
   },
 
   txtInformation: {

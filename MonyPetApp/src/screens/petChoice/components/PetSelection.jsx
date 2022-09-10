@@ -12,7 +12,7 @@ import { AntDesign } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import { useFocusEffect } from '@react-navigation/native'
 
-import { useAsyncStorage } from '@react-native-async-storage/async-storage'
+import AsyncStorage, { useAsyncStorage } from '@react-native-async-storage/async-storage'
 
 const themeColor = '#7b5eb4'
 
@@ -31,6 +31,7 @@ export default () => {
   useFocusEffect(
     React.useCallback(() => {
       handleFetchData()
+      // AsyncStorage.multiRemove(['@monypet:regs', '@monypet:pets'])
     }, [])
   )
 

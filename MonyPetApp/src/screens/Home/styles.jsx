@@ -45,6 +45,7 @@ export default StyleSheet.create({
         fontSize: 18,
         textDecorationLine: 'underline',
         marginVertical: 10,
+        fontWeight: '700'
     },
 
     scrollStyle: {
@@ -78,6 +79,30 @@ export default StyleSheet.create({
 
     tipsButton: {
         marginTop: 10
+    },
+
+    boxRegs: {
+		height: 100,
+		flexDirection: 'row',
+		backgroundColor: '#ECE4FC',
+		alignItems: 'center',
+		marginBottom: 20,
+		marginHorizontal: 20,
+		borderRadius: 20,
+
+		elevation: 10,
+		shadowColor: 'black',
+
+		justifyContent: 'space-around',
+		paddingHorizontal: 8,
+	},
+
+    addRegsTitle: {
+        textAlign: 'center',
+        color: '#75739c',
+        marginTop: 30,
+        fontSize: 20,
+        marginBottom: 5
     },
 
     menuButtons: {

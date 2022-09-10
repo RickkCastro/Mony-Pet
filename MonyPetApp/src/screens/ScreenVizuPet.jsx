@@ -13,10 +13,9 @@ import {
 import Constants from 'expo-constants'
 import { RadioButton } from 'react-native-paper'
 
-import { AntDesign } from '@expo/vector-icons'
 import { FontAwesome } from '@expo/vector-icons'
 
-import { useAsyncStorage } from '@react-native-async-storage/async-storage'
+import AsyncStorage, { useAsyncStorage } from '@react-native-async-storage/async-storage'
 import { useFocusEffect } from '@react-navigation/native'
 import Toast from 'react-native-toast-message'
 
@@ -24,8 +23,9 @@ import Header1 from '../components/header1'
 
 export function ScVizuPet({ route, navigation }) {
   const { petId } = route.params
-  const { getItem, setItem } = useAsyncStorage('@monypet:pets')
   const [petData, setPetData] = useState({})
+
+  const { getItem, setItem} = useAsyncStorage('@monypet:pets')
 
   // Aviso de carregagem de dados
   async function handleFetchData() {
@@ -33,6 +33,7 @@ export function ScVizuPet({ route, navigation }) {
       const response = await getItem()
       const data = response ? JSON.parse(response) : []
       setPetData(data.find((pet) => pet.id === petId))
+      
     } catch {
       console.log(error)
       Toast.show({
@@ -65,12 +66,20 @@ export function ScVizuPet({ route, navigation }) {
   // Remoção de item
   async function removeItem() {
     try {
-      const response = await getItem()
-      const previousPets = response ? JSON.parse(response) : []
+      //Pet
+      const responsePets = await getItem()
+      const previousPets = responsePets ? JSON.parse(responsePets) : []
 
       const newPetsData = previousPets.filter((item) => item.id !== petId)
 
-      setItem(JSON.stringify(newPetsData))
+      await setItem(JSON.stringify(newPetsData))
+
+      //Registros
+      const responseRegs = await AsyncStorage.getItem('@monypet:regs')
+      const previousRegs = responseRegs ? JSON.parse(responseRegs) : []
+
+      const newRegsData = previousRegs.filter((item) => item.petId !== petId)
+      await AsyncStorage.setItem('@monypet:regs', JSON.stringify(newRegsData))
 
       Toast.show({
         type: 'info',

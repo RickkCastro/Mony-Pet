@@ -14,24 +14,32 @@ import TipsBox from './components/tipsBox';
 export function ScHome({ route, navigation }) {
     const { petId, petType } = route.params
 
-    const [date1, setDate1] = useState(() => {
+    const [minDate, setMinDate] = useState(() => {
         const date = new Date()
         date.setMonth(date.getMonth() - 1)
         return date
     });
-    const [date2, setDate2] = useState(new Date());
+
+    const [maxDate, setMaxDate] = useState(new Date());
 
     const [showDP1, setShowDP1] = useState(false);
     const [showDP2, setShowDP2] = useState(false);
 
-    const onChangeDate1 = (event, selectedDate) => {
+    const onChangeMinDate = (event, selectedDate) => {
         setShowDP1(false)
-        setDate1(selectedDate);
+
+        if(selectedDate > maxDate) {
+            setMaxDate(selectedDate)
+        }
+
+        setMinDate(selectedDate);
+        RegisterBox.caller()
     };
 
-    const onChangeDate2 = (event, selectedDate) => {
+    const onChangeMaxDate = (event, selectedDate) => {
         setShowDP2(false)
-        setDate2(selectedDate);
+        setMaxDate(selectedDate);
+        RegisterBox.call(fetchRegsData())
     };
 
     const formatDate = (date) => {
@@ -61,15 +69,15 @@ export function ScHome({ route, navigation }) {
                     <View style={styles.datesView}>
                         <TouchableOpacity onPress={() => setShowDP1(true)} style={styles.monthStyle}>
                             <AntDesign name="calendar" size={13} color="#75739c" style={{ marginHorizontal: 5 }} />
-                            <Text style={styles.txtDate}> {formatDate(date1)} </Text>
+                            <Text style={styles.txtDate}> {formatDate(minDate)} </Text>
                             <AntDesign name="caretdown" size={13} color="#75739c" style={{ marginHorizontal: 5 }} />
                         </TouchableOpacity>
 
                         {showDP1 && (
                             <DateTimePicker
-                                value={date1}
+                                value={minDate}
                                 mode={'date'}
-                                onChange={onChangeDate1}
+                                onChange={onChangeMinDate}
                             />
                         )}
 
@@ -77,15 +85,16 @@ export function ScHome({ route, navigation }) {
 
                         <TouchableOpacity onPress={() => setShowDP2(true)} style={styles.monthStyle}>
                             <AntDesign name="calendar" size={13} color="#75739c" />
-                            <Text style={styles.txtDate}> {formatDate(date2)} </Text>
+                            <Text style={styles.txtDate}> {formatDate(maxDate)} </Text>
                             <AntDesign name="caretdown" size={13} color="#75739c" />
                         </TouchableOpacity>
 
                         {showDP2 && (
                             <DateTimePicker
-                                value={date2}
+                                value={maxDate}
                                 mode={'date'}
-                                onChange={onChangeDate2}
+                                onChange={onChangeMaxDate}
+                                minimumDate={minDate}
                             />
                         )}
                     </View>
@@ -95,10 +104,9 @@ export function ScHome({ route, navigation }) {
                 <TipsBox petType={petType} />
 
                 {/* Registros */}
-                <View>
-                    <Text style={styles.scrollTitle}> Últimos Registros: </Text>
-                    <RegisterBox petId={petId}/>
-                </View>
+                {console.log('teste 1:', minDate, maxDate)}
+                <RegisterBox petId={petId} minDate={minDate} maxDate={maxDate}/>
+                
             </ScrollView>
 
             {/* Menu de botoes */}
