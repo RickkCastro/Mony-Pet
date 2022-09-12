@@ -1,45 +1,70 @@
 import React, { useState } from 'react';
 import { ScrollView, View, Image, TouchableOpacity, Text } from 'react-native';
+
 import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
+
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { useToast, Box } from "native-base";
 
 import styles from './styles';
 
 import RegisterBox from './components/registerBox';
 import TipsBox from './components/tipsBox';
 
+
 export function ScHome({ route, navigation }) {
+    const toast = useToast();
     const { petId, petType } = route.params
 
     const [minDate, setMinDate] = useState(() => {
         const date = new Date()
+
         date.setMonth(date.getMonth() - 1)
+        date.setHours(0, 0, 0, 0)
+
         return date
     });
 
-    const [maxDate, setMaxDate] = useState(new Date());
+    const [maxDate, setMaxDate] = useState(() => {
+        const date = new Date()
+
+        date.setHours(0, 0, 0, 0)
+
+        return date
+    });
 
     const [showDP1, setShowDP1] = useState(false);
     const [showDP2, setShowDP2] = useState(false);
 
     const onChangeMinDate = (event, selectedDate) => {
         setShowDP1(false)
+        toast.show({
+            render: () => {
+              return <Box bg="#343434" px="2" py="3" rounded="md" mb={5}>
+                      <Text style={{color: '#fff'}}> Registros atualizados </Text>
+                    </Box>;
+            },
+            placement: 'top',
+            duration: 3000,
+          });
 
-        if(selectedDate > maxDate) {
+        selectedDate.setHours(0, 0, 0, 0)
+
+        if (selectedDate > maxDate) {
             setMaxDate(selectedDate)
         }
 
         setMinDate(selectedDate);
-        RegisterBox.caller()
     };
 
     const onChangeMaxDate = (event, selectedDate) => {
         setShowDP2(false)
+        selectedDate.setHours(0, 0, 0, 0)
+
         setMaxDate(selectedDate);
-        RegisterBox.call(fetchRegsData())
     };
 
     const formatDate = (date) => {
@@ -104,9 +129,8 @@ export function ScHome({ route, navigation }) {
                 <TipsBox petType={petType} />
 
                 {/* Registros */}
-                {console.log('teste 1:', minDate, maxDate)}
-                <RegisterBox petId={petId} minDate={minDate} maxDate={maxDate}/>
-                
+                <RegisterBox petId={petId} minDate={minDate} maxDate={maxDate} />
+
             </ScrollView>
 
             {/* Menu de botoes */}
@@ -119,7 +143,8 @@ export function ScHome({ route, navigation }) {
                     <Entypo name="area-graph" size={28} color="#e7e6e6" />
                 </TouchableOpacity>
 
-                <TouchableOpacity style={[styles.buttonsMenu, { height: 70, width: 70 }]} onPress={() => navigation.navigate('ScRegisterAdd', { petType: petType, petId: petId })}>
+                <TouchableOpacity style={[styles.buttonsMenu, { height: 70, width: 70 }]}
+                    onPress={() => navigation.navigate('ScRegisterAdd', { petType: petType, petId: petId })}>
                     <FontAwesome5 name="plus" size={38} color="#e7e6e6" />
                 </TouchableOpacity>
 

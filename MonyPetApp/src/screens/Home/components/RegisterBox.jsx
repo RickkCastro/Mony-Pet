@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { View, StyleSheet, Text, FlatList, } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
@@ -8,40 +8,42 @@ import { useAsyncStorage } from '@react-native-async-storage/async-storage'
 
 import styles from '../styles';
 
-export default function (props) {
+export default (props) => {
 
 	const petId = props.petId
 	const [regsData, setRegsData] = useState([])
-	const { getItem } = useAsyncStorage('@monypet:regs')
 
-	const minDate = props.minDate
-	const maxDate = props.maxDate
+	const { getItem } = useAsyncStorage('@monypet:regs')
 
 	async function fetchRegsData() {
 		const response = await getItem()
 		const TotalData = response ? JSON.parse(response) : []
 
 		const data = TotalData.filter((item) => item.petId === petId)
-		data.forEach((item) => {item.date = new Date(item.date)})
 
-		console.log('teste 2:', minDate, maxDate)
-		
-		const filterData = data.filter((item) => {
-			return item.date >= minDate && item.date <= maxDate
-		})
+		data.map((item) => item.date = new Date(item.date))
 
-		filterData.sort(function(a,b) { 
-			return b.date.getTime() - a.date.getTime() 
+		data.sort(function (a, b) {
+			return b.date.getTime() - a.date.getTime()
 		});
 
-		setRegsData(filterData)
+		setRegsData(data)
 	}
 
-	useFocusEffect(
-		React.useCallback(() => {
+	useFocusEffect(//Quando focar na tela
+		useCallback(() => {
 			fetchRegsData()
 		}, [])
 	)
+
+	function filterData() {
+		const minDate = props.minDate
+		const maxDate = props.maxDate
+
+		const f = regsData.filter((item) => item.date >= minDate && item.date <= maxDate)
+		return f
+	}
+
 
 	const iconColor = (value) => {
 		if (value <= 1) {
@@ -88,12 +90,12 @@ export default function (props) {
 		return (('0' + d).slice(-2) + '/' + ('0' + mo).slice(-2) + '/' + y)
 	}
 
-	if(regsData.length > 0){
-		fetchRegsData()
+	if (filterData().length > 0) {
 		return (
 			<View>
 				<Text style={styles.scrollTitle}> Últimos Registros: </Text>
-				{regsData.map((item, index) => {
+				
+				{filterData().map((item, index) => {
 					return (
 						<View style={styles.boxRegs} key={index}>
 							<MaterialCommunityIcons name={icon(item.med)} size={70} color={iconColor(item.med)} />
@@ -112,7 +114,7 @@ export default function (props) {
 		)
 	} else {
 		return (
-			<View style={{justifyContent: 'center', alignItems: 'center'}}>
+			<View style={{ justifyContent: 'center', alignItems: 'center' }}>
 				<Text style={styles.addRegsTitle}> Adicione registos do seu pet aqui </Text>
 				<AntDesign name="arrowdown" size={40} color="#75739c" />
 			</View>

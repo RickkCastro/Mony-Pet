@@ -3,19 +3,21 @@ import { ScrollView, View, TouchableOpacity, Text, ImageBackground, TextInput, P
 import Constants from 'expo-constants';
 
 import { AntDesign } from '@expo/vector-icons';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 import uuid from 'react-native-uuid'
 import { useAsyncStorage } from '@react-native-async-storage/async-storage'
 import Toast from 'react-native-toast-message'
+import {useToast, Box} from "native-base";
 
 import styles from './styles'
 import Header1 from '../../components/header1';
 import Registers from './components/Registers';
 
 export function ScRegisterAdd({ navigation, route }) {
+	const toast = useToast();
+
 	const { petType, petId } = route.params
 
 	const data = {
@@ -140,11 +142,16 @@ export function ScRegisterAdd({ navigation, route }) {
 		}
 	}
 
-	const [date, setDate] = useState(new Date())
+	const [date, setDate] = useState(() => {
+		const date = new Date()
+		date.setHours(0,0,0,0)
+		return date
+	})
 	const [showDP, setShowDP] = useState(false)
 
 	const onChangeDate = (event, selectedDate) => {
 		setShowDP(false)
+		selectedDate.setHours(0,0,0,0)
 		setDate(selectedDate);
 	};
 
