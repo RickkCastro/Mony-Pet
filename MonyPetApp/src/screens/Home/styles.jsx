@@ -24,7 +24,6 @@ export default StyleSheet.create({
     },
 
     datesView: {
-        marginTop: 10,
         alignItems: 'center',
         flexWrap: 'wrap',
     },
@@ -103,6 +102,10 @@ export default StyleSheet.create({
         marginTop: 30,
         fontSize: 20,
         marginBottom: 5
+    },
+
+    bottomRegsTxt: {
+        color: '#75739c'
     },
 
     menuButtons: {

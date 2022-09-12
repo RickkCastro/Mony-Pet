@@ -91,6 +91,7 @@ export function ScHome({ route, navigation }) {
                     </TouchableOpacity>
 
                     {/* Mes */}
+                    <Text style={styles.scrollTitle}> Intervalo de data dos registros: </Text>
                     <View style={styles.datesView}>
                         <TouchableOpacity onPress={() => setShowDP1(true)} style={styles.monthStyle}>
                             <AntDesign name="calendar" size={13} color="#75739c" style={{ marginHorizontal: 5 }} />
@@ -129,7 +130,7 @@ export function ScHome({ route, navigation }) {
                 <TipsBox petType={petType} />
 
                 {/* Registros */}
-                <RegisterBox petId={petId} minDate={minDate} maxDate={maxDate} />
+                <RegisterBox petId={petId} petType={petType} minDate={minDate} maxDate={maxDate} />
 
             </ScrollView>
 

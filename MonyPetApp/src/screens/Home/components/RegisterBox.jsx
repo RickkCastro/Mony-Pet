@@ -1,17 +1,24 @@
-import React, { useState, useCallback, useEffect } from 'react';
-import { View, StyleSheet, Text, FlatList, } from 'react-native';
+import React, { useState, useCallback } from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 
 import { useFocusEffect } from '@react-navigation/native'
 import { useAsyncStorage } from '@react-native-async-storage/async-storage'
+import { useNavigation } from '@react-navigation/native'
 
 import styles from '../styles';
 
 export default (props) => {
 
+	const navigation = useNavigation()
+
 	const petId = props.petId
+	const petType = props.petType
+
 	const [regsData, setRegsData] = useState([])
+
+	const [dataLength, setDataLength] = useState(0)
 
 	const { getItem } = useAsyncStorage('@monypet:regs')
 
@@ -20,6 +27,8 @@ export default (props) => {
 		const TotalData = response ? JSON.parse(response) : []
 
 		const data = TotalData.filter((item) => item.petId === petId)
+
+		setDataLength(data.length)
 
 		data.map((item) => item.date = new Date(item.date))
 
@@ -92,12 +101,13 @@ export default (props) => {
 
 	if (filterData().length > 0) {
 		return (
-			<View>
+			<View style={{ paddingBottom: 25 }}>
 				<Text style={styles.scrollTitle}> Últimos Registros: </Text>
-				
+
 				{filterData().map((item, index) => {
 					return (
-						<View style={styles.boxRegs} key={index}>
+						<TouchableOpacity style={styles.boxRegs} key={index}
+							onPress={() => navigation.navigate('ScRegisterAdd', { petType: petType, petId: petId, regId: item.id})}>
 							<MaterialCommunityIcons name={icon(item.med)} size={70} color={iconColor(item.med)} />
 							<View style={{ flex: 1, marginVertical: 20, marginHorizontal: 10 }}>
 								<Text style={{ color: '#565583', marginBottom: 5 }}>
@@ -107,9 +117,14 @@ export default (props) => {
 									{item.noteV == "" ? 'Registro sem anotação' : item.noteV}
 								</Text>
 							</View>
-						</View>
+						</TouchableOpacity>
 					)
 				})}
+
+				<View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
+					<Text style={styles.bottomRegsTxt}> Total: {dataLength}</Text>
+					<Text style={styles.bottomRegsTxt}> Mostrando: {filterData().length}</Text>
+				</View>
 			</View>
 		)
 	} else {

@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { ScrollView, View, TouchableOpacity, Text, ImageBackground, TextInput, Pressable } from 'react-native';
+import React, { useCallback, useState } from 'react';
+import { ScrollView, View, TouchableOpacity, Text, ImageBackground, TextInput, Alert } from 'react-native';
 import Constants from 'expo-constants';
 
 import { AntDesign } from '@expo/vector-icons';
@@ -8,8 +8,10 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 
 import uuid from 'react-native-uuid'
 import { useAsyncStorage } from '@react-native-async-storage/async-storage'
+import { useFocusEffect } from '@react-navigation/native'
+
 import Toast from 'react-native-toast-message'
-import {useToast, Box} from "native-base";
+import { useToast, Box } from "native-base";
 
 import styles from './styles'
 import Header1 from '../../components/header1';
@@ -18,7 +20,7 @@ import Registers from './components/Registers';
 export function ScRegisterAdd({ navigation, route }) {
 	const toast = useToast();
 
-	const { petType, petId } = route.params
+	const { petType, petId, regId } = route.params
 
 	const data = {
 		mood: [
@@ -84,9 +86,42 @@ export function ScRegisterAdd({ navigation, route }) {
 
 	const { getItem, setItem } = useAsyncStorage('@monypet:regs')
 
+	const [regData, setRegData] = useState({})
+
+	useFocusEffect(//Quando focar na tela
+		useCallback(() => {
+			if (regId != undefined) {
+				fetchRegsData()
+			}
+		}, [])
+	)
+
+	async function fetchRegsData() {
+		if (regId) {
+			const response = await getItem()
+			const dataTotal = response ? JSON.parse(response) : []
+
+			const data = dataTotal.find((reg) => reg.id === regId)
+			setRegData(data)
+
+			data.date != undefined ? setDate(new Date(data.date)) : 1
+			data.moodV != undefined ? setMoodV(data.moodV) : 1
+			data.messV != undefined ? setMessV(data.messV) : 1
+			data.feedingV != undefined ? setFeedingV(data.feedingV) : 1
+			data.noteV != undefined ? setNoteV(data.noteV) : 1
+
+			//Dog
+			data.restV != undefined ? setRestV(data.restV) : 1
+			data.tourV != undefined ? setTourV(data.tourV) : 1
+
+			//cat
+			data.hairLossV != undefined ? setHairLossV(data.hairLossV) : 1
+		}
+	}
+
 	async function handleSaveReg() {
 		try {
-			const id = uuid.v4()
+			const id = regId ? regId : uuid.v4()
 			let newReg
 
 			if (petType == 'dog') {
@@ -123,8 +158,16 @@ export function ScRegisterAdd({ navigation, route }) {
 			const response = await getItem()
 			const previousRegs = response ? JSON.parse(response) : []
 
-			const regsData = [newReg, ...previousRegs]
-			setItem(JSON.stringify(regsData))
+			if (regId) {
+				const index = previousRegs.indexOf(previousRegs.find((reg) => reg.id === regId))
+				previousRegs[index] = newReg
+				setItem(JSON.stringify(previousRegs))
+
+			} else {
+
+				const regsData = [newReg, ...previousRegs]
+				setItem(JSON.stringify(regsData))
+			}
 
 			Toast.show({
 				type: 'success',
@@ -142,16 +185,56 @@ export function ScRegisterAdd({ navigation, route }) {
 		}
 	}
 
+	async function handleRemoveReg() {
+		Alert.alert('Aviso!', 'Deseja realmente excluir o registro?', [
+			{
+				text: 'Cancelar',
+				onPress: () => console.log('Cancel Pressed'),
+			},
+			{
+				text: 'Sim',
+				onPress: () => removeItem(),
+			}
+		])
+	}
+
+	// Remoção de item
+	async function removeItem() {
+		try {
+			const response = await getItem()
+			const previousRegs = response ? JSON.parse(response) : []
+
+			const newRegsData = previousRegs.filter((item) => item.id !== regId)
+
+			console.log(newRegsData)
+			await setItem(JSON.stringify(newRegsData))
+
+			Toast.show({
+				type: 'info',
+				text1: 'Pet excluído',
+				text2: `Poxa que pena!`,
+			})
+
+			navigation.goBack()
+		} catch {
+			console.log(error)
+			Toast.show({
+				type: 'error',
+				text1: 'Não foi possível excluir pet',
+			})
+		}
+	}
+
 	const [date, setDate] = useState(() => {
 		const date = new Date()
-		date.setHours(0,0,0,0)
+		date.setHours(0, 0, 0, 0)
 		return date
 	})
 	const [showDP, setShowDP] = useState(false)
 
 	const onChangeDate = (event, selectedDate) => {
 		setShowDP(false)
-		selectedDate.setHours(0,0,0,0)
+		selectedDate.setHours(0, 0, 0, 0)
 		setDate(selectedDate);
 	};
 
@@ -192,7 +275,8 @@ export function ScRegisterAdd({ navigation, route }) {
 			}}>
 
 			{/* Cabeçalho */}
-			<Header1 txt1={'Adicionar registro'} bt2Color={'transparent'} onPressBt1={() => navigation.goBack()} />
+			<Header1 txt1={'Adicionar registro'} bt2Color={regId ? '#9a8db0' : 'transparent'} 
+			onPressBt1={() => navigation.goBack()} onPressBt2={regId ? () => handleRemoveReg() : undefined}/>
 
 			{/* Rolagem */}
 			<ScrollView contentContainerStyle={styles.scrollStyle}>
@@ -234,7 +318,8 @@ export function ScRegisterAdd({ navigation, route }) {
 						style={styles.txtDesc}
 						multiline={true}
 						onChangeText={setNoteV}
-						maxLength={250}>
+						maxLength={250}
+						value={noteV}>
 					</TextInput>
 
 					{/* Botão de adição */}
