@@ -2,11 +2,11 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 const { Screen, Navigator } = createNativeStackNavigator();
 
-import { ScPetAdd } from "../screens/ScreenPetAdd";
-import { ScPetChoice } from "../screens/petChoice/ScreenPetChoice";
-import { ScVizuPet } from "../screens/ScreenVizuPet";
-import { ScHome } from "../screens/home/screenHome";
-import { ScRegisterAdd } from "../screens/registerAdd/registerAdd";
+import { ScPetAdd } from "../screens/petAdd/PetAdd";
+import { ScPetChoice } from "../screens/petChoice/PetChoice";
+import { ScVizuPet } from "../screens/vizuPet/VizuPet";
+import { ScHome } from "../screens/home/Home";
+import { ScRegisterAdd } from "../screens/registerAdd/RegisterAdd";
 
 
 //Armazenar todas as telas no navigator

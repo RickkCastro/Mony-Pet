@@ -1,24 +1,16 @@
 import * as React from 'react'
-import {
-  StyleSheet,
-  Text,
-  View,
-  ImageBackground,
-  TouchableOpacity,
-  Image,
-  FlatList,
-  TextInput,
-  ScrollView,
-  Alert,
-} from 'react-native'
+import { Text, View, ImageBackground, TouchableOpacity, Image, FlatList, TextInput, ScrollView, Alert} from 'react-native'
+
 import { AntDesign } from '@expo/vector-icons'
 import Constants from 'expo-constants'
 import { RadioButton } from 'react-native-paper'
-
 import uuid from 'react-native-uuid'
 import { useAsyncStorage } from '@react-native-async-storage/async-storage'
 import Toast from 'react-native-toast-message'
-import Header1 from '../components/header1'
+import Header1 from '../../components/header1'
+import { SafeAreaView } from 'react-native-safe-area-context'
+
+import { styles } from './styles'
 
 export function ScPetAdd({ navigation }) {
   const [petName, setPetName] = React.useState('')
@@ -77,26 +69,16 @@ export function ScPetAdd({ navigation }) {
 
   return (
     // Barra de informações
-    <View
-      style={{
-        flex: 1,
-        paddingTop: Constants.statusBarHeight,
-        backgroundColor: 'white',
-      }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: 'white'}}>
       {/* Cabeçalho */}
       <Header1 txt1={'Adicionar pet'} bt2Color={'transparent'} onPressBt1={() => navigation.goBack()}/>
 
       {/* Rolagem */}
       <ScrollView contentContainerStyle={styles.scrollStyle}>
-        <View
-          style={{
-            alignItems: 'center',
-            marginBottom: 30,
-            marginTop: 20,
-          }}>
+        <View style={styles.backgroundAnimal}>
           {/* Imagem de Fundo */}
           <ImageBackground
-            source={require('../assets/images/DogAddImg.png')}
+            source={require('../../assets/images/DogAddImg.png')}
             resizeMode={'stretch'}
             imageStyle={{ margin: 10 }}>
             <TouchableOpacity style={styles.addPhoto}>
@@ -107,7 +89,7 @@ export function ScPetAdd({ navigation }) {
 
         {/* Barra de nome */}
         <View style={{ marginHorizontal: 20 }}>
-          <Text style={styles.lineText}>Insira o nome do seu pet:</Text>
+          <Text style={styles.lineText}>Nome do pet:</Text>
           <TextInput
             style={styles.txtInformation}
             placeholder={'Ex: Rex'}
@@ -115,18 +97,13 @@ export function ScPetAdd({ navigation }) {
             onChangeText={setPetName}></TextInput>
 
           {/* Seleção de Espécie */}
-          <Text style={styles.lineText}>Ele(a) é um:</Text>
+          <Text style={styles.lineText}>Animal:</Text>
           <RadioButton.Group
             onValueChange={(newValue) => {
               setPetType(newValue)
             }}
             value={petType}>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                marginBottom: 8,
-              }}>
+            <View style={styles.viewRadio}>
               <RadioButton
                 value="dog"
                 color="#527BCB"
@@ -144,7 +121,7 @@ export function ScPetAdd({ navigation }) {
           </RadioButton.Group>
 
           {/* Barra de idade */}
-          <Text style={styles.lineText}>Agora, a idade do seu pet:</Text>
+          <Text style={styles.lineText}>Idade:</Text>
           <TextInput
             style={styles.txtInformation}
             placeholder={'Ex: 6'}
@@ -152,7 +129,7 @@ export function ScPetAdd({ navigation }) {
             onChangeText={setPetYears}></TextInput>
 
           {/* Barra de Raça */}
-          <Text style={styles.lineText}>E qual é a raça dele(a):</Text>
+          <Text style={styles.lineText}>Raça:</Text>
           <TextInput
             style={styles.txtInformation}
             placeholder={'Ex: Pinscher'}
@@ -160,7 +137,7 @@ export function ScPetAdd({ navigation }) {
             onChangeText={setPetRace}></TextInput>
 
           {/* Barra de Peso */}
-          <Text style={styles.lineText}>E quanto, ele(a) pesa:</Text>
+          <Text style={styles.lineText}>Peso:</Text>
           <TextInput
             style={styles.txtInformation}
             placeholder={'Ex: 3,2kg'}
@@ -170,15 +147,9 @@ export function ScPetAdd({ navigation }) {
 
         {/* Botão de adição */}
         <ImageBackground
-          source={require('../assets/images/Onda.png')}
+          source={require('../../assets/images/Onda.png')}
           resizeMode={'stretch'}>
-          <View
-            style={{
-              alignItems: 'center',
-              height: 180,
-              justifyContent: 'flex-end',
-              paddingBottom: 10,
-            }}>
+          <View style={styles.viewButton}>
             <TouchableOpacity
               style={styles.styleButton}
               onPress={handleSavePet}>
@@ -186,82 +157,12 @@ export function ScPetAdd({ navigation }) {
             </TouchableOpacity>
 
             {/* Direitos Autorais */}
-            <Text
-              style={{
-                color: '#252424',
-                fontSize: 12,
-                alignSelf: 'center',
-                marginTop: 10,
-                alignItems: 'flex-end',
-              }}>
+            <Text style={styles.styleCopyRight}>
               COPYRIGHT@MonyPet
             </Text>
           </View>
         </ImageBackground>
       </ScrollView>
-    </View>
+    </SafeAreaView>
   )
 }
-
-const styles = StyleSheet.create({
-  header: {
-    flexDirection: 'row',
-    height: '8%',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-
-  scrollStyle: {
-    minHeight: '92%',
-    backgroundColor: '#fff',
-    justifyContent: 'space-between',
-  },
-
-  addPhoto: {
-    borderColor: 'black',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 1,
-    height: 120,
-    width: 120,
-  },
-
-  txtInformation: {
-    paddingHorizontal: 10,
-    borderWidth: 1,
-    borderColor: '#527BCB',
-    borderRadius: 10,
-    marginBottom: 30,
-    fontSize: 18,
-    backgroundColor: '#fff',
-  },
-
-  lineText: {
-    color: '#527BCB',
-    fontSize: 20,
-    marginBottom: 5,
-  },
-
-  styleButton: {
-    borderRadius: 10,
-    backgroundColor: '#7153af',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 50,
-    width: 300,
-    marginBottom: 10,
-  },
-
-  styleTextSelection: {
-    fontSize: 16,
-    color: 'gray',
-    paddingRight: 10,
-  },
-  headerButtons: {
-    height: 30,
-    width: 30,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginHorizontal: 10,
-  },
-})

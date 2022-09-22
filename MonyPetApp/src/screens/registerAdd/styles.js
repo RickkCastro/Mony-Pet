@@ -1,12 +1,8 @@
-import React from 'react';
 import { StyleSheet } from 'react-native';
-import Constants from 'expo-constants';
-import { AntDesign } from '@expo/vector-icons'
 
 export default StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: Constants.statusBarHeight,
     backgroundColor: 'white'
   },
   header: {

@@ -1,22 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ScrollView, View, Image, TouchableOpacity, Text } from 'react-native';
 
 import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
-
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { useToast, Box } from "native-base";
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import styles from './styles';
 
-import RegisterBox from './components/registerBox';
-import TipsBox from './components/tipsBox';
-
+import RegisterBox from './components/RegisterBox';
+import TipsBox from './components/TipsBox';
 
 export function ScHome({ route, navigation }) {
-    const toast = useToast();
+
     const { petId, petType } = route.params
 
     const [minDate, setMinDate] = useState(() => {
@@ -41,15 +39,6 @@ export function ScHome({ route, navigation }) {
 
     const onChangeMinDate = (event, selectedDate) => {
         setShowDP1(false)
-        toast.show({
-            render: () => {
-              return <Box bg="#343434" px="2" py="3" rounded="md" mb={5}>
-                      <Text style={{color: '#fff'}}> Registros atualizados </Text>
-                    </Box>;
-            },
-            placement: 'top',
-            duration: 3000,
-          });
 
         selectedDate.setHours(0, 0, 0, 0)
 
@@ -62,6 +51,7 @@ export function ScHome({ route, navigation }) {
 
     const onChangeMaxDate = (event, selectedDate) => {
         setShowDP2(false)
+
         selectedDate.setHours(0, 0, 0, 0)
 
         setMaxDate(selectedDate);
@@ -76,7 +66,7 @@ export function ScHome({ route, navigation }) {
     }
 
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <ScrollView contentContainerStyle={styles.scrollStyle}>
                 {/* Header */}
                 <View style={styles.headerStyle}>
@@ -158,6 +148,6 @@ export function ScHome({ route, navigation }) {
                 </TouchableOpacity>
 
             </View>
-        </View >
+        </SafeAreaView >
     );
 }

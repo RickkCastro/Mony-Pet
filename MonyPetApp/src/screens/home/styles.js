@@ -1,11 +1,9 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import Constants from 'expo-constants';
 
 export default StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: Constants.statusBarHeight,
         backgroundColor: 'white'
     },
 
@@ -100,6 +98,13 @@ export default StyleSheet.create({
         textAlign: 'center',
         color: '#75739c',
         marginTop: 30,
+        fontSize: 20,
+        marginBottom: 5
+    },
+
+    notRegsTitle: {
+        textAlign: 'center',
+        color: '#75739c',
         fontSize: 20,
         marginBottom: 5
     },

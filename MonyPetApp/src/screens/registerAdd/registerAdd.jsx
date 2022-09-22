@@ -1,25 +1,21 @@
 import React, { useCallback, useState } from 'react';
 import { ScrollView, View, TouchableOpacity, Text, ImageBackground, TextInput, Alert } from 'react-native';
-import Constants from 'expo-constants';
 
 import { AntDesign } from '@expo/vector-icons';
-
 import DateTimePicker from '@react-native-community/datetimepicker';
-
 import uuid from 'react-native-uuid'
 import { useAsyncStorage } from '@react-native-async-storage/async-storage'
 import { useFocusEffect } from '@react-navigation/native'
-
 import Toast from 'react-native-toast-message'
-import { useToast, Box } from "native-base";
 
 import styles from './styles'
+
 import Header1 from '../../components/header1';
 import Registers from './components/Registers';
 
-export function ScRegisterAdd({ navigation, route }) {
-	const toast = useToast();
+import { SafeAreaView } from 'react-native-safe-area-context';
 
+export function ScRegisterAdd({ navigation, route }) {
 	const { petType, petId, regId } = route.params
 
 	const data = {
@@ -86,8 +82,6 @@ export function ScRegisterAdd({ navigation, route }) {
 
 	const { getItem, setItem } = useAsyncStorage('@monypet:regs')
 
-	const [regData, setRegData] = useState({})
-
 	useFocusEffect(//Quando focar na tela
 		useCallback(() => {
 			if (regId != undefined) {
@@ -102,7 +96,6 @@ export function ScRegisterAdd({ navigation, route }) {
 			const dataTotal = response ? JSON.parse(response) : []
 
 			const data = dataTotal.find((reg) => reg.id === regId)
-			setRegData(data)
 
 			data.date != undefined ? setDate(new Date(data.date)) : 1
 			data.moodV != undefined ? setMoodV(data.moodV) : 1
@@ -163,16 +156,20 @@ export function ScRegisterAdd({ navigation, route }) {
 				previousRegs[index] = newReg
 				setItem(JSON.stringify(previousRegs))
 
+				Toast.show({
+					type: 'success',
+					text1: 'Registro atualizado',
+				})
 			} else {
 
 				const regsData = [newReg, ...previousRegs]
 				setItem(JSON.stringify(regsData))
-			}
 
-			Toast.show({
-				type: 'success',
-				text1: 'Registro adicionado',
-			})
+				Toast.show({
+					type: 'success',
+					text1: 'Registro adicionado',
+				})
+			}
 
 			navigation.goBack()
 		} catch (error) {
@@ -211,8 +208,7 @@ export function ScRegisterAdd({ navigation, route }) {
 
 			Toast.show({
 				type: 'info',
-				text1: 'Pet excluído',
-				text2: `Poxa que pena!`,
+				text1: 'Registro excluído',
 			})
 
 			navigation.goBack()
@@ -267,10 +263,9 @@ export function ScRegisterAdd({ navigation, route }) {
 	}
 
 	return (
-		<View
+		<SafeAreaView
 			style={{
 				flex: 1,
-				paddingTop: Constants.statusBarHeight,
 				backgroundColor: 'white',
 			}}>
 
@@ -348,6 +343,6 @@ export function ScRegisterAdd({ navigation, route }) {
 					</ImageBackground>
 				</View>
 			</ScrollView>
-		</View>
+		</SafeAreaView>
 	);
 }

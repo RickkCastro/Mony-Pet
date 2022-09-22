@@ -1,8 +1,8 @@
 import React, { useState, useCallback } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
+
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
-
 import { useFocusEffect } from '@react-navigation/native'
 import { useAsyncStorage } from '@react-native-async-storage/async-storage'
 import { useNavigation } from '@react-navigation/native'
@@ -99,34 +99,49 @@ export default (props) => {
 		return (('0' + d).slice(-2) + '/' + ('0' + mo).slice(-2) + '/' + y)
 	}
 
-	if (filterData().length > 0) {
-		return (
-			<View style={{ paddingBottom: 25 }}>
-				<Text style={styles.scrollTitle}> Últimos Registros: </Text>
+	if (regsData.length > 0) {
+		if (filterData().length > 0) {
+			return (
+				<View style={{ paddingBottom: 25 }}>
+					<Text style={styles.scrollTitle}> Últimos Registros: </Text>
 
-				{filterData().map((item, index) => {
-					return (
-						<TouchableOpacity style={styles.boxRegs} key={index}
-							onPress={() => navigation.navigate('ScRegisterAdd', { petType: petType, petId: petId, regId: item.id})}>
-							<MaterialCommunityIcons name={icon(item.med)} size={70} color={iconColor(item.med)} />
-							<View style={{ flex: 1, marginVertical: 20, marginHorizontal: 10 }}>
-								<Text style={{ color: '#565583', marginBottom: 5 }}>
-									Dia: {formatDate(item.date)}
-								</Text>
-								<Text style={{ fontSize: 12 }}>
-									{item.noteV == "" ? 'Registro sem anotação' : item.noteV}
-								</Text>
-							</View>
-						</TouchableOpacity>
-					)
-				})}
+					{filterData().map((item, index) => {
+						return (
+							<TouchableOpacity style={styles.boxRegs} key={index}
+								onPress={() => navigation.navigate('ScRegisterAdd', { petType: petType, petId: petId, regId: item.id })}>
+								<MaterialCommunityIcons name={icon(item.med)} size={70} color={iconColor(item.med)} />
+								<View style={{ flex: 1, marginVertical: 20, marginHorizontal: 10 }}>
+									<Text style={{ color: '#565583', marginBottom: 5 }}>
+										Dia: {formatDate(item.date)}
+									</Text>
+									<Text style={{ fontSize: 12 }}>
+										{item.noteV == "" ? 'Registro sem anotação' : item.noteV}
+									</Text>
+								</View>
+							</TouchableOpacity>
+						)
+					})}
 
-				<View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
-					<Text style={styles.bottomRegsTxt}> Total: {dataLength}</Text>
-					<Text style={styles.bottomRegsTxt}> Mostrando: {filterData().length}</Text>
+					<View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
+						<Text style={styles.bottomRegsTxt}> Total: {dataLength}</Text>
+						<Text style={styles.bottomRegsTxt}> Mostrando: {filterData().length}</Text>
+					</View>
 				</View>
-			</View>
-		)
+			)
+		} else {
+			return (
+				<View style={{ paddingBottom: 25 }}>
+					<Text style={styles.scrollTitle}> Últimos Registros: </Text>
+					<View style={{ justifyContent: 'center', alignItems: 'center' }}>
+						<Text style={styles.notRegsTitle}> Não existe nemhum resgistro nesse intervalo de tempo! </Text>
+					</View>
+					<View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 20 }}>
+						<Text style={styles.bottomRegsTxt}> Total: {dataLength}</Text>
+						<Text style={styles.bottomRegsTxt}> Mostrando: {filterData().length}</Text>
+					</View>
+				</View>
+			)
+		}
 	} else {
 		return (
 			<View style={{ justifyContent: 'center', alignItems: 'center' }}>
