@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { THEME } from '../../theme';
 
 export const styles = StyleSheet.create({
     header: {
@@ -22,11 +23,12 @@ export const styles = StyleSheet.create({
     
       addPhoto: {
         borderColor: 'black',
+        borderWidth: 1,
+        borderRadius: 5,
         justifyContent: 'center',
         alignItems: 'center',
-        borderWidth: 1,
-        height: 120,
-        width: 120,
+        height: 170,
+        width: 170,
       },
     
       txtInformation: {
@@ -35,13 +37,13 @@ export const styles = StyleSheet.create({
         borderColor: '#527BCB',
         borderRadius: 10,
         marginBottom: 30,
-        fontSize: 18,
+        fontSize: THEME.FONT_SIZE.MD,
         backgroundColor: '#fff',
       },
     
       lineText: {
         color: '#527BCB',
-        fontSize: 20,
+        fontSize: THEME.FONT_SIZE.LG,
         marginBottom: 5,
       },
 
@@ -52,7 +54,7 @@ export const styles = StyleSheet.create({
       },
     
       styleTextSelection: {
-        fontSize: 16,
+        fontSize: THEME.FONT_SIZE.MD,
         color: 'gray',
         paddingRight: 10,
       },
@@ -84,7 +86,7 @@ export const styles = StyleSheet.create({
 
       styleCopyRight: {
         color: '#252424',
-        fontSize: 12,
+        fontSize: THEME.FONT_SIZE.SM,
         alignSelf: 'center',
         marginTop: 10,
         alignItems: 'flex-end',

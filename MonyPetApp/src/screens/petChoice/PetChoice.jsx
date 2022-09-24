@@ -33,7 +33,7 @@ export function ScPetChoice(props) {
 					<TouchableOpacity
 						style={styles.addButton}
 						onPress={() => navigation.navigate('ScPetAdd')}>
-						<AntDesign name="plus" size={25} color="white" style={{ margin: 8 }} />
+						<AntDesign name="plus" size={35} color="white" style={{ margin: 8 }} />
 					</TouchableOpacity>
 
 					{/* Rodapé */}

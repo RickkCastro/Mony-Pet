@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { THEME } from '../../theme';
 
 export const styles = StyleSheet.create({
     header: {
@@ -14,21 +15,23 @@ export const styles = StyleSheet.create({
 		justifyContent: 'space-between',
 	},
 
-    backgroundAnimal: {
-        alignItems: 'center',
-		marginBottom: 20,
-		marginTop: 10,
-    },
-
-	addPhoto: {
-		borderColor: 'Black',
-		justifyContent: 'flex-end',
+	viewImgPet: {
+		flexDirection: 'row',
+		justifyContent: 'center',
 		alignItems: 'flex-end',
-		borderWidth: 1,
-		height: 120,
-		width: 120,
-		padding: 10,
+		marginTop: 10,
+		marginBottom: 20
 	},
+
+	imgPet: {
+        borderColor: 'black',
+        borderWidth: 1,
+        borderRadius: 5,
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: 130,
+        width: 130,
+    },
 
 	txtInformation: {
 		paddingHorizontal: 10,
@@ -36,7 +39,7 @@ export const styles = StyleSheet.create({
 		borderColor: '#859ac5',
 		borderRadius: 10,
 		marginBottom: 15,
-		fontSize: 18,
+		fontSize: THEME.FONT_SIZE.MD,
 		backgroundColor: '#fff',
 		width: '90%',
 		color: 'black',
@@ -48,7 +51,7 @@ export const styles = StyleSheet.create({
 		borderColor: '#859ac5',
 		borderRadius: 10,
 		marginBottom: 15,
-		fontSize: 18,
+		fontSize: THEME.FONT_SIZE.MD,
 		backgroundColor: '#fff',
 		width: '90%',
 		textAlignVertical: 'top',
@@ -58,7 +61,7 @@ export const styles = StyleSheet.create({
 
 	lineText: {
 		color: '#527BCB',
-		fontSize: 20,
+		fontSize: THEME.FONT_SIZE.LG,
 		marginBottom: 5,
 	},
 
@@ -79,7 +82,7 @@ export const styles = StyleSheet.create({
 	},
 
 	styleTextSelection: {
-		fontSize: 16,
+		fontSize: THEME.FONT_SIZE.MD,
 		color: 'gray',
 		paddingRight: 10,
 	},
@@ -115,7 +118,7 @@ export const styles = StyleSheet.create({
 
     styleCopyRight: {
         color: '#252424',
-        fontSize: 12,
+        fontSize: THEME.FONT_SIZE.SM,
         alignSelf: 'center',
         marginTop: 10,
         alignItems: 'flex-end',

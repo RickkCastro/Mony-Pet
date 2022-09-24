@@ -8,6 +8,7 @@ import { useAsyncStorage } from '@react-native-async-storage/async-storage'
 import { useNavigation } from '@react-navigation/native'
 
 import styles from '../styles';
+import { THEME } from '../../../theme';
 
 export default (props) => {
 
@@ -114,7 +115,7 @@ export default (props) => {
 									<Text style={{ color: '#565583', marginBottom: 5 }}>
 										Dia: {formatDate(item.date)}
 									</Text>
-									<Text style={{ fontSize: 12 }}>
+									<Text style={{ fontSize: THEME.FONT_SIZE.SM }}>
 										{item.noteV == "" ? 'Registro sem anotação' : item.noteV}
 									</Text>
 								</View>

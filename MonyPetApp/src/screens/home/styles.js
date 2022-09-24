@@ -1,10 +1,37 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
+import { THEME } from '../../theme';
 
 export default StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'white'
+    },
+
+    scrollStyle: {
+        width: '100%',
+        paddingTop: 10,
+        paddingBottom: 30,
+        justifyContent: 'flex-start'
+    },
+
+    Title: {
+        textAlign: 'center',
+        color: '#75739c',
+        fontSize: THEME.FONT_SIZE.LG,
+        marginBottom: 20,
+        fontWeight: '700'
+    },
+
+    imgPet: {
+        borderColor: 'black',
+        borderWidth: 1,
+        borderRadius: 5,
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: 130,
+        width: 130,
+        backgroundColor: '#ECE4FC'
     },
 
     headerStyle: {
@@ -15,7 +42,7 @@ export default StyleSheet.create({
 
     lineText: {
         color: '#6c8ed1',
-        fontSize: 20,
+        fontSize: THEME.FONT_SIZE.LG,
         marginBottom: 5,
         marginRight: 10,
         marginLeft: 10
@@ -34,28 +61,22 @@ export default StyleSheet.create({
 
     ateTxt: {
         color: '#75739c',
-        fontSize: 16
+        fontSize: THEME.FONT_SIZE.MD,
     },
 
     txtDate: {
         color: '#75739c',
-        fontSize: 18,
+        fontSize: THEME.FONT_SIZE.LG,
         textDecorationLine: 'underline',
         marginVertical: 10,
         fontWeight: '700'
-    },
-
-    scrollStyle: {
-        width: '100%',
-        paddingVertical: 30,
-        justifyContent: 'flex-start'
     },
 
     scrollTitle: {
         textAlign: 'center',
         color: '#75739c',
         marginTop: 30,
-        fontSize: 20,
+        fontSize: THEME.FONT_SIZE.LG,
         marginBottom: 20
     },
 
@@ -98,14 +119,14 @@ export default StyleSheet.create({
         textAlign: 'center',
         color: '#75739c',
         marginTop: 30,
-        fontSize: 20,
+        fontSize: THEME.FONT_SIZE.LG,
         marginBottom: 5
     },
 
     notRegsTitle: {
         textAlign: 'center',
         color: '#75739c',
-        fontSize: 20,
+        fontSize: THEME.FONT_SIZE.LG,
         marginBottom: 5
     },
 

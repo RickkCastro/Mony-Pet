@@ -1,6 +1,5 @@
 import * as React from 'react'
 import {
-  StyleSheet,
   Text,
   View,
   TouchableOpacity,
@@ -14,7 +13,7 @@ import { useFocusEffect } from '@react-navigation/native'
 
 import AsyncStorage, { useAsyncStorage } from '@react-native-async-storage/async-storage'
 
-const themeColor = '#7b5eb4'
+import { styles } from './../styles'
 
 export default () => {
   const navigation = useNavigation()
@@ -40,11 +39,8 @@ export default () => {
       <AntDesign
         name="caretup"
         size={petsData.length > 4 ? 30 : 0}
-        color={themeColor}
-        style={{
-          marginBottom: 10,
-          alignSelf: 'center',
-        }}
+        color='#7b5eb4'
+        style={{marginBottom: 10, alignSelf: 'center',}}
       />
 
       <FlatList
@@ -61,7 +57,8 @@ export default () => {
               onPress={() =>
                 navigation.navigate('ScHome', {
                   petId: item.id,
-                  petType: item.petType
+                  petType: item.petType,
+                  petImage: item.petImage
                 })
               }>
               <FontAwesome5
@@ -79,35 +76,10 @@ export default () => {
       <AntDesign
         name="caretdown"
         size={petsData.length > 4 ? 30 : 0}
-        color={themeColor}
-        style={{
-          marginTop: 10,
-          alignSelf: 'center',
-        }}
+        color='#7b5eb4'
+        style={{marginTop: 10, alignSelf: 'center',}}
       />
     </View>
   )
 }
 
-const styles = StyleSheet.create({
-  circle: {
-    backgroundColor: themeColor,
-    borderRadius: 100,
-    width: 140,
-    height: 140,
-    margin: 5,
-    padding: 35,
-    alignItems: 'center',
-    justifyContent: 'center',
-    opacity: 0.98,
-  },
-  txtName: {
-    color: 'white',
-    textAlign: 'center',
-    fontSize: 18,
-  },
-  flatList: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-})

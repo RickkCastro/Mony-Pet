@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { THEME } from '../../theme';
 
 export default StyleSheet.create({
   container: {
@@ -20,14 +21,14 @@ export default StyleSheet.create({
 
   txtSelectDay: {
     color: '#7658b0',
-    fontSize: 20,
+    fontSize: THEME.FONT_SIZE.LG,
     marginBottom: 10,
     textAlign: 'center',
   },
 
   txtDate: {
     color: '#7658b0',
-    fontSize: 20,
+    fontSize: THEME.FONT_SIZE.LG,
     textDecorationLine: 'underline',
     fontWeight: '700'
   },
@@ -38,13 +39,13 @@ export default StyleSheet.create({
     borderColor: '#527BCB',
     borderRadius: 10,
     marginBottom: 30,
-    fontSize: 18,
+    fontSize: THEME.FONT_SIZE.LG,
     backgroundColor: '#fff',
   },
 
   lineText: {
     color: '#527BCB',
-    fontSize: 20,
+    fontSize: THEME.FONT_SIZE.LG,
     marginBottom: 5,
   },
 
@@ -67,7 +68,7 @@ export default StyleSheet.create({
   },
 
   styleTextSelection: {
-    fontSize: 16,
+    fontSize: THEME.FONT_SIZE.MD,
     color: 'gray',
     paddingRight: 10,
   },
@@ -82,7 +83,7 @@ export default StyleSheet.create({
 
   lineRegister: {
     color: '#527BCB',
-    fontSize: 18,
+    fontSize: THEME.FONT_SIZE.LG,
     marginBottom: 3,
     textAlign: 'center',
     marginTop: 10
@@ -94,7 +95,7 @@ export default StyleSheet.create({
     borderColor: '#5c79b2',
     borderRadius: 10,
     marginBottom: 15,
-    fontSize: 12,
+    fontSize: THEME.FONT_SIZE.MD,
     backgroundColor: '#fff',
     width: '90%',
     textAlignVertical: 'top',
@@ -105,7 +106,7 @@ export default StyleSheet.create({
 
   styleCopyRight: {
     color: '#252424',
-    fontSize: 12,
+    fontSize: THEME.FONT_SIZE.SM,
     alignSelf: 'center',
     marginTop: 10,
     alignItems: 'flex-end',
@@ -131,7 +132,7 @@ export default StyleSheet.create({
 
   txt: {
     textAlign: 'center',
-    fontSize: 11,
+    fontSize: THEME.FONT_SIZE.SM,
     width: 54,
     color: '#527bcb'
   },

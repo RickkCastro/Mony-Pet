@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { THEME } from '../../theme';
 
 export const styles = StyleSheet.create({
     container: {
@@ -14,15 +15,15 @@ export const styles = StyleSheet.create({
     },
 
 	logo: {
-		width: 210.25,
-		height: 123.5,
+		width: 300,
+		height: 189,
 		marginBottom: 5,
 	},
 	addButton: {
 		justifyContent: 'center',
 		alignItems: 'center',
-		height: 50,
-		width: 200,
+		height: '25%',
+		width: '75%',
 		backgroundColor: '#7b5eb4',
 		alignSelf: 'center',
 		marginBottom: 60,
@@ -31,9 +32,32 @@ export const styles = StyleSheet.create({
 
     styleCopyRight: {
         color: '#252424',
-        fontSize: 12,
+		fontSize: THEME.FONT_SIZE.SM,
         alignSelf: 'center',
-        marginTop: 10,
         alignItems: 'flex-end',
+		marginBottom: 10,
       },
+
+	  circle: {
+		backgroundColor: '#7b5eb4',
+		borderRadius: 100,
+		width: 140,
+		height: 140,
+		margin: 5,
+		padding: 35,
+		alignItems: 'center',
+		justifyContent: 'center',
+		opacity: 0.98,
+	  },
+
+	  txtName: {
+		color: 'white',
+		textAlign: 'center',
+		fontSize: THEME.FONT_SIZE.LG,
+	  },
+
+	  flatList: {
+		flex: 1,
+		justifyContent: 'center',
+	  },
 });

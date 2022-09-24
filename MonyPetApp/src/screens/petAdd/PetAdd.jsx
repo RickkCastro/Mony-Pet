@@ -2,15 +2,16 @@ import * as React from 'react'
 import { Text, View, ImageBackground, TouchableOpacity, Image, FlatList, TextInput, ScrollView, Alert} from 'react-native'
 
 import { AntDesign } from '@expo/vector-icons'
-import Constants from 'expo-constants'
 import { RadioButton } from 'react-native-paper'
 import uuid from 'react-native-uuid'
 import { useAsyncStorage } from '@react-native-async-storage/async-storage'
 import Toast from 'react-native-toast-message'
 import Header1 from '../../components/header1'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import * as ImagePicker from 'expo-image-picker';
 
 import { styles } from './styles'
+import { THEME } from '../../theme'
 
 export function ScPetAdd({ navigation }) {
   const [petName, setPetName] = React.useState('')
@@ -18,6 +19,8 @@ export function ScPetAdd({ navigation }) {
   const [petRace, setPetRace] = React.useState('')
   const [petWeight, setPetWeight] = React.useState('')
   const [petType, setPetType] = React.useState('dog')
+
+  const [petImage, setPetImage] = React.useState(null)
 
   const { getItem, setItem } = useAsyncStorage('@monypet:pets')
   // Dados do Pet
@@ -33,6 +36,7 @@ export function ScPetAdd({ navigation }) {
           petRace,
           petWeight,
           petType,
+          petImage,
         }
 
         const response = await getItem()
@@ -67,6 +71,19 @@ export function ScPetAdd({ navigation }) {
     }
   }
 
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 4],
+      quality: 1,
+    });
+
+    if (!result.cancelled) {
+      setPetImage(result.uri);
+    }
+  };
+
   return (
     // Barra de informações
     <SafeAreaView style={{ flex: 1, backgroundColor: 'white'}}>
@@ -77,14 +94,17 @@ export function ScPetAdd({ navigation }) {
       <ScrollView contentContainerStyle={styles.scrollStyle}>
         <View style={styles.backgroundAnimal}>
           {/* Imagem de Fundo */}
-          <ImageBackground
-            source={require('../../assets/images/DogAddImg.png')}
-            resizeMode={'stretch'}
-            imageStyle={{ margin: 10 }}>
-            <TouchableOpacity style={styles.addPhoto}>
-              <AntDesign name="plus" size={30} color="black" />
+            <TouchableOpacity onPress={pickImage}>
+              {petImage ? 
+                <Image 
+                  source={{uri: petImage}}
+                  resizeMode={'stretch'}
+                  style={styles.addPhoto}
+                />: 
+                <View style={styles.addPhoto}>
+                  <AntDesign name="plus" size={30} color="black" />
+                </View>}
             </TouchableOpacity>
-          </ImageBackground>
         </View>
 
         {/* Barra de nome */}
@@ -153,7 +173,7 @@ export function ScPetAdd({ navigation }) {
             <TouchableOpacity
               style={styles.styleButton}
               onPress={handleSavePet}>
-              <Text style={{ color: 'white', fontSize: 18 }}>Adicionar</Text>
+              <Text style={{ color: 'white', fontSize: THEME.FONT_SIZE.LG }}>Adicionar</Text>
             </TouchableOpacity>
 
             {/* Direitos Autorais */}

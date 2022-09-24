@@ -28,8 +28,8 @@ export const THEME = {
     //   BLACK: 'Inter_900Black'
     // },
     FONT_SIZE: {
-      SM: 13,
-      MD: 16,
-      LG: 24
+      SM: RFPercentage(1.5), //10 - 13
+      MD: RFPercentage(2.3), //14 - 16
+      LG: RFPercentage(3) //18>>
     }
 };

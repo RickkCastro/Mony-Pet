@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
+import { THEME } from '../theme';
 
 export default function(props){
   return (
@@ -41,7 +42,7 @@ const styles = StyleSheet.create({
 
       lineText: {
         color: '#527bcb',
-        fontSize: 20,
+        fontSize: THEME.FONT_SIZE.LG,
         marginBottom: 5,
         marginRight: 10,
         marginLeft: 10

@@ -14,6 +14,7 @@ import Header1 from '../../components/header1';
 import Registers from './components/Registers';
 
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { THEME } from '../../theme';
 
 export function ScRegisterAdd({ navigation, route }) {
 	const { petType, petId, regId } = route.params
@@ -203,7 +204,6 @@ export function ScRegisterAdd({ navigation, route }) {
 
 			const newRegsData = previousRegs.filter((item) => item.id !== regId)
 
-			console.log(newRegsData)
 			await setItem(JSON.stringify(newRegsData))
 
 			Toast.show({
@@ -264,10 +264,7 @@ export function ScRegisterAdd({ navigation, route }) {
 
 	return (
 		<SafeAreaView
-			style={{
-				flex: 1,
-				backgroundColor: 'white',
-			}}>
+			style={{flex: 1,backgroundColor: 'white',}}>
 
 			{/* Cabeçalho */}
 			<Header1 txt1={'Adicionar registro'} bt2Color={regId ? '#9a8db0' : 'transparent'} 
@@ -331,7 +328,7 @@ export function ScRegisterAdd({ navigation, route }) {
 							<TouchableOpacity
 								style={styles.styleButton}
 								onPress={() => handleSaveReg()}>
-								<Text style={{ color: 'white', fontSize: 18 }}>Salvar</Text>
+								<Text style={{ color: 'white', fontSize: THEME.FONT_SIZE.LG }}>Salvar</Text>
 							</TouchableOpacity>
 
 							{/* Direitos Autorais */}

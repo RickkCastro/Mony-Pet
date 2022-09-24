@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { ScrollView, View, Image, TouchableOpacity, Text } from 'react-native';
 
 import { AntDesign } from '@expo/vector-icons';
@@ -15,7 +15,7 @@ import TipsBox from './components/TipsBox';
 
 export function ScHome({ route, navigation }) {
 
-    const { petId, petType } = route.params
+    const { petId, petType, petImage } = route.params
 
     const [minDate, setMinDate] = useState(() => {
         const date = new Date()
@@ -71,13 +71,13 @@ export function ScHome({ route, navigation }) {
                 {/* Header */}
                 <View style={styles.headerStyle}>
                     {/* Imagem perfil */}
-                    <TouchableOpacity onPress={() => navigation.navigate('ScVizuPet', { petId: petId })}
-                        style={{ height: 85, width: 85, borderWidth: 1, borderColor: 'black', borderRadius: 30, justifyContent: 'center', alignItems: 'center' }}>
-                        <FontAwesome5
-                            name={petType}
-                            size={35}
-                            color="black"
-                            style={{ margin: 8 }} />
+                    <Text style={styles.Title}>Tela Inicial</Text>
+                    <TouchableOpacity onPress={() => navigation.navigate('ScVizuPet', { petId: petId })}>
+                        <Image
+                            source={petImage ? { uri: petImage } : require('../../assets/images/AddPet.png')}
+                            resizeMode={'stretch'}
+                            style={styles.imgPet}
+                        />
                     </TouchableOpacity>
 
                     {/* Mes */}
