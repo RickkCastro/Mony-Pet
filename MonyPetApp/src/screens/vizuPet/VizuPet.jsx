@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { View, Text, TouchableOpacity, TextInput, ScrollView, ImageBackground, Alert, Image } from 'react-native'
 
 import { RadioButton } from 'react-native-paper'
@@ -17,18 +17,73 @@ import { THEME } from '../../theme'
 export function ScVizuPet({ route, navigation }) {
 	const { petId } = route.params
 
-	const [petName, setPetName] = React.useState('')
-	const [petYears, setPetYears] = React.useState('')
-	const [petRace, setPetRace] = React.useState('')
-	const [petWeight, setPetWeight] = React.useState('')
-	const [petType, setPetType] = React.useState('dog')
-	const [petImage, setPetImage] = React.useState(null)
+	const [petName, setPetName] = useState('')
+	const [petYears, setPetYears] = useState('')
+	const [petRace, setPetRace] = useState('')
+	const [petWeight, setPetWeight] = useState('')
+	const [petType, setPetType] = useState('dog')
+	const [petImage, setPetImage] = useState(null)
 
-	const [petFur, setPetFur] = React.useState('')
-	const [petBehavior, setPetBehavior] = React.useState('')
-	const [petDescription, setPetDescription] = React.useState('')
+	const [petFur, setPetFur] = useState('')
+	const [petBehavior, setPetBehavior] = useState('')
+	const [petDescription, setPetDescription] = useState('')
 
 	const { getItem, setItem } = useAsyncStorage('@monypet:pets')
+
+	const refName = useRef(null)
+	const refYears = useRef(null)
+	const refRace = useRef(null)
+	const refWeight = useRef(null)
+	const refFur = useRef(null)
+	const refBehavior = useRef(null)
+	const refDesc = useRef(null)
+
+	const handleClick = (ref) => {
+		ref.current.focus();
+	}
+
+	async function handleSaveData() {
+		try {
+			//Pet
+			const responsePets = await getItem()
+			const previousPets = responsePets ? JSON.parse(responsePets) : []
+
+			const currentPetIndex = previousPets.indexOf(previousPets.find((i) => i.id === petId))
+
+			const newPetData = {
+				id: petId,
+				petName,
+				petYears,
+				petRace,
+				petWeight,
+				petType,
+				petImage,
+				petFur,
+				petBehavior,
+				petDescription,
+			}
+
+			previousPets[currentPetIndex] = newPetData
+        	await setItem(JSON.stringify(previousPets))
+
+			console.log(previousPets)
+
+			Toast.show({
+				type: 'success',
+				text1: 'Dados do pet alterados',
+				text2: `Suas alterações foram salvas!`,
+			})
+
+			// Aviso de exclusão de Pet
+			navigation.navigate('ScPetChoice')
+		} catch {
+			console.log(error)
+			Toast.show({
+				type: 'error',
+				text1: 'Não foi possível excluir pet',
+			})
+		}
+	}
 
 	// Aviso de carregagem de dados
 	async function handleFetchData() {
@@ -55,6 +110,10 @@ export function ScVizuPet({ route, navigation }) {
 		setPetWeight(data.petWeight)
 		setPetType(data.petType)
 		setPetImage(data.petImage)
+
+		setPetFur(data.petFur)
+		setPetBehavior(data.petBehavior)
+		setPetDescription(data.petDescription)
 	}
 
 	useFocusEffect(
@@ -123,7 +182,7 @@ export function ScVizuPet({ route, navigation }) {
 		if (!result.cancelled) {
 			setPetImage(result.uri);
 		}
-	};
+	}
 
 	// Barra de informações
 	return (
@@ -156,9 +215,10 @@ export function ScVizuPet({ route, navigation }) {
 							style={styles.txtInformation}
 							value={petName}
 							onChangeText={setPetName}
+							ref={refName}
 						>
 						</TextInput>
-						<TouchableOpacity style={styles.styleButton}>
+						<TouchableOpacity style={styles.styleButton} onPress={() => handleClick(refName)}>
 							<FontAwesome name="pencil" size={20} color="#461EA2" />
 						</TouchableOpacity>
 					</View>
@@ -170,9 +230,10 @@ export function ScVizuPet({ route, navigation }) {
 							style={styles.txtInformation}
 							value={petYears}
 							onChangeText={setPetYears}
+							ref={refYears}
 						>
 						</TextInput>
-						<TouchableOpacity style={styles.styleButton}>
+						<TouchableOpacity style={styles.styleButton} onPress={() => handleClick(refYears)}>
 							<FontAwesome name="pencil" size={20} color="#461EA2" />
 						</TouchableOpacity>
 					</View>
@@ -184,9 +245,10 @@ export function ScVizuPet({ route, navigation }) {
 							style={styles.txtInformation}
 							value={petRace}
 							onChangeText={setPetRace}
+							ref={refRace}
 						>
 						</TextInput>
-						<TouchableOpacity style={styles.styleButton}>
+						<TouchableOpacity style={styles.styleButton} onPress={() => handleClick(refRace)}>
 							<FontAwesome name="pencil" size={20} color="#461EA2" />
 						</TouchableOpacity>
 					</View>
@@ -198,9 +260,10 @@ export function ScVizuPet({ route, navigation }) {
 							style={styles.txtInformation}
 							value={petWeight}
 							onChangeText={setPetWeight}
+							ref={refWeight}
 						>
 						</TextInput>
-						<TouchableOpacity style={styles.styleButton}>
+						<TouchableOpacity style={styles.styleButton} onPress={() => handleClick(refWeight)}>
 							<FontAwesome name="pencil" size={20} color="#461EA2" />
 						</TouchableOpacity>
 					</View>
@@ -212,9 +275,10 @@ export function ScVizuPet({ route, navigation }) {
 							style={styles.txtInformation}
 							value={petFur}
 							onChangeText={setPetFur}
+							ref={refFur}
 						>
 						</TextInput>
-						<TouchableOpacity style={styles.styleButton}>
+						<TouchableOpacity style={styles.styleButton} onPress={() => handleClick(refFur)}>
 							<FontAwesome name="pencil" size={20} color="#461EA2" />
 						</TouchableOpacity>
 					</View>
@@ -226,9 +290,10 @@ export function ScVizuPet({ route, navigation }) {
 							style={styles.txtInformation}
 							value={petBehavior}
 							onChangeText={setPetBehavior}
+							ref={refBehavior}
 						>
 						</TextInput>
-						<TouchableOpacity style={styles.styleButton}>
+						<TouchableOpacity style={styles.styleButton} onPress={() => handleClick(refBehavior)}>
 							<FontAwesome name="pencil" size={20} color="#461EA2" />
 						</TouchableOpacity>
 					</View>
@@ -264,9 +329,11 @@ export function ScVizuPet({ route, navigation }) {
 							onChangeText={setPetDescription}
 							multiline={true}
 							numberOfLines={5}
-							maxLength={250}>
+							maxLength={250}
+							ref={refDesc}
+						>
 						</TextInput>
-						<TouchableOpacity style={styles.pencil}>
+						<TouchableOpacity style={styles.pencil} onPress={() => handleClick(refDesc)}>
 							<FontAwesome name="pencil" size={20} color="#461EA2" />
 						</TouchableOpacity>
 					</View>
@@ -276,7 +343,7 @@ export function ScVizuPet({ route, navigation }) {
 					source={require('../../assets/images/Onda.png')}
 					resizeMode={'stretch'}>
 					<View style={styles.styleWave}>
-						<TouchableOpacity style={styles.saveButton}>
+						<TouchableOpacity style={styles.saveButton} onPress={handleSaveData}>
 							<Text style={{ color: 'white', fontSize: THEME.FONT_SIZE.LG }}>Salvar</Text>
 						</TouchableOpacity>
 
