@@ -328,7 +328,7 @@ export function ScRegisterAdd({ navigation, route }) {
 							<TouchableOpacity
 								style={styles.styleButton}
 								onPress={() => handleSaveReg()}>
-								<Text style={{ color: 'white', fontSize: THEME.FONT_SIZE.LG }}>Salvar</Text>
+								<Text style={styles.stylesTextButton}>Salvar</Text>
 							</TouchableOpacity>
 
 							{/* Direitos Autorais */}

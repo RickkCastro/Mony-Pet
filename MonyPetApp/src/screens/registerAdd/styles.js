@@ -148,4 +148,9 @@ export default StyleSheet.create({
     borderRadius: 100,
     borderColor: 'transparent'
   },
+
+  stylesTextButton:{
+    color: 'white', 
+    fontSize: THEME.FONT_SIZE.LG 
+  },
 })

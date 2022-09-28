@@ -36,7 +36,7 @@ export default function (props) {
         <View>
             <Text style={styles.scrollTitle}> Dicas e curiosidades: </Text>
             <TouchableOpacity style={styles.tipsStyle} onPress={() => changeTip()} activeOpacity={0.6}>
-                <Text style={{ color: '#75739c', fontSize: THEME.FONT_SIZE.LG, textAlign: 'center', flex: 1, textAlignVertical: 'center'}}>
+                <Text style={styles.informationTips}>
                     {tipsList[tipsIndex]}
                 </Text>
 

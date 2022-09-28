@@ -60,4 +60,10 @@ export const styles = StyleSheet.create({
 		flex: 1,
 		justifyContent: 'center',
 	  },
+
+	  container1:{
+		flex: 2, 
+		justifyContent: 'center', 
+		alignSelf: 'center'
+	  },
 });

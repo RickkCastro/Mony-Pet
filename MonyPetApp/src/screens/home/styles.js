@@ -31,7 +31,6 @@ export default StyleSheet.create({
         alignItems: 'center',
         height: 130,
         width: 130,
-        backgroundColor: '#ECE4FC'
     },
 
     headerStyle: {
@@ -134,23 +133,33 @@ export default StyleSheet.create({
         color: '#75739c'
     },
 
-    menuButtons: {
-        height: '8%',
-        backgroundColor: '#927ac1',
-        borderTopLeftRadius: 30,
-        borderTopRightRadius: 30,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-around',
+    viewTextRegister:{
+        flex: 1, 
+        marginVertical: 20, 
+        marginHorizontal: 10
     },
 
-    buttonsMenu: {
-        justifyContent: 'center',
-        borderRadius: 50,
-        alignItems: 'center',
-        backgroundColor: '#7658b0',
-        width: 60,
-        height: 60,
-        top: '-7%',
+    textDay:{
+        color: '#565583', 
+        marginBottom: 5
+    },
+
+    lookRegister:{
+        flexDirection: 'row', 
+        justifyContent: 'space-around',
+        marginTop:20
+    },
+
+    viewReturn:{
+        justifyContent: 'center', 
+        alignItems: 'center'
+    },
+
+    informationTips:{
+        color: '#75739c', 
+        fontSize: THEME.FONT_SIZE.LG, 
+        textAlign: 'center', 
+        flex: 1, 
+        textAlignVertical: 'center'
     },
 })

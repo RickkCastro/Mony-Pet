@@ -111,8 +111,8 @@ export default (props) => {
 							<TouchableOpacity style={styles.boxRegs} key={index}
 								onPress={() => navigation.navigate('ScRegisterAdd', { petType: petType, petId: petId, regId: item.id })}>
 								<MaterialCommunityIcons name={icon(item.med)} size={70} color={iconColor(item.med)} />
-								<View style={{ flex: 1, marginVertical: 20, marginHorizontal: 10 }}>
-									<Text style={{ color: '#565583', marginBottom: 5 }}>
+								<View style={styles.viewTextRegister}>
+									<Text style={styles.textDay}>
 										Dia: {formatDate(item.date)}
 									</Text>
 									<Text style={{ fontSize: THEME.FONT_SIZE.SM }}>
@@ -123,7 +123,7 @@ export default (props) => {
 						)
 					})}
 
-					<View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
+					<View style={styles.lookRegister}>
 						<Text style={styles.bottomRegsTxt}> Total: {dataLength}</Text>
 						<Text style={styles.bottomRegsTxt}> Mostrando: {filterData().length}</Text>
 					</View>
@@ -133,10 +133,10 @@ export default (props) => {
 			return (
 				<View style={{ paddingBottom: 25 }}>
 					<Text style={styles.scrollTitle}> Últimos Registros: </Text>
-					<View style={{ justifyContent: 'center', alignItems: 'center' }}>
+					<View style={styles.Title.viewReturn}>
 						<Text style={styles.notRegsTitle}> Não existe nemhum resgistro nesse intervalo de tempo! </Text>
 					</View>
-					<View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 20 }}>
+					<View style={styles.lookRegister}>
 						<Text style={styles.bottomRegsTxt}> Total: {dataLength}</Text>
 						<Text style={styles.bottomRegsTxt}> Mostrando: {filterData().length}</Text>
 					</View>
@@ -145,7 +145,7 @@ export default (props) => {
 		}
 	} else {
 		return (
-			<View style={{ justifyContent: 'center', alignItems: 'center' }}>
+			<View style={styles.viewReturn}>
 				<Text style={styles.addRegsTitle}> Adicione registos do seu pet aqui </Text>
 				<AntDesign name="arrowdown" size={40} color="#75739c" />
 			</View>

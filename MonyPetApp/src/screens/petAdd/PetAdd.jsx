@@ -86,7 +86,7 @@ export function ScPetAdd({ navigation }) {
 
   return (
     // Barra de informações
-    <SafeAreaView style={{ flex: 1, backgroundColor: 'white'}}>
+    <SafeAreaView style={styles.safeTela}>
       {/* Cabeçalho */}
       <Header1 txt1={'Adicionar pet'} bt2Color={'transparent'} onPressBt1={() => navigation.goBack()}/>
 
@@ -173,7 +173,7 @@ export function ScPetAdd({ navigation }) {
             <TouchableOpacity
               style={styles.styleButton}
               onPress={handleSavePet}>
-              <Text style={{ color: 'white', fontSize: THEME.FONT_SIZE.LG }}>Adicionar</Text>
+              <Text style={styles.stylesTextButton}>Adicionar</Text>
             </TouchableOpacity>
 
             {/* Direitos Autorais */}

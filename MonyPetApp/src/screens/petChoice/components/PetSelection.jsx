@@ -35,7 +35,7 @@ export default () => {
   )
 
   return (
-    <View style={{ flex: 2, justifyContent: 'center', alignSelf: 'center' }}>
+    <View style={styles.container1}>
       <AntDesign
         name="caretup"
         size={petsData.length > 4 ? 30 : 0}

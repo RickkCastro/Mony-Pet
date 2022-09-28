@@ -8,6 +8,11 @@ export const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
       },
+
+      safeTela:{
+        flex: 1, 
+        backgroundColor: 'white'
+      },
     
       scrollStyle: {
         minHeight: '92%',
@@ -90,5 +95,10 @@ export const styles = StyleSheet.create({
         alignSelf: 'center',
         marginTop: 10,
         alignItems: 'flex-end',
+      },
+
+      stylesTextButton:{
+        color: 'white', 
+        fontSize: THEME.FONT_SIZE.LG 
       },
 });

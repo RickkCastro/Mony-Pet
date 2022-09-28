@@ -7,6 +7,7 @@ import { ScPetChoice } from "../screens/petChoice/PetChoice";
 import { ScVizuPet } from "../screens/vizuPet/VizuPet";
 import { ScHome } from "../screens/home/Home";
 import { ScRegisterAdd } from "../screens/registerAdd/RegisterAdd";
+import { ScStatistics } from "../screens/Statistics/Statistics";
 
 
 //Armazenar todas as telas no navigator
@@ -22,6 +23,7 @@ export function StackRoutes() {
       <Screen name="ScVizuPet" component={ScVizuPet} />
       <Screen name="ScHome" component={ScHome}/>
       <Screen name="ScRegisterAdd" component={ScRegisterAdd}/>
+      <Screen name="ScStatistics" component={ScStatistics}/>
     </Navigator>
   );
 }

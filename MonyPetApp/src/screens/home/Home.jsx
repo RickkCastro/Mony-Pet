@@ -2,9 +2,6 @@ import React, { useState } from 'react';
 import { ScrollView, View, Image, TouchableOpacity, Text } from 'react-native';
 
 import { AntDesign } from '@expo/vector-icons';
-import { FontAwesome5 } from '@expo/vector-icons';
-import { Entypo } from '@expo/vector-icons';
-import { FontAwesome } from '@expo/vector-icons';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -12,6 +9,7 @@ import styles from './styles';
 
 import RegisterBox from './components/RegisterBox';
 import TipsBox from './components/TipsBox';
+import { MenuButtons } from '../../components/MenuButtons';
 
 export function ScHome({ route, navigation }) {
 
@@ -24,7 +22,7 @@ export function ScHome({ route, navigation }) {
         date.setHours(0, 0, 0, 0)
 
         return date
-    });
+    })
 
     const [maxDate, setMaxDate] = useState(() => {
         const date = new Date()
@@ -32,7 +30,7 @@ export function ScHome({ route, navigation }) {
         date.setHours(0, 0, 0, 0)
 
         return date
-    });
+    })
 
     const [showDP1, setShowDP1] = useState(false);
     const [showDP2, setShowDP2] = useState(false);
@@ -47,7 +45,7 @@ export function ScHome({ route, navigation }) {
         }
 
         setMinDate(selectedDate);
-    };
+    }
 
     const onChangeMaxDate = (event, selectedDate) => {
         setShowDP2(false)
@@ -55,7 +53,7 @@ export function ScHome({ route, navigation }) {
         selectedDate.setHours(0, 0, 0, 0)
 
         setMaxDate(selectedDate);
-    };
+    }
 
     const formatDate = (date) => {
         let d = date.getDate()
@@ -68,13 +66,12 @@ export function ScHome({ route, navigation }) {
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView contentContainerStyle={styles.scrollStyle}>
-                {/* Header */}
                 <View style={styles.headerStyle}>
                     {/* Imagem perfil */}
                     <Text style={styles.Title}>Tela Inicial</Text>
                     <TouchableOpacity onPress={() => navigation.navigate('ScVizuPet', { petId: petId })}>
                         <Image
-                            source={petImage ? { uri: petImage } : require('../../assets/images/AddPet.png')}
+                            source={petImage ? { uri: petImage } : require('../../assets/images/IconeFotoGato2.png')}
                             resizeMode={'stretch'}
                             style={styles.imgPet}
                         />
@@ -125,29 +122,8 @@ export function ScHome({ route, navigation }) {
             </ScrollView>
 
             {/* Menu de botoes */}
-            <View style={styles.menuButtons}>
-                <TouchableOpacity style={styles.buttonsMenu}>
-                    <FontAwesome5 name="home" size={28} color="#e7e6e6" />
-                </TouchableOpacity>
+            <MenuButtons petType={petType} petId={petId} petImage={petImage}/>
 
-                <TouchableOpacity style={styles.buttonsMenu}>
-                    <Entypo name="area-graph" size={28} color="#e7e6e6" />
-                </TouchableOpacity>
-
-                <TouchableOpacity style={[styles.buttonsMenu, { height: 70, width: 70 }]}
-                    onPress={() => navigation.navigate('ScRegisterAdd', { petType: petType, petId: petId })}>
-                    <FontAwesome5 name="plus" size={38} color="#e7e6e6" />
-                </TouchableOpacity>
-
-                <TouchableOpacity style={styles.buttonsMenu}>
-                    <Entypo name="calendar" size={28} color="#e7e6e6" />
-                </TouchableOpacity>
-
-                <TouchableOpacity style={styles.buttonsMenu}>
-                    <FontAwesome name="gear" size={28} color="#e7e6e6" />
-                </TouchableOpacity>
-
-            </View>
         </SafeAreaView >
     );
 }
