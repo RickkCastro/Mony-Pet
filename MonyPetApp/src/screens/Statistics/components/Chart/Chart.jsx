@@ -9,11 +9,11 @@ import { styles } from './styles'
 
 export function Chart(props) {
     const data = props.data ? props.data : [
-        { value: 0, date: '01 / 05' },
+        { value: 1, date: '01 / 05' },
         { value: 1, date: '02 / 05' },
-        { value: 2, date: '03 / 05' },
-        { value: 3, date: '04 / 05' },
-        { value: 4, date: '05 / 05' },
+        { value: 1, date: '03 / 05' },
+        { value: 1, date: '04 / 05' },
+        { value: 1, date: '05 / 05' },
         { value: 5, date: '05 / 05' },
         { value: 5, date: '05 / 05' },
     ]
@@ -23,7 +23,7 @@ export function Chart(props) {
         {name: 'emoticon-neutral', color: '#7a7777'},
         {name: 'emoticon-sad', color: '#e1cc0f'},
         {name: 'emoticon-angry', color: '#a54c1b'},
-        {name: 'null', color: 'black'}
+        {name: 'null', color: '#000'}
     ]
 
     const contentInset = { top: 10, bottom: 10, right: 10, left: 10 }
@@ -65,7 +65,7 @@ export function Chart(props) {
             <View style={{ flex: 1 }}>
                 {/* Grafico */}
                 <LineChart
-                    style={{ flex: 1}}
+                    style={{ flex: 1, minWidth: 300}}
                     data={data.map((d) => d.value)}
                     contentInset={contentInset}
                     svg={{

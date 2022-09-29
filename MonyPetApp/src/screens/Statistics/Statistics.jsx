@@ -16,6 +16,38 @@ export function ScStatistics({ route, navigation }) {
 
   const [filter, setFilter] = React.useState('semanal')
 
+  const dataMood = [
+    { value: 0, date: '01/05/22' },
+    { value: 1, date: '02/05/22' },
+    { value: 2, date: '03/05/22' },
+    { value: 3, date: '04/05/22' },
+    { value: 4, date: '05/05/22' },
+    { value: 5, date: '06/05/22' },
+    { value: 5, date: '07/05/22' },
+  ]
+
+  const dataMess = [
+    { value: 5, date: 'Semana 1º' },
+    { value: 2, date: 'Semana 2º' },
+    { value: 4, date: 'Semana 3º' },
+    { value: 1, date: 'Semana 4º' },
+  ]
+
+  const dataFeeding = [
+    { value: 5, date: 'Jan' },
+    { value: 2, date: 'Fev' },
+    { value: 4, date: 'Mar' },
+    { value: 0, date: 'Abr' },
+    { value: 5, date: 'Mai' },
+    { value: 1, date: 'Jun' },
+    { value: 3, date: 'Jul' },
+    { value: 5, date: 'Ago' },
+    { value: 0, date: 'Set' },
+    { value: 0, date: 'Out' },
+    { value: 3, date: 'Nov' },
+    { value: 4, date: 'Dez' },
+  ]
+
   const [initialDate, setInitialDate] = useState(() => {
     const date = new Date()
 
@@ -55,7 +87,7 @@ export function ScStatistics({ route, navigation }) {
             source={petImage ? { uri: petImage } : require('../../assets/images/IconeFotoGato2.png')} />
 
           {/* Mes */}
-          <Text style={styles.graphicTitle}> Data Inicial: </Text>
+          <Text style={styles.graphicTitle}> Data: </Text>
           <View style={styles.datesView}>
             <TouchableOpacity onPress={() => setShowDP(true)} style={styles.monthStyle}>
               <AntDesign name="calendar" size={13} color="#75739c" style={{ marginHorizontal: 5 }} />
@@ -75,20 +107,20 @@ export function ScStatistics({ route, navigation }) {
           {/* Filtro */}
           <FilterSelected onValueChange={itemValue => setFilter(itemValue)} selectedValue={filter} />
         </View>
-        
+
         {/* Graficos */}
         <View style={{ alignItems: 'center' }}>
           {/* Humor */}
           <Text style={styles.graphicTitle}> Grafíco de Humor </Text>
-          <Chart />
+          <Chart data={dataMood} />
 
           {/* Bagunça */}
           <Text style={styles.graphicTitle}> Grafíco de Bagunça </Text>
-          <Chart />
-          
+          <Chart data={dataMess} />
+
           {/* Alimentação */}
           <Text style={styles.graphicTitle}> Grafíco de Alimentação </Text>
-          <Chart />
+          <Chart data={dataFeeding} />
         </View>
       </ScrollView>
 
