@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
       },
 
       lineText: {
-        color: '#527bcb',
+        color: '#75739c',
         fontSize: THEME.FONT_SIZE.LG,
         marginBottom: 5,
         marginRight: 10,

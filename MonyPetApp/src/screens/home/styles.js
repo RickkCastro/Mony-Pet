@@ -23,16 +23,6 @@ export default StyleSheet.create({
         fontWeight: '700'
     },
 
-    imgPet: {
-        borderColor: 'black',
-        borderWidth: 1,
-        borderRadius: 5,
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: 130,
-        width: 130,
-    },
-
     headerStyle: {
         backgroundColor: 'white',
         alignItems: 'center',

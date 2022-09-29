@@ -36,7 +36,7 @@ export const styles = StyleSheet.create({
 	txtInformation: {
 		paddingHorizontal: 10,
 		borderWidth: 1,
-		borderColor: '#859ac5',
+		borderColor: '#75739c',
 		borderRadius: 10,
 		marginBottom: 15,
 		fontSize: THEME.FONT_SIZE.MD,
@@ -48,7 +48,7 @@ export const styles = StyleSheet.create({
 	txtDesc: {
 		padding: 10,
 		borderWidth: 1,
-		borderColor: '#859ac5',
+		borderColor: '#75739c',
 		borderRadius: 10,
 		marginBottom: 15,
 		fontSize: THEME.FONT_SIZE.MD,
@@ -60,7 +60,7 @@ export const styles = StyleSheet.create({
 	},
 
 	lineText: {
-		color: '#527BCB',
+		color: '#75739c',
 		fontSize: THEME.FONT_SIZE.LG,
 		marginBottom: 5,
 	},

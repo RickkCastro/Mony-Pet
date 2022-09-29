@@ -203,7 +203,7 @@ export function ScVizuPet({ route, navigation }) {
 						/>
 					</TouchableOpacity>
 					<TouchableOpacity onPress={pickImage}>
-						<FontAwesome name="pencil" size={20} color="#461EA2" style={{ marginLeft: 10 }} />
+						<FontAwesome name="pencil" size={20} color="#7153af" style={{ marginLeft: 10 }} />
 					</TouchableOpacity>
 				</View>
 
@@ -219,7 +219,7 @@ export function ScVizuPet({ route, navigation }) {
 						>
 						</TextInput>
 						<TouchableOpacity style={styles.styleButton} onPress={() => handleClick(refName)}>
-							<FontAwesome name="pencil" size={20} color="#461EA2" />
+							<FontAwesome name="pencil" size={20} color="#7153af" />
 						</TouchableOpacity>
 					</View>
 
@@ -234,7 +234,7 @@ export function ScVizuPet({ route, navigation }) {
 						>
 						</TextInput>
 						<TouchableOpacity style={styles.styleButton} onPress={() => handleClick(refYears)}>
-							<FontAwesome name="pencil" size={20} color="#461EA2" />
+							<FontAwesome name="pencil" size={20} color="#7153af" />
 						</TouchableOpacity>
 					</View>
 
@@ -249,7 +249,7 @@ export function ScVizuPet({ route, navigation }) {
 						>
 						</TextInput>
 						<TouchableOpacity style={styles.styleButton} onPress={() => handleClick(refRace)}>
-							<FontAwesome name="pencil" size={20} color="#461EA2" />
+							<FontAwesome name="pencil" size={20} color="#7153af" />
 						</TouchableOpacity>
 					</View>
 
@@ -264,7 +264,7 @@ export function ScVizuPet({ route, navigation }) {
 						>
 						</TextInput>
 						<TouchableOpacity style={styles.styleButton} onPress={() => handleClick(refWeight)}>
-							<FontAwesome name="pencil" size={20} color="#461EA2" />
+							<FontAwesome name="pencil" size={20} color="#7153af" />
 						</TouchableOpacity>
 					</View>
 
@@ -279,7 +279,7 @@ export function ScVizuPet({ route, navigation }) {
 						>
 						</TextInput>
 						<TouchableOpacity style={styles.styleButton} onPress={() => handleClick(refFur)}>
-							<FontAwesome name="pencil" size={20} color="#461EA2" />
+							<FontAwesome name="pencil" size={20} color="#7153af" />
 						</TouchableOpacity>
 					</View>
 
@@ -294,7 +294,7 @@ export function ScVizuPet({ route, navigation }) {
 						>
 						</TextInput>
 						<TouchableOpacity style={styles.styleButton} onPress={() => handleClick(refBehavior)}>
-							<FontAwesome name="pencil" size={20} color="#461EA2" />
+							<FontAwesome name="pencil" size={20} color="#7153af" />
 						</TouchableOpacity>
 					</View>
 
@@ -306,15 +306,15 @@ export function ScVizuPet({ route, navigation }) {
 						<View style={styles.selectPet}>
 							<RadioButton
 								value="dog"
-								color="#527BCB"
-								uncheckedColor="#527BCB"
+								color="#75739c"
+								uncheckedColor="#75739c"
 							/>
 							<Text style={styles.styleTextSelection}>Cachorro</Text>
 
 							<RadioButton
 								value="cat"
-								color="#527BCB"
-								uncheckedColor="#527BCB"
+								color="#75739c"
+								uncheckedColor="#75739c"
 							/>
 							<Text style={styles.styleTextSelection}>Gato</Text>
 						</View>
@@ -334,7 +334,7 @@ export function ScVizuPet({ route, navigation }) {
 						>
 						</TextInput>
 						<TouchableOpacity style={styles.pencil} onPress={() => handleClick(refDesc)}>
-							<FontAwesome name="pencil" size={20} color="#461EA2" />
+							<FontAwesome name="pencil" size={20} color="#7153af" />
 						</TouchableOpacity>
 					</View>
 				</View>

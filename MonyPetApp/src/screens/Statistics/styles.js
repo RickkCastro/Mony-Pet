@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
     scrollStyle: {
         width: '100%',
         paddingTop: 10,
-        paddingBottom: 30,
+        paddingBottom: 40,
         justifyContent: 'flex-start',
     },
 
@@ -28,12 +28,12 @@ export const styles = StyleSheet.create({
         fontWeight: '700'
     },
 
-	scrollTitle: {
+	graphicTitle: {
         textAlign: 'center',
         color: '#75739c',
         marginTop: 30,
         fontSize: THEME.FONT_SIZE.LG,
-        marginBottom: 20
+        marginBottom: 5
     },
 
 	datesView: {
@@ -53,16 +53,5 @@ export const styles = StyleSheet.create({
         textDecorationLine: 'underline',
         marginVertical: 10,
         fontWeight: '700'
-    },
-
-	imgPet: {
-        borderColor: 'black',
-        borderWidth: 1,
-        borderRadius: 5,
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: 130,
-        width: 130,
-        backgroundColor: '#ECE4FC',
     },
 })

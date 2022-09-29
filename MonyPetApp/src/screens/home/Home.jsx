@@ -10,6 +10,7 @@ import styles from './styles';
 import RegisterBox from './components/RegisterBox';
 import TipsBox from './components/TipsBox';
 import { MenuButtons } from '../../components/MenuButtons';
+import { PetImageBT } from '../../components/PetImageBt';
 
 export function ScHome({ route, navigation }) {
 
@@ -69,13 +70,8 @@ export function ScHome({ route, navigation }) {
                 <View style={styles.headerStyle}>
                     {/* Imagem perfil */}
                     <Text style={styles.Title}>Tela Inicial</Text>
-                    <TouchableOpacity onPress={() => navigation.navigate('ScVizuPet', { petId: petId })}>
-                        <Image
-                            source={petImage ? { uri: petImage } : require('../../assets/images/IconeFotoGato2.png')}
-                            resizeMode={'stretch'}
-                            style={styles.imgPet}
-                        />
-                    </TouchableOpacity>
+                    <PetImageBT onPress={() => navigation.navigate('ScVizuPet', { petId: petId })} 
+                    source={petImage ? { uri: petImage } : require('../../assets/images/IconeFotoGato2.png')}/>
 
                     {/* Mes */}
                     <Text style={styles.scrollTitle}> Intervalo de data dos registros: </Text>

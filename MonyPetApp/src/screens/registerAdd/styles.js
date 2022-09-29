@@ -20,14 +20,14 @@ export default StyleSheet.create({
   },
 
   txtSelectDay: {
-    color: '#7658b0',
+    color: '#75739c',
     fontSize: THEME.FONT_SIZE.LG,
     marginBottom: 10,
     textAlign: 'center',
   },
 
   txtDate: {
-    color: '#7658b0',
+    color: '#75739c',
     fontSize: THEME.FONT_SIZE.LG,
     textDecorationLine: 'underline',
     fontWeight: '700'
@@ -36,7 +36,7 @@ export default StyleSheet.create({
   txtInformation: {
     paddingHorizontal: 10,
     borderWidth: 1,
-    borderColor: '#527BCB',
+    borderColor: '#75739c',
     borderRadius: 10,
     marginBottom: 30,
     fontSize: THEME.FONT_SIZE.LG,
@@ -44,7 +44,7 @@ export default StyleSheet.create({
   },
 
   lineText: {
-    color: '#527BCB',
+    color: '#75739c',
     fontSize: THEME.FONT_SIZE.LG,
     marginBottom: 5,
   },
@@ -82,7 +82,7 @@ export default StyleSheet.create({
   },
 
   lineRegister: {
-    color: '#527BCB',
+    color: '#75739c',
     fontSize: THEME.FONT_SIZE.LG,
     marginBottom: 3,
     textAlign: 'center',
@@ -92,7 +92,7 @@ export default StyleSheet.create({
   txtDesc: {
     padding: 10,
     borderWidth: 1,
-    borderColor: '#5c79b2',
+    borderColor: '#75739c',
     borderRadius: 10,
     marginBottom: 15,
     fontSize: THEME.FONT_SIZE.MD,
@@ -134,7 +134,7 @@ export default StyleSheet.create({
     textAlign: 'center',
     fontSize: THEME.FONT_SIZE.SM,
     width: 54,
-    color: '#527bcb'
+    color: '#75739c'
   },
 
   selected: {

@@ -8,9 +8,13 @@ import { MenuButtons } from '../../components/MenuButtons';
 import { AntDesign } from '@expo/vector-icons';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Chart } from './components/Chart/Chart';
+import { FilterSelected } from './components/FilterSelected/FilterSelected';
+import { PetImageBT } from '../../components/PetImageBt';
 
 export function ScStatistics({ route, navigation }) {
   const { petId, petType, petImage } = route.params
+
+  const [filter, setFilter] = React.useState('semanal')
 
   const [initialDate, setInitialDate] = useState(() => {
     const date = new Date()
@@ -44,11 +48,14 @@ export function ScStatistics({ route, navigation }) {
       <ScrollView contentContainerStyle={styles.scrollStyle}>
         {/* Cabecalho */}
         <View style={styles.headerStyle}>
-        <Text style={styles.Title}>Estatísticas</Text>
+          <Text style={styles.Title}>Estatísticas</Text>
+
           {/* Imagem perfil */}
+          <PetImageBT onPress={() => navigation.navigate('ScVizuPet', { petId: petId })}
+            source={petImage ? { uri: petImage } : require('../../assets/images/IconeFotoGato2.png')} />
 
           {/* Mes */}
-          <Text style={styles.scrollTitle}> Data Inicial: </Text>
+          <Text style={styles.graphicTitle}> Data Inicial: </Text>
           <View style={styles.datesView}>
             <TouchableOpacity onPress={() => setShowDP(true)} style={styles.monthStyle}>
               <AntDesign name="calendar" size={13} color="#75739c" style={{ marginHorizontal: 5 }} />
@@ -64,10 +71,25 @@ export function ScStatistics({ route, navigation }) {
               />
             )}
           </View>
+
+          {/* Filtro */}
+          <FilterSelected onValueChange={itemValue => setFilter(itemValue)} selectedValue={filter} />
         </View>
         
-        <Text style={styles.scrollTitle}> Grafíco de Humor </Text>
-        <Chart />
+        {/* Graficos */}
+        <View style={{ alignItems: 'center' }}>
+          {/* Humor */}
+          <Text style={styles.graphicTitle}> Grafíco de Humor </Text>
+          <Chart />
+
+          {/* Bagunça */}
+          <Text style={styles.graphicTitle}> Grafíco de Bagunça </Text>
+          <Chart />
+          
+          {/* Alimentação */}
+          <Text style={styles.graphicTitle}> Grafíco de Alimentação </Text>
+          <Chart />
+        </View>
       </ScrollView>
 
       {/* Menu de botoes */}
