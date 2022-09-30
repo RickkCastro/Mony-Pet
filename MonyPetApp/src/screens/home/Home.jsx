@@ -79,7 +79,7 @@ export function ScHome({ route, navigation }) {
                         <TouchableOpacity onPress={() => setShowDP1(true)} style={styles.monthStyle}>
                             <AntDesign name="calendar" size={13} color="#75739c" style={{ marginHorizontal: 5 }} />
                             <Text style={styles.txtDate}> {formatDate(minDate)} </Text>
-                            <AntDesign name="caretdown" size={13} color="#75739c" style={{ marginHorizontal: 5 }} />
+                            <AntDesign name="caretdown" size={13} color="gray" style={{ marginHorizontal: 5 }} />
                         </TouchableOpacity>
 
                         {showDP1 && (
@@ -95,7 +95,7 @@ export function ScHome({ route, navigation }) {
                         <TouchableOpacity onPress={() => setShowDP2(true)} style={styles.monthStyle}>
                             <AntDesign name="calendar" size={13} color="#75739c" />
                             <Text style={styles.txtDate}> {formatDate(maxDate)} </Text>
-                            <AntDesign name="caretdown" size={13} color="#75739c" />
+                            <AntDesign name="caretdown" size={13} color="gray" />
                         </TouchableOpacity>
 
                         {showDP2 && (

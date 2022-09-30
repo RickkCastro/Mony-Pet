@@ -279,7 +279,7 @@ export function ScRegisterAdd({ navigation, route }) {
 					<TouchableOpacity onPress={() => setShowDP(true)} style={styles.monthStyle}>
 						<AntDesign name="calendar" size={18} color="#75739c" style={{ marginHorizontal: 5 }} />
 						<Text style={styles.txtDate}> {formatDate(date)} </Text>
-						<AntDesign name="caretdown" size={18} color="#424242" style={{ marginHorizontal: 5 }} />
+						<AntDesign name="caretdown" size={18} color="gray" style={{ marginHorizontal: 5 }} />
 					</TouchableOpacity>
 
 					{showDP && (

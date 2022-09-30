@@ -17,7 +17,7 @@ export default StyleSheet.create({
 
     Title: {
         textAlign: 'center',
-        color: '#75739c',
+        color: '#9a8db0',
         fontSize: THEME.FONT_SIZE.LG,
         marginBottom: 20,
         fontWeight: '700'
@@ -130,7 +130,7 @@ export default StyleSheet.create({
     },
 
     textDay:{
-        color: '#565583', 
+        color: '#75739c', 
         marginBottom: 5
     },
 

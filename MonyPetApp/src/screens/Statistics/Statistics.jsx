@@ -1,61 +1,74 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { View, ScrollView, Text, TouchableOpacity, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { styles } from './styles';
 import { MenuButtons } from '../../components/MenuButtons';
-
-import { AntDesign } from '@expo/vector-icons';
-import DateTimePicker from '@react-native-community/datetimepicker';
 import { Chart } from './components/Chart/Chart';
 import { FilterSelected } from './components/FilterSelected/FilterSelected';
 import { PetImageBT } from '../../components/PetImageBt';
 
+import { AntDesign } from '@expo/vector-icons';
+import DateTimePicker from '@react-native-community/datetimepicker';
+
+import { useFocusEffect } from '@react-navigation/native'
+import { useAsyncStorage } from '@react-native-async-storage/async-storage'
+
 export function ScStatistics({ route, navigation }) {
   const { petId, petType, petImage } = route.params
 
-  const [filter, setFilter] = React.useState('semanal')
-
-  const dataMood = [
-    { value: 0, date: '01/05/22' },
-    { value: 1, date: '02/05/22' },
-    { value: 2, date: '03/05/22' },
-    { value: 3, date: '04/05/22' },
-    { value: 4, date: '05/05/22' },
-    { value: 5, date: '06/05/22' },
-    { value: 5, date: '07/05/22' },
-  ]
-
-  const dataMess = [
-    { value: 5, date: 'Semana 1º' },
-    { value: 2, date: 'Semana 2º' },
-    { value: 4, date: 'Semana 3º' },
-    { value: 1, date: 'Semana 4º' },
-  ]
-
-  const dataFeeding = [
-    { value: 5, date: 'Jan' },
-    { value: 2, date: 'Fev' },
-    { value: 4, date: 'Mar' },
-    { value: 0, date: 'Abr' },
-    { value: 5, date: 'Mai' },
-    { value: 1, date: 'Jun' },
-    { value: 3, date: 'Jul' },
-    { value: 5, date: 'Ago' },
-    { value: 0, date: 'Set' },
-    { value: 0, date: 'Out' },
-    { value: 3, date: 'Nov' },
-    { value: 4, date: 'Dez' },
-  ]
+  const [filter, setFilter] = React.useState('diario')
 
   const [initialDate, setInitialDate] = useState(() => {
     const date = new Date()
 
-    date.setMonth(date.getMonth() - 1)
+    date.setMonth(date.getMonth())
     date.setHours(0, 0, 0, 0)
 
     return date
   })
+
+  const { getItem } = useAsyncStorage('@monypet:regs')
+
+  // Atributos
+  const [moodData, setMoodData] = useState([])
+  const [messData, setMessData] = useState([])
+  const [feedingData, setFeedingData] = useState([])
+
+  async function fetchRegsData() {
+    const response = await getItem()
+    const TotalData = response ? JSON.parse(response) : []
+
+    const data = TotalData.filter((item) => item.petId === petId)
+
+    data.map((item) => item.date = new Date(item.date))
+
+    data.sort(function (a, b) {
+      return b.date.getTime() + a.date.getTime()
+    })
+
+    setAttributesData(data)
+  }
+
+  function setAttributesData(data = []) {
+    // Humor
+    const moodDataTemp = data.map((item, index) => moodData[index] = {value: item.moodV, date: item.date.toString()})
+    setMoodData(moodDataTemp)
+
+    //Bagunca
+    const messDataTemp = data.map((item, index) => messData[index] = {value: item.messV, date: item.date.toString()})
+    setMessData(messDataTemp)
+
+    //Alimentacao
+    const feedingDataTemp = data.map((item, index) => feedingData[index] = {value: item.feedingV, date: item.date.toString()})
+    setFeedingData(feedingDataTemp) 
+  }
+
+  useFocusEffect(//Quando focar na tela
+    useCallback(() => {
+      fetchRegsData()
+    }, [])
+  )
 
   const [showDP, setShowDP] = useState(false);
 
@@ -92,7 +105,7 @@ export function ScStatistics({ route, navigation }) {
             <TouchableOpacity onPress={() => setShowDP(true)} style={styles.monthStyle}>
               <AntDesign name="calendar" size={13} color="#75739c" style={{ marginHorizontal: 5 }} />
               <Text style={styles.txtDate}> {formatDate(initialDate)} </Text>
-              <AntDesign name="caretdown" size={13} color="#75739c" style={{ marginHorizontal: 5 }} />
+              <AntDesign name="caretdown" size={13} color="gray" style={{ marginHorizontal: 5 }} />
             </TouchableOpacity>
 
             {showDP && (
@@ -111,16 +124,25 @@ export function ScStatistics({ route, navigation }) {
         {/* Graficos */}
         <View style={{ alignItems: 'center' }}>
           {/* Humor */}
-          <Text style={styles.graphicTitle}> Grafíco de Humor </Text>
-          <Chart data={dataMood} />
+          {moodData.length > 0 &&
+            <View style={{flex: 1}}>
+              <Text style={styles.graphicTitle}> Grafíco de Humor </Text>
+              <Chart data={moodData} />
+            </View>}
 
           {/* Bagunça */}
-          <Text style={styles.graphicTitle}> Grafíco de Bagunça </Text>
-          <Chart data={dataMess} />
+          {messData.length > 0 &&
+            <View style={{flex: 1}}>
+              <Text style={styles.graphicTitle}> Grafíco de Bagunça </Text>
+              <Chart data={messData} />
+            </View>}
 
           {/* Alimentação */}
-          <Text style={styles.graphicTitle}> Grafíco de Alimentação </Text>
-          <Chart data={dataFeeding} />
+          {feedingData.length > 0 &&
+            <View style={{flex: 1}}>
+              <Text style={styles.graphicTitle}> Grafíco de Alimentação </Text>
+              <Chart data={feedingData} />
+            </View>}
         </View>
       </ScrollView>
 

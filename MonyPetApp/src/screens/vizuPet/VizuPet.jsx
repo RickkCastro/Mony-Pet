@@ -66,8 +66,6 @@ export function ScVizuPet({ route, navigation }) {
 			previousPets[currentPetIndex] = newPetData
         	await setItem(JSON.stringify(previousPets))
 
-			console.log(previousPets)
-
 			Toast.show({
 				type: 'success',
 				text1: 'Dados do pet alterados',

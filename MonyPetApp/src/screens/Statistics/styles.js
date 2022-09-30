@@ -22,7 +22,7 @@ export const styles = StyleSheet.create({
 
 	Title: {
         textAlign: 'center',
-        color: '#75739c',
+        color: '#9a8db0',
         fontSize: THEME.FONT_SIZE.LG,
         marginBottom: 20,
         fontWeight: '700'

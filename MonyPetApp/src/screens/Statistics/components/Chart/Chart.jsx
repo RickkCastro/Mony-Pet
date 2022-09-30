@@ -56,9 +56,10 @@ export function Chart(props) {
         contentContainerStyle={styles.scrollGraphic}>
             {/* Emojis - eixo y*/}
             <View style={styles.graphicY}>
-                {emojiList.map((emoji) => {
+                {emojiList.map((emoji, index) => {
                     return(
-                        <MaterialCommunityIcons name={emoji.name} size={iconSize} color={emoji.color} />
+                        <MaterialCommunityIcons key={index} 
+                            name={emoji.name} size={iconSize} color={emoji.color} />
                     )
                 })}
             </View>
@@ -73,6 +74,7 @@ export function Chart(props) {
                         stroke: 'url(#gradient)',
                     }}
                     yMin={0}
+                    yMax={5}
                 >
                     <Grid />
                     <Gradient />
