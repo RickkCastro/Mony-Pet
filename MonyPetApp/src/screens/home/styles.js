@@ -116,7 +116,7 @@ export default StyleSheet.create({
         textAlign: 'center',
         color: '#75739c',
         fontSize: THEME.FONT_SIZE.LG,
-        marginBottom: 5
+        marginBottom: 25
     },
 
     bottomRegsTxt: {
@@ -137,7 +137,6 @@ export default StyleSheet.create({
     lookRegister:{
         flexDirection: 'row', 
         justifyContent: 'space-around',
-        marginTop:20
     },
 
     viewReturn:{

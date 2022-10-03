@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { View, ScrollView, Text, TouchableOpacity, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -18,8 +18,9 @@ export function ScStatistics({ route, navigation }) {
   const { petId, petType, petImage } = route.params
 
   const [filter, setFilter] = React.useState('diario')
+  const [dataT, setDataT] = useState([])
 
-  const [initialDate, setInitialDate] = useState(() => {
+  const [finalDate, setFinalDate] = useState(() => {
     const date = new Date()
 
     date.setMonth(date.getMonth())
@@ -35,6 +36,13 @@ export function ScStatistics({ route, navigation }) {
   const [messData, setMessData] = useState([])
   const [feedingData, setFeedingData] = useState([])
 
+  // Dog
+  const [restData, setRestData] = useState([])
+  const [tourData, setTourData] = useState([])
+
+  // Cat
+  const [hairLossData, setHairLossData] = useState([])
+
   async function fetchRegsData() {
     const response = await getItem()
     const TotalData = response ? JSON.parse(response) : []
@@ -44,24 +52,10 @@ export function ScStatistics({ route, navigation }) {
     data.map((item) => item.date = new Date(item.date))
 
     data.sort(function (a, b) {
-      return b.date.getTime() + a.date.getTime()
+      return a.date.getTime() - b.date.getTime()
     })
 
-    setAttributesData(data)
-  }
-
-  function setAttributesData(data = []) {
-    // Humor
-    const moodDataTemp = data.map((item, index) => moodData[index] = {value: item.moodV, date: item.date.toString()})
-    setMoodData(moodDataTemp)
-
-    //Bagunca
-    const messDataTemp = data.map((item, index) => messData[index] = {value: item.messV, date: item.date.toString()})
-    setMessData(messDataTemp)
-
-    //Alimentacao
-    const feedingDataTemp = data.map((item, index) => feedingData[index] = {value: item.feedingV, date: item.date.toString()})
-    setFeedingData(feedingDataTemp) 
+    setDataT(data)
   }
 
   useFocusEffect(//Quando focar na tela
@@ -70,14 +64,155 @@ export function ScStatistics({ route, navigation }) {
     }, [])
   )
 
+  function setAttributesData(data = []) {
+    // Humor
+    let moodDataTemp = []
+    data.map((item, index) => moodDataTemp[index] = { value: item.moodV, date: item.date })
+
+    //Bagunca
+    let messDataTemp = []
+    data.map((item, index) => messDataTemp[index] = { value: item.messV, date: item.date })
+
+    //Alimentacao
+    let feedingDataTemp = []
+    data.map((item, index) => feedingDataTemp[index] = { value: item.feedingV, date: item.date })
+
+    if (filter === 'diario') {
+      setMoodData(returnDataDiario(moodDataTemp))
+      setMessData(returnDataDiario(messDataTemp))
+      setFeedingData(returnDataDiario(feedingDataTemp))
+    }
+
+    else if (filter === 'semanal') {
+      setMoodData(returnDataSemanal(moodDataTemp))
+      setMessData(returnDataSemanal(messDataTemp))
+      setFeedingData(returnDataSemanal(feedingDataTemp))
+    }
+
+    else {
+      setMoodData(returnDataMensal(moodDataTemp))
+      setMessData(returnDataMensal(messDataTemp))
+      setFeedingData(returnDataMensal(feedingDataTemp))
+    }
+
+    if (petType === 'dog') {
+      let restDataTemp = []
+      data.map((item, index) => restDataTemp[index] = { value: item.restV, date: item.date })
+
+      let tourDataTemp = []
+      data.map((item, index) => tourDataTemp[index] = { value: item.tourV, date: item.date })
+
+      if (filter === 'diario') {
+        setRestData(returnDataDiario(restDataTemp))
+        setTourData(returnDataDiario(tourDataTemp))
+      }
+
+      else if (filter === 'semanal') {
+        setRestData(returnDataSemanal(restDataTemp))
+        setTourData(returnDataSemanal(tourDataTemp))
+      }
+
+      else {
+        setRestData(returnDataMensal(restDataTemp))
+        setTourData(returnDataMensal(tourDataTemp))
+      }
+
+    } else {
+
+      let hairLossDataTemp = []
+      data.map((item, index) => hairLossDataTemp[index] = { value: item.hairLossV, date: item.date })
+
+      if (filter === 'diario') {
+        setHairLossData(returnDataDiario(hairLossDataTemp))
+      }
+
+      else if (filter === 'semanal') {
+        setHairLossData(returnDataSemanal(hairLossDataTemp))
+      }
+
+      else {
+        setHairLossData(returnDataMensal(hairLossDataTemp))
+      }
+    }
+  }
+
+  function returnDataDiario(data = []) {
+    const initialDate = new Date(finalDate)
+    initialDate.setDate(initialDate.getDate() - 7)
+
+    let filterD = (item) => item.date <= finalDate && item.date > initialDate
+
+    //Humor
+    let dataTemp = data.filter(filterD)
+    dataTemp.forEach((item) => item.date = formatDate(item.date))
+    return dataTemp
+  }
+
+  function returnDataSemanal(data = []) {
+    let finalDate2 = new Date(finalDate)
+    let initialDate = new Date(finalDate2)
+    initialDate.setDate(initialDate.getDate() - 7)
+
+    const dataSem = []
+
+    let filterD = (item) => item.date <= finalDate2 && item.date > initialDate
+
+    for (let i = 0; i < 4; i++) {
+      let dataTemp = data.filter(filterD)
+      const valuesList = dataTemp.map(item => item.value)
+
+      if (valuesList.length > 0) {
+        dataTemp = valuesList.reduce((pV, cV) => {
+          return pV + cV
+        }) / valuesList.length
+      } else {
+        dataTemp = 0
+      }
+
+      dataSem[i] = { value: dataTemp, date: `Semana ${i + 1}º (${formatDayMonuth(initialDate)} - ${formatDayMonuth(finalDate2)})` }
+
+      finalDate2.setDate(finalDate2.getDate() - 7)
+      initialDate.setDate(initialDate.getDate() - 7)
+    }
+
+    return dataSem.reverse()
+  }
+
+  function returnDataMensal(data = []) {
+
+    let dataFinal = []
+    const month = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']
+
+    for (let i = 0; i < 12; i++) {
+      const valuesMonth = data.filter((item) => item.date.getMonth() == i).map((item) => item.value)
+
+      const dataMonth = 0
+      if (valuesMonth.length > 0) {
+        dataMonth = valuesMonth.reduce((pV, cV) => {
+          return pV + cV
+        }) / valuesMonth.length
+      }
+
+      const dataTemp = { value: dataMonth, date: month[i] }
+
+      dataFinal.push(dataTemp)
+    }
+
+    return dataFinal
+  }
+
+  useEffect(() => {
+    setAttributesData(dataT)
+  }, [filter, dataT, finalDate])
+
   const [showDP, setShowDP] = useState(false);
 
-  const onChangeInitialDate = (event, selectedDate) => {
+  const onChangefinalDate = (event, selectedDate) => {
     setShowDP(false)
 
     selectedDate.setHours(0, 0, 0, 0)
 
-    setInitialDate(selectedDate);
+    setFinalDate(selectedDate);
   }
 
   const formatDate = (date) => {
@@ -86,6 +221,14 @@ export function ScStatistics({ route, navigation }) {
     let y = date.getFullYear()
 
     return (('0' + d).slice(-2) + '/' + ('0' + mo).slice(-2) + '/' + y)
+  }
+
+  const formatDayMonuth = (date) => {
+    let d = date.getDate()
+    let mo = date.getMonth() + 1
+    let y = date.getFullYear()
+
+    return (('0' + d).slice(-2) + '/' + ('0' + mo).slice(-2))
   }
 
   return (
@@ -104,15 +247,15 @@ export function ScStatistics({ route, navigation }) {
           <View style={styles.datesView}>
             <TouchableOpacity onPress={() => setShowDP(true)} style={styles.monthStyle}>
               <AntDesign name="calendar" size={13} color="#75739c" style={{ marginHorizontal: 5 }} />
-              <Text style={styles.txtDate}> {formatDate(initialDate)} </Text>
+              <Text style={styles.txtDate}> {formatDate(finalDate)} </Text>
               <AntDesign name="caretdown" size={13} color="gray" style={{ marginHorizontal: 5 }} />
             </TouchableOpacity>
 
             {showDP && (
               <DateTimePicker
-                value={initialDate}
+                value={finalDate}
                 mode={'date'}
-                onChange={onChangeInitialDate}
+                onChange={onChangefinalDate}
               />
             )}
           </View>
@@ -122,28 +265,59 @@ export function ScStatistics({ route, navigation }) {
         </View>
 
         {/* Graficos */}
-        <View style={{ alignItems: 'center' }}>
-          {/* Humor */}
-          {moodData.length > 0 &&
-            <View style={{flex: 1}}>
-              <Text style={styles.graphicTitle}> Grafíco de Humor </Text>
-              <Chart data={moodData} />
-            </View>}
+        {dataT.length >= 3 ?
+          <View style={{ alignItems: 'center' }}>
+            {/* Humor */}
+            {moodData.length > 0 ?
+              <View style={{ flex: 1 }}>
+                <Text style={styles.graphicTitle}> Gráfico de Humor </Text>
+                <Chart data={moodData} />
+              </View> : null
+            }
 
-          {/* Bagunça */}
-          {messData.length > 0 &&
-            <View style={{flex: 1}}>
-              <Text style={styles.graphicTitle}> Grafíco de Bagunça </Text>
-              <Chart data={messData} />
-            </View>}
+            {/* Bagunça */}
+            {messData.length > 0 ?
+              <View style={{ flex: 1 }}>
+                <Text style={styles.graphicTitle}> Gráfico de Bagunça </Text>
+                <Chart data={messData} />
+              </View> : null
+            }
 
-          {/* Alimentação */}
-          {feedingData.length > 0 &&
-            <View style={{flex: 1}}>
-              <Text style={styles.graphicTitle}> Grafíco de Alimentação </Text>
-              <Chart data={feedingData} />
-            </View>}
-        </View>
+            {/* Alimentação */}
+            {feedingData.length > 0 ?
+              <View style={{ flex: 1 }}>
+                <Text style={styles.graphicTitle}> Gráfico de Alimentação </Text>
+                <Chart data={feedingData} />
+              </View> : null
+            }
+
+            {/* Dog */}
+            {restData.length > 0 ?
+              <View style={{ flex: 1 }}>
+                <Text style={styles.graphicTitle}> Gráfico de Sono </Text>
+                <Chart data={restData} />
+              </View> : null
+            }
+            {tourData.length > 0 ?
+              <View style={{ flex: 1 }}>
+                <Text style={styles.graphicTitle}> Gráfico de Passeio </Text>
+                <Chart data={tourData} />
+              </View> : null
+            }
+
+            {/* Cat */}
+            {hairLossData.length > 0 ?
+              <View style={{ flex: 1 }}>
+                <Text style={styles.graphicTitle}> Gráfico de Queda de Pelo </Text>
+                <Chart data={hairLossData} />
+              </View> : null
+            }
+          </View> : 
+          <View style={styles.zeroText}>
+            <Text style={styles.graphicTitle}>Adicione alguns registros para visualizar as estatísticas</Text>
+            <AntDesign name="arrowdown" size={40} color="#75739c" />
+          </View>
+          }
       </ScrollView>
 
       {/* Menu de botoes */}

@@ -47,7 +47,10 @@ export const styles = StyleSheet.create({
 		padding: 35,
 		alignItems: 'center',
 		justifyContent: 'center',
-		opacity: 0.98,
+		opacity: 1,
+
+		elevation: 10,
+        shadowColor: '#000',
 	  },
 
 	  txtName: {

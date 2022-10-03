@@ -36,6 +36,12 @@ export const styles = StyleSheet.create({
         marginBottom: 5
     },
 
+    zeroText: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 20,
+    },
+
 	datesView: {
         alignItems: 'center',
         flexWrap: 'wrap',
