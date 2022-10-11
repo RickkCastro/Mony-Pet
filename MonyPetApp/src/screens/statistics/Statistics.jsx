@@ -141,11 +141,30 @@ export function ScStatistics({ route, navigation }) {
     initialDate.setDate(initialDate.getDate() - 7)
 
     let filterD = (item) => item.date <= finalDate && item.date > initialDate
-
-    //Humor
     let dataTemp = data.filter(filterD)
-    dataTemp.forEach((item) => item.date = formatDate(item.date))
-    return dataTemp
+
+    let dates = dataTemp.map((item) => item.date).toString()
+
+    let finalData = []
+
+    for (let i = 0; i <= 7; i++) {
+      let initialDate = new Date(finalDate)
+      initialDate.setDate(initialDate.getDate() - i)
+
+      if (!dates.includes(initialDate.toString())) {
+        finalData.push({value: 0, date: initialDate})
+      }
+    }
+
+    finalData = finalData.concat(dataTemp)
+
+    finalData.sort(function (a, b) {
+      return a.date.getTime() - b.date.getTime()
+    })
+
+    finalData.map((item) => item.date = formatDate(item.date))
+  
+    return finalData
   }
 
   function returnDataSemanal(data = []) {
@@ -182,11 +201,12 @@ export function ScStatistics({ route, navigation }) {
 
     let dataFinal = []
     const month = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']
+    const thisYear = finalDate.getFullYear()
 
     for (let i = 0; i < 12; i++) {
-      const valuesMonth = data.filter((item) => item.date.getMonth() == i).map((item) => item.value)
+      const valuesMonth = data.filter((item) => item.date.getMonth() == i && item.date.getFullYear() == thisYear ).map((item) => item.value)
 
-      const dataMonth = 0
+      let dataMonth = 0
       if (valuesMonth.length > 0) {
         dataMonth = valuesMonth.reduce((pV, cV) => {
           return pV + cV
@@ -312,12 +332,12 @@ export function ScStatistics({ route, navigation }) {
                 <Chart data={hairLossData} />
               </View> : null
             }
-          </View> : 
+          </View> :
           <View style={styles.zeroText}>
             <Text style={styles.graphicTitle}>Adicione alguns registros para visualizar as estatísticas</Text>
             <AntDesign name="arrowdown" size={40} color="#75739c" />
           </View>
-          }
+        }
       </ScrollView>
 
       {/* Menu de botoes */}

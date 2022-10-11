@@ -8,7 +8,8 @@ import { ScVizuPet } from "../screens/vizuPet/VizuPet";
 import { ScHome } from "../screens/home/Home";
 import { ScRegisterAdd } from "../screens/registerAdd/RegisterAdd";
 import { ScStatistics } from "../screens/statistics/Statistics";
-
+import { ScCalendar } from "../screens/calendar/Calendar";
+import {ScCompromise} from "../screens/compromise/Compromise";
 
 //Armazenar todas as telas no navigator
 export function StackRoutes() {
@@ -24,6 +25,8 @@ export function StackRoutes() {
       <Screen name="ScHome" component={ScHome}/>
       <Screen name="ScRegisterAdd" component={ScRegisterAdd}/>
       <Screen name="ScStatistics" component={ScStatistics}/>
+      <Screen name="ScCalendar" component={ScCalendar}/>
+      <Screen name="ScCompromise" component={ScCompromise}/>
     </Navigator>
   );
 }

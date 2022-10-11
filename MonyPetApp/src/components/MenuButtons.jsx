@@ -33,7 +33,8 @@ export function MenuButtons(props) {
                 <FontAwesome5 name="plus" size={38} color="#e7e6e6" />
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.buttonsMenu}>
+            <TouchableOpacity style={styles.buttonsMenu}
+                onPress={() => navigation.navigate('ScCalendar', { petType: petType, petId: petId, petImage: petImage})}>
                 <Entypo name="calendar" size={28} color="#e7e6e6" />
             </TouchableOpacity>
 
