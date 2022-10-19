@@ -195,7 +195,7 @@ export function ScVizuPet({ route, navigation }) {
 					<FontAwesome name="pencil" size={20} color="transparent" style={{ marginRight: 10 }} />
 					<TouchableOpacity onPress={pickImage}>
 						<Image
-							source={petImage ? { uri: petImage } : require('../../assets/images/AddPet.png')}
+							source={petImage ? { uri: petImage } : petType == 'dog' ? require('../../assets/images/dogIcon.png') : require('../../assets/images/catIcon.png')}
 							resizeMode={'stretch'}
 							style={styles.imgPet}
 						/>

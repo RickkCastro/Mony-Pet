@@ -16,7 +16,7 @@ import Registers from './components/Registers';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export function ScRegisterAdd({ navigation, route }) {
-	const { petType, petId, regId } = route.params
+	const { petType, petId, regId, screenTitle } = route.params
 
 	const data = {
 		mood: [
@@ -231,7 +231,7 @@ export function ScRegisterAdd({ navigation, route }) {
 		setShowDP(false)
 		selectedDate.setHours(0, 0, 0, 0)
 		setDate(selectedDate);
-	};
+	}
 
 	const formatDate = (date) => {
 		let d = date.getDate()
@@ -266,7 +266,7 @@ export function ScRegisterAdd({ navigation, route }) {
 			style={{flex: 1,backgroundColor: 'white',}}>
 
 			{/* Cabeçalho */}
-			<Header1 txt1={'Adicionar registro'} bt2Color={regId ? '#9a8db0' : 'transparent'} 
+			<Header1 txt1={screenTitle} bt2Color={regId ? '#9a8db0' : 'transparent'} 
 			onPressBt1={() => navigation.goBack()} onPressBt2={regId ? () => handleRemoveReg() : undefined}/>
 
 			{/* Rolagem */}
@@ -318,12 +318,7 @@ export function ScRegisterAdd({ navigation, route }) {
 						source={require('../../assets/images/Onda.png')}
 						resizeMode={'stretch'}>
 						<View
-							style={{
-								alignItems: 'center',
-								height: 180,
-								justifyContent: 'flex-end',
-								paddingBottom: 10,
-							}}>
+							style={styles.imgView}>
 							<TouchableOpacity
 								style={styles.styleButton}
 								onPress={() => handleSaveReg()}>

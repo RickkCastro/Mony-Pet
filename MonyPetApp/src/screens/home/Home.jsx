@@ -71,7 +71,7 @@ export function ScHome({ route, navigation }) {
                     {/* Imagem perfil */}
                     <Text style={styles.Title}>Tela Inicial</Text>
                     <PetImageBT onPress={() => navigation.navigate('ScVizuPet', { petId: petId })} 
-                    source={petImage ? { uri: petImage } : require('../../assets/images/IconeFotoGato2.png')}/>
+                    source={petImage ? { uri: petImage } : petType == 'dog' ? require('../../assets/images/dogIcon.png') : require('../../assets/images/catIcon.png')}/>
 
                     {/* Mes */}
                     <Text style={styles.scrollTitle}> Intervalo de data dos registros: </Text>

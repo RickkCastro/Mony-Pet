@@ -9,7 +9,7 @@ import { ScHome } from "../screens/home/Home";
 import { ScRegisterAdd } from "../screens/registerAdd/RegisterAdd";
 import { ScStatistics } from "../screens/statistics/Statistics";
 import { ScCalendar } from "../screens/calendar/Calendar";
-import {ScCompromise} from "../screens/compromise/Compromise";
+import { ScAddTask } from "../screens/addTask/AddTask";
 
 //Armazenar todas as telas no navigator
 export function StackRoutes() {
@@ -26,7 +26,7 @@ export function StackRoutes() {
       <Screen name="ScRegisterAdd" component={ScRegisterAdd}/>
       <Screen name="ScStatistics" component={ScStatistics}/>
       <Screen name="ScCalendar" component={ScCalendar}/>
-      <Screen name="ScCompromise" component={ScCompromise}/>
+      <Screen name="ScAddTask" component={ScAddTask}/>
     </Navigator>
   );
 }

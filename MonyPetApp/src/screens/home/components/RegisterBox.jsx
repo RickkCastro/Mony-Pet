@@ -109,7 +109,7 @@ export default (props) => {
 					{filterData().map((item, index) => {
 						return (
 							<TouchableOpacity style={styles.boxRegs} key={index}
-								onPress={() => navigation.navigate('ScRegisterAdd', { petType: petType, petId: petId, regId: item.id })}>
+								onPress={() => navigation.navigate('ScRegisterAdd', { petType: petType, petId: petId, regId: item.id, screenTitle: 'Editar registro' })}>
 								<MaterialCommunityIcons name={icon(item.med)} size={70} color={iconColor(item.med)} />
 								<View style={styles.viewTextRegister}>
 									<Text style={styles.textDay}>

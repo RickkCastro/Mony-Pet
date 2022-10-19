@@ -39,7 +39,11 @@ export const styles = StyleSheet.create({
     textDayFontSize: 18,
     textMonthFontSize: 17,
     textDayHeaderFontSize: 17,
-    arrow
+  },
+  
+  calendarStyles: {
+    marginBottom: 30,
+    marginTop: 10,
   },
 
   Title: {

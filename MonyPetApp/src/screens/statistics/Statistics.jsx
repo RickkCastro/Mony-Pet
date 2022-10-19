@@ -260,7 +260,7 @@ export function ScStatistics({ route, navigation }) {
 
           {/* Imagem perfil */}
           <PetImageBT onPress={() => navigation.navigate('ScVizuPet', { petId: petId })}
-            source={petImage ? { uri: petImage } : require('../../assets/images/IconeFotoGato2.png')} />
+            source={petImage ? { uri: petImage } : petType == 'dog' ? require('../../assets/images/dogIcon.png') : require('../../assets/images/catIcon.png')} />
 
           {/* Mes */}
           <Text style={styles.graphicTitle}> Data: </Text>
