@@ -29,7 +29,8 @@ export function MenuButtons(props) {
             </TouchableOpacity>
 
             <TouchableOpacity style={[styles.buttonsMenu, { height: 70, width: 70 }]}
-                onPress={() => navigation.navigate('ScRegisterAdd', { petType: petType, petId: petId, screenTitle: 'Adicionar Registro' })}>
+                onPress={props.handlePlusBt ? props.handlePlusBt : 
+                () => navigation.navigate('ScRegisterAdd', { petType: petType, petId: petId, screenTitle: 'Adicionar Registro' })}>
                 <FontAwesome5 name="plus" size={38} color="#e7e6e6" />
             </TouchableOpacity>
 

@@ -7,24 +7,26 @@ import { styles } from './styles';
 import { THEME } from '../../../../theme';
 
 export function TaskBox(props) {
+	const done = props.done
+
 	return (
-			<TouchableOpacity style={styles.container}>
+		<TouchableOpacity style={styles.container} onPress={props.handleTaskPress}>
 
-				{/* Icon */}
-				<MaterialCommunityIcons name={'content-cut'} size={40} color={'gray'} />
+			{/* Icon */}
+			<MaterialCommunityIcons name={props.icon} size={40} color={'gray'} />
 
-				{/* Textos */}
-				<View style={{ height: '100%', width: '55%' }}>
-					<Text style={styles.txtData}>25/05/2005</Text>
-					<Text style={styles.txtLine}>Nome: Banho</Text>
-					<Text style={styles.txtLine}>Descrição: Banho no teddy na rua 2045</Text>
-				</View>
+			{/* Textos */}
+			<View style={{ height: '100%', width: '55%' }}>
+				<Text style={styles.txtData}>{props.date}</Text>
+				<Text style={styles.txtLine} numberOfLines={1} ellipsizeMode={'tail'}>Nome: {props.title}</Text>
+				<Text style={styles.txtLine} numberOfLines={2} ellipsizeMode={'tail'}>{props.desc}</Text>
+			</View>
 
-				{/* CheckBox */}
-				<TouchableOpacity style={styles.checkBox}>
-					{/* <MaterialCommunityIcons name={'check'} size={25} color={'green'} /> */}
-				</TouchableOpacity>
-
+			{/* CheckBox */}
+			<TouchableOpacity style={done ? [styles.checkBox, {borderColor: 'green'}] : styles.checkBox} onPress={props.handleCheck}>
+				{done && <MaterialCommunityIcons name={'check'} size={25} color={'green'} />}
 			</TouchableOpacity>
+
+		</TouchableOpacity>
 	)
 }

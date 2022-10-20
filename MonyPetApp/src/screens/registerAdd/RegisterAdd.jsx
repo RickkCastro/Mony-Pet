@@ -215,7 +215,7 @@ export function ScRegisterAdd({ navigation, route }) {
 			console.log(error)
 			Toast.show({
 				type: 'error',
-				text1: 'Não foi possível excluir pet',
+				text1: 'Não foi possível excluir registro',
 			})
 		}
 	}

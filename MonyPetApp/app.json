@@ -2,9 +2,14 @@
   "expo": {
     "name": "MonyPet",
     "slug": "MonyPet",
-    "version": "0.3.0",
+    "version": "0.4.0",
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "ef1db521-85ba-4bcb-bbb4-614ae7683a6e"
+      }
+    }
   }
 }

@@ -22,14 +22,14 @@ export const styles = StyleSheet.create({
 
 	txtData:{
 		color: '#7153a3', 
-		fontSize: THEME.FONT_SIZE.LG, 
+		fontSize: THEME.FONT_SIZE.MD, 
 		marginBottom: 6, 
 		fontWeight: 'bold' 
 	},
 
 	txtLine: {
 		color: '#000', 
-		fontSize: THEME.FONT_SIZE.MD, 
+		fontSize: THEME.FONT_SIZE.MD -1, 
 		paddingVertical: 2, 
 	},
 

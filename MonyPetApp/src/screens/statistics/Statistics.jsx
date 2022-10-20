@@ -22,8 +22,6 @@ export function ScStatistics({ route, navigation }) {
 
   const [finalDate, setFinalDate] = useState(() => {
     const date = new Date()
-
-    date.setMonth(date.getMonth())
     date.setHours(0, 0, 0, 0)
 
     return date

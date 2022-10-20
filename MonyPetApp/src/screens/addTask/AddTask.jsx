@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { View, Text, TouchableOpacity, ScrollView, TextInput, ImageBackground } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, TextInput, ImageBackground, Alert } from 'react-native';
 
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AntDesign } from '@expo/vector-icons';
@@ -17,16 +17,16 @@ import { styles } from './styles';
 import { THEME } from '../../theme';
 
 export function ScAddTask({ route, navigation }) {
-  const { petId, taskId, screenTitle } = route.params
+  const { petId, taskId, screenTitle, clickDate } = route.params
 
   const [titleT, setTitleT] = useState('')
   const [descT, setDescT] = useState('')
-  const [typeT, setTypeT] = useState('consulta')
+  const [typeT, setTypeT] = useState('stethoscope')
 
-  const [date, setDate] = useState(new Date())
+  const [date, setDate] = useState(clickDate ? new Date(clickDate) : new Date())
   const [showDP, setShowDP] = useState(false)
 
-  const [time, setTime] = useState(new Date())
+  const [time, setTime] = useState(clickDate ? new Date(clickDate) : new Date())
   const [showTP, setShowTP] = useState(false)
 
   const [doneT, setDoneT] = useState(false)
@@ -77,7 +77,14 @@ export function ScAddTask({ route, navigation }) {
       const response = await getItem()
       const dataTotal = response ? JSON.parse(response) : []
 
-      const data = dataTotal.find((task) => task.id === task)
+      const data = dataTotal.find((task) => task.id === taskId)
+
+      setDate(new Date(data.date))
+      setTime(new Date(data.date))
+      setTitleT(data.titleT)
+      setTypeT(data.typeT)
+      setDescT(data.descT)
+      setDoneT(data.doneT)
     }
   }
 
@@ -116,17 +123,16 @@ export function ScAddTask({ route, navigation }) {
 
         Toast.show({
           type: 'success',
-          text1: 'Tarefa atualizado',
+          text1: 'Compromisso atualizado',
         })
       } else {
 
         const tasksData = [newTask, ...previousTasks]
-        console.log(tasksData)
         setItem(JSON.stringify(tasksData))
 
         Toast.show({
           type: 'success',
-          text1: 'Tarefa adicionado',
+          text1: 'Compromisso adicionado',
         })
       }
 
@@ -141,11 +147,49 @@ export function ScAddTask({ route, navigation }) {
     }
   }
 
+  async function handleRemoveTask() {
+		Alert.alert('Aviso!', 'Deseja realmente excluir o compromisso?', [
+			{
+				text: 'Cancelar',
+				onPress: () => console.log('Cancel Pressed'),
+			},
+			{
+				text: 'Sim',
+				onPress: () => removeItem(),
+			}
+		])
+	}
+
+	// Remoção de item
+	async function removeItem() {
+		try {
+			const response = await getItem()
+			const previousTasks = response ? JSON.parse(response) : []
+
+			const newTasksData = previousTasks.filter((item) => item.id !== taskId)
+
+			await setItem(JSON.stringify(newTasksData))
+
+			Toast.show({
+				type: 'info',
+				text1: 'Compromisso excluído',
+			})
+
+			navigation.goBack()
+		} catch {
+			console.log(error)
+			Toast.show({
+				type: 'error',
+				text1: 'Não foi possível excluir compromisso',
+			})
+		}
+	}
+
   return (
     <SafeAreaView style={styles.container}>
       {/* Cabeçalho */}
       <Header1 txt1={screenTitle} bt2Color={taskId ? '#9a8db0' : 'transparent'}
-      onPressBt2={taskId ? () => handleRemoveReg() : undefined} onPressBt1={() => navigation.goBack()} />
+      onPressBt2={taskId ? () => handleRemoveTask() : undefined} onPressBt1={() => navigation.goBack()} />
       <ScrollView contentContainerStyle={styles.scrollStyle}>
 
         <View style={{ marginHorizontal: 20 }}>
@@ -199,12 +243,12 @@ export function ScAddTask({ route, navigation }) {
                 bg: '#75739c',
                 borderRadius: '10',
               }} mt={1} onValueChange={setTypeT}>
-              <Select.Item label='Tosa' value='tosa' />
-              <Select.Item label='Banho' value='banho' />
-              <Select.Item label='Vacina' value='vacina' />
-              <Select.Item label='Consulta' value='consulta' />
-              <Select.Item label='Remédio' value='remedio' />
-              <Select.Item label='Outro' value='outro' />
+              <Select.Item label='Tosa' value='content-cut' />
+              <Select.Item label='Banho' value='bathtub' />
+              <Select.Item label='Vacina' value='needle' />
+              <Select.Item label='Consulta' value='stethoscope' />
+              <Select.Item label='Remédio' value='medical-bag' />
+              <Select.Item label='Outro' value='paw' />
             </Select>
           </Box>
 
