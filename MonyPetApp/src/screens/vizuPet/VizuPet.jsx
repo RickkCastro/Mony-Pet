@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { View, Text, TouchableOpacity, TextInput, ScrollView, ImageBackground, Alert, Image } from 'react-native'
 
 import { RadioButton } from 'react-native-paper'
@@ -12,7 +12,6 @@ import * as ImagePicker from 'expo-image-picker'
 
 import { styles } from './styles'
 import { THEME } from '../../theme'
-
 
 export function ScVizuPet({ route, navigation }) {
 	const { petId } = route.params
@@ -152,6 +151,13 @@ export function ScVizuPet({ route, navigation }) {
 			const newRegsData = previousRegs.filter((item) => item.petId !== petId)
 			await AsyncStorage.setItem('@monypet:regs', JSON.stringify(newRegsData))
 
+			//Compromissos
+			const responseTasks = await AsyncStorage.getItem('@monypet:tasks')
+			const previousTasks = responseTasks ? JSON.parse(responseTasks) : []
+
+			const newTaksData = previousTasks.filter((item) => item.petId !== petId)
+			await AsyncStorage.setItem('@monypet:tasks', JSON.stringify(newTaksData))
+
 			Toast.show({
 				type: 'info',
 				text1: 'Pet excluído',
@@ -227,8 +233,10 @@ export function ScVizuPet({ route, navigation }) {
 						<TextInput
 							style={styles.txtInformation}
 							value={petYears}
-							onChangeText={setPetYears}
+							onPointerLeave={setPetYears}
 							ref={refYears}
+							keyboardType={'number-pad'}
+							maxLength={2}
 						>
 						</TextInput>
 						<TouchableOpacity style={styles.styleButton} onPress={() => handleClick(refYears)}>
@@ -259,6 +267,8 @@ export function ScVizuPet({ route, navigation }) {
 							value={petWeight}
 							onChangeText={setPetWeight}
 							ref={refWeight}
+							keyboardType={'number-pad'}
+							maxLength={3}
 						>
 						</TextInput>
 						<TouchableOpacity style={styles.styleButton} onPress={() => handleClick(refWeight)}>

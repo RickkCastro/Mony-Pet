@@ -69,7 +69,7 @@ export function ScCalendar({ route, navigation }) {
         setSelected(day.dateString)
 
         let date = new Date(day.dateString)
-        date.setDate(date.getDate() + 1)
+        date.setDate(date.getDate() +1)
         date.setHours(0, 0, 0, 0)
 
         setDate(date)
@@ -131,7 +131,7 @@ export function ScCalendar({ route, navigation }) {
     }
 
     function handleSetDailyTasksData(tasksData = []) {
-        let maxDate = new Date()
+        let maxDate = new Date(date)
         maxDate.setDate(date.getDate() + 1)
         maxDate.setHours(0, 0, 0, 0)
 
@@ -237,7 +237,7 @@ export function ScCalendar({ route, navigation }) {
                                 </ScrollView>
                             </View> :
                             <View>
-                                <Text style={styles.txt1}>Seu pet não possui nemhum compromisso para esse dia</Text>
+                                <Text style={styles.txt1}>Seu pet não possui nenhum compromisso para esse dia</Text>
                             </View>
                         }
 
@@ -262,7 +262,7 @@ export function ScCalendar({ route, navigation }) {
                         </View>
                     </View> :
                     <View>
-                        <Text style={styles.titlte2}>Seu pet não possui nemhum compromisso</Text>
+                        <Text style={styles.titlte2}>Seu pet não possui nenhum compromisso</Text>
                     </View>
                 }
 

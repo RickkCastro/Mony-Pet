@@ -134,7 +134,7 @@ export default (props) => {
 				<View style={{ paddingBottom: 25 }}>
 					<Text style={styles.scrollTitle}> Últimos Registros: </Text>
 					<View style={styles.Title.viewReturn}>
-						<Text style={styles.notRegsTitle}> Não existe nemhum resgistro nesse intervalo de tempo! </Text>
+						<Text style={styles.notRegsTitle}> Não existe nenhum resgistro nesse intervalo de tempo! </Text>
 					</View>
 					<View style={styles.lookRegister}>
 						<Text style={styles.bottomRegsTxt}> Total: {dataLength}</Text>

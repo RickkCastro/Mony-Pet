@@ -42,9 +42,9 @@ export function ScAddTask({ route, navigation }) {
   }
 
   useEffect(() => {
-    time.setDate(date.getDate())
-    date.setTime(time.getTime())
-  }, [time, date])
+    date.setHours(time.getHours())
+    date.setMinutes(time.getMinutes())
+  }, [time])
 
 
   const formatDate = (date) => {

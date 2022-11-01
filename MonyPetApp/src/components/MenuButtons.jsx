@@ -18,28 +18,29 @@ export function MenuButtons(props) {
 
     return (
         <View style={styles.menuButtons}>
-            <TouchableOpacity style={styles.buttonsMenu} 
+            <TouchableOpacity style={styles.buttonsMenu}
                 onPress={() => navigation.navigate('ScHome', { petType: petType, petId: petId, petImage: petImage })}>
                 <FontAwesome5 name="home" size={28} color="#e7e6e6" />
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.buttonsMenu} 
-                onPress={() => navigation.navigate('ScStatistics', { petType: petType, petId: petId, petImage: petImage})}>
+            <TouchableOpacity style={styles.buttonsMenu}
+                onPress={() => navigation.navigate('ScStatistics', { petType: petType, petId: petId, petImage: petImage })}>
                 <Entypo name="area-graph" size={28} color="#e7e6e6" />
             </TouchableOpacity>
 
             <TouchableOpacity style={[styles.buttonsMenu, { height: 70, width: 70 }]}
-                onPress={props.handlePlusBt ? props.handlePlusBt : 
-                () => navigation.navigate('ScRegisterAdd', { petType: petType, petId: petId, screenTitle: 'Adicionar Registro' })}>
+                onPress={props.handlePlusBt ? props.handlePlusBt :
+                    () => navigation.navigate('ScRegisterAdd', { petType: petType, petId: petId, screenTitle: 'Adicionar Registro' })}>
                 <FontAwesome5 name="plus" size={38} color="#e7e6e6" />
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.buttonsMenu}
-                onPress={() => navigation.navigate('ScCalendar', { petType: petType, petId: petId, petImage: petImage})}>
+                onPress={() => navigation.navigate('ScCalendar', { petType: petType, petId: petId, petImage: petImage })}>
                 <Entypo name="calendar" size={28} color="#e7e6e6" />
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.buttonsMenu}>
+            <TouchableOpacity style={styles.buttonsMenu}
+                onPress={() => navigation.navigate('ScSettings', { petType: petType, petId: petId, petImage: petImage })}>
                 <FontAwesome name="gear" size={28} color="#e7e6e6" />
             </TouchableOpacity>
         </View>

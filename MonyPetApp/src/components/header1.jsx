@@ -10,7 +10,7 @@ export default function(props){
         <TouchableOpacity
           style={styles.headerButtons}
           onPress={props.onPressBt1}>
-          <AntDesign name="close" size={24} color="#9a8db0" />
+          <AntDesign name="arrowleft" size={27} color="#9a8db0" />
         </TouchableOpacity>
 
         <Text style={styles.lineText}>{props.txt1}</Text>

@@ -146,7 +146,9 @@ export function ScPetAdd({ navigation }) {
             style={styles.txtInformation}
             placeholder={'Ex: 6'}
             placeholderTextColor="gray"
-            onChangeText={setPetYears}></TextInput>
+            onChangeText={setPetYears}
+            keyboardType={'number-pad'}
+            maxLength={2}></TextInput>
 
           {/* Barra de Raça */}
           <Text style={styles.lineText}>Raça:</Text>
@@ -162,7 +164,9 @@ export function ScPetAdd({ navigation }) {
             style={styles.txtInformation}
             placeholder={'Ex: 3,2kg'}
             placeholderTextColor="gray"
-            onChangeText={setPetWeight}></TextInput>
+            onChangeText={setPetWeight}
+            keyboardType={'number-pad'}
+            maxLength={3}></TextInput>
         </View>
 
         {/* Botão de adição */}

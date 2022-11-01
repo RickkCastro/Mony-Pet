@@ -18,9 +18,9 @@ export function FilterSelected(props) {
                             bg: "#75739c",
                             borderRadius:"10",
                         }} mt={1} onValueChange={props.onValueChange}>
-                            <Select.Item label="Diário" value="diario" />
-                            <Select.Item label="Semanal" value="semanal" />
-                            <Select.Item label="Mensal" value="mensal" />
+                            <Select.Item label="Diários" value="diario" />
+                            <Select.Item label="Semanais" value="semanal" />
+                            <Select.Item label="Mensais" value="mensal" />
                     </Select>
                 </Box>
             </Center>

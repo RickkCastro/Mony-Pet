@@ -56,7 +56,7 @@ export const styles = StyleSheet.create({
 	  txtName: {
 		color: 'white',
 		textAlign: 'center',
-		fontSize: THEME.FONT_SIZE.LG,
+		fontSize: THEME.FONT_SIZE.MD + 3,
 	  },
 
 	  flatList: {
