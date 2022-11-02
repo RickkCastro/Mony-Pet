@@ -6,7 +6,7 @@ import { FontAwesome } from '@expo/vector-icons'
 import AsyncStorage, { useAsyncStorage } from '@react-native-async-storage/async-storage'
 import { useFocusEffect } from '@react-navigation/native'
 import Toast from 'react-native-toast-message'
-import Header1 from '../../components/header1'
+import Header1 from '../../components/Header1'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import * as ImagePicker from 'expo-image-picker'
 

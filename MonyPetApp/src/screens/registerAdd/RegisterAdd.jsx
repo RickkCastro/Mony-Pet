@@ -10,7 +10,7 @@ import Toast from 'react-native-toast-message'
 
 import styles from './styles'
 
-import Header1 from '../../components/header1';
+import Header1 from '../../components/Header1';
 import Registers from './components/Registers';
 
 import { SafeAreaView } from 'react-native-safe-area-context';

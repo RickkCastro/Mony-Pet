@@ -1,14 +1,31 @@
-import * as React from 'react'
+import React, { useCallback } from 'react'
 import { Text, View, ImageBackground, TouchableOpacity, Image } from 'react-native'
 
 import { AntDesign } from '@expo/vector-icons'
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useFocusEffect } from '@react-navigation/native'
 import PetSelection from './components/PetSelection'
+import { useAsyncStorage } from '@react-native-async-storage/async-storage'
 
 import { styles } from './styles'
 
 export function ScPetChoice(props) {
 	const navigation = useNavigation()
+
+	useFocusEffect(//Quando focar na tela
+		useCallback(() => {
+			fetchData()
+		}, [])
+	)
+
+	async function fetchData() {
+		const { getItem, setItem, removeItem } = useAsyncStorage('@monypet:showSlides')
+		const response =  await getItem()
+		const showSlides = response ? JSON.parse(response) : {value: true}
+
+		console.log(showSlides)
+
+		showSlides.value && navigation.push('ScHelpSlides')
+	}
 
 	return (
 		<View style={styles.container}>

@@ -7,7 +7,7 @@ import { styles } from './styles';
 import { MenuButtons } from '../../components/MenuButtons';
 import { NormalBT } from './components/NormalBt';
 
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import AsyncStorage, {useAsyncStorage} from '@react-native-async-storage/async-storage'
 import Toast from 'react-native-toast-message'
 
 export function ScSettings({ route, navigation }) {
@@ -61,6 +61,13 @@ export function ScSettings({ route, navigation }) {
         }
     }
 
+    async function handleShowHelpSlides() {
+        const { setItem } = useAsyncStorage('@monypet:showSlides')
+        await setItem(JSON.stringify({ value: true }))
+
+        navigation.push('ScHelpSlides')
+    }
+
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView contentContainerStyle={styles.scrollStyle}>
@@ -77,7 +84,7 @@ export function ScSettings({ route, navigation }) {
                 {/* Botoes */}
                 <View>
                     <NormalBT icon='group' text='Sobre nós' onPress={() => { }} />
-                    <NormalBT icon='info-circle' text='Ajuda' onPress={() => { }} />
+                    <NormalBT icon='info-circle' text='Ajuda' onPress={() => handleShowHelpSlides()} />
                     <NormalBT icon='adjust' text='Trocar Tema' onPress={() => { }} />
                     <NormalBT icon='exclamation-triangle' text='Apagar dados' backColor='#e53232' onPress={() => handleDeleteData()} />
                 </View>

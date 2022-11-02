@@ -11,7 +11,7 @@ import Toast from 'react-native-toast-message'
 
 import { Select, Box, CheckIcon, Center } from 'native-base';
 
-import Header1 from '../../components/header1'
+import Header1 from '../../components/Header1'
 
 import { styles } from './styles';
 import { THEME } from '../../theme';

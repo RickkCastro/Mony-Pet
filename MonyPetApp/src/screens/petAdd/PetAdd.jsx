@@ -6,7 +6,7 @@ import { RadioButton } from 'react-native-paper'
 import uuid from 'react-native-uuid'
 import { useAsyncStorage } from '@react-native-async-storage/async-storage'
 import Toast from 'react-native-toast-message'
-import Header1 from '../../components/header1'
+import Header1 from '../../components/Header1'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import * as ImagePicker from 'expo-image-picker';
 
