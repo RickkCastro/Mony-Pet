@@ -9,10 +9,12 @@ import { useNavigation } from '@react-navigation/native'
 
 import styles from '../styles';
 import { THEME } from '../../../theme';
+import { Loading } from '../../../components/Loading';
 
 export default (props) => {
 
 	const navigation = useNavigation()
+	const [loading, setLoading] = React.useState(false)
 
 	const petId = props.petId
 	const petType = props.petType
@@ -24,6 +26,7 @@ export default (props) => {
 	const { getItem } = useAsyncStorage('@monypet:regs')
 
 	async function fetchRegsData() {
+		setLoading(true)
 		const response = await getItem()
 		const TotalData = response ? JSON.parse(response) : []
 
@@ -38,6 +41,7 @@ export default (props) => {
 		});
 
 		setRegsData(data)
+		setLoading(false)
 	}
 
 	useFocusEffect(//Quando focar na tela
@@ -57,19 +61,19 @@ export default (props) => {
 
 	const iconColor = (value) => {
 		if (value <= 1) {
-			return "#a54c1b"
+			return THEME.COLORS.EMOTE_ANGRY
 		}
 		else if (value > 1 && value <= 2) {
-			return "#e1cc0f"
+			return THEME.COLORS.EMOTE_SAD
 		}
 		else if (value > 2 && value <= 3) {
-			return "#7a7777"
+			return THEME.COLORS.EMOTE_NEUTRAL
 		}
 		else if (value > 3 && value <= 4) {
-			return "#68b166"
+			return THEME.COLORS.EMOTE_HAPPY
 		}
 		else {
-			return "#107d07"
+			return THEME.COLORS.EMOTE_EXCITED
 		}
 	}
 
@@ -100,55 +104,63 @@ export default (props) => {
 		return (('0' + d).slice(-2) + '/' + ('0' + mo).slice(-2) + '/' + y)
 	}
 
-	if (regsData.length > 0) {
-		if (filterData().length > 0) {
-			return (
-				<View style={{ paddingBottom: 25 }}>
-					<Text style={styles.scrollTitle}> Últimos Registros: </Text>
+	if (loading) {
+		return (
+			<View style={{ alignSelf: 'center', flex: 1, justifyContent: 'center', marginVertical: 30 }}>
+				<Loading size={10} />
+			</View>
+		)
+	} else {
+		if (regsData.length > 0) {
+			if (filterData().length > 0) {
+				return (
+					<View style={{ paddingBottom: 25 }}>
+						<Text style={styles.scrollTitle}> Últimos Registros: </Text>
 
-					{filterData().map((item, index) => {
-						return (
-							<TouchableOpacity style={styles.boxRegs} key={index}
-								onPress={() => navigation.navigate('ScRegisterAdd', { petType: petType, petId: petId, regId: item.id, screenTitle: 'Editar registro' })}>
-								<MaterialCommunityIcons name={icon(item.med)} size={70} color={iconColor(item.med)} />
-								<View style={styles.viewTextRegister}>
-									<Text style={styles.textDay}>
-										Dia: {formatDate(item.date)}
-									</Text>
-									<Text style={{ fontSize: THEME.FONT_SIZE.SM }}>
-										{item.noteV == "" ? 'Registro sem anotação' : item.noteV}
-									</Text>
-								</View>
-							</TouchableOpacity>
-						)
-					})}
+						{filterData().map((item, index) => {
+							return (
+								<TouchableOpacity style={styles.boxRegs} key={index}
+									onPress={() => navigation.navigate('ScRegisterAdd', { petType: petType, petId: petId, regId: item.id, screenTitle: 'Editar registro' })}>
+									<MaterialCommunityIcons name={icon(item.med)} size={70} color={iconColor(item.med)} />
+									<View style={styles.viewTextRegister}>
+										<Text style={styles.textDay}>
+											Dia: {formatDate(item.date)}
+										</Text>
+										<Text style={{ fontSize: THEME.FONT_SIZE.SM }}>
+											{item.noteV == "" ? 'Registro sem anotação' : item.noteV}
+										</Text>
+									</View>
+								</TouchableOpacity>
+							)
+						})}
 
-					<View style={styles.lookRegister}>
-						<Text style={styles.bottomRegsTxt}> Total: {dataLength}</Text>
-						<Text style={styles.bottomRegsTxt}> Mostrando: {filterData().length}</Text>
+						<View style={styles.lookRegister}>
+							<Text style={styles.bottomRegsTxt}> Total: {dataLength}</Text>
+							<Text style={styles.bottomRegsTxt}> Mostrando: {filterData().length}</Text>
+						</View>
 					</View>
-				</View>
-			)
+				)
+			} else {
+				return (
+					<View style={{ paddingBottom: 25 }}>
+						<Text style={styles.scrollTitle}> Últimos Registros: </Text>
+						<View style={styles.Title.viewReturn}>
+							<Text style={styles.notRegsTitle}> Não existe nenhum resgistro nesse intervalo de tempo! </Text>
+						</View>
+						<View style={styles.lookRegister}>
+							<Text style={styles.bottomRegsTxt}> Total: {dataLength}</Text>
+							<Text style={styles.bottomRegsTxt}> Mostrando: {filterData().length}</Text>
+						</View>
+					</View>
+				)
+			}
 		} else {
 			return (
-				<View style={{ paddingBottom: 25 }}>
-					<Text style={styles.scrollTitle}> Últimos Registros: </Text>
-					<View style={styles.Title.viewReturn}>
-						<Text style={styles.notRegsTitle}> Não existe nenhum resgistro nesse intervalo de tempo! </Text>
-					</View>
-					<View style={styles.lookRegister}>
-						<Text style={styles.bottomRegsTxt}> Total: {dataLength}</Text>
-						<Text style={styles.bottomRegsTxt}> Mostrando: {filterData().length}</Text>
-					</View>
+				<View style={styles.viewReturn}>
+					<Text style={styles.addRegsTitle}> Adicione registos do seu pet aqui </Text>
+					<AntDesign name="arrowdown" size={40} color={THEME.COLORS.PRIMARY} />
 				</View>
 			)
 		}
-	} else {
-		return (
-			<View style={styles.viewReturn}>
-				<Text style={styles.addRegsTitle}> Adicione registos do seu pet aqui </Text>
-				<AntDesign name="arrowdown" size={40} color="#75739c" />
-			</View>
-		)
 	}
 }

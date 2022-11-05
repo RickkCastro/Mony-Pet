@@ -15,9 +15,11 @@ import Header1 from '../../components/Header1'
 
 import { styles } from './styles';
 import { THEME } from '../../theme';
+import { Loading } from '../../components/Loading';
 
 export function ScAddTask({ route, navigation }) {
   const { petId, taskId, screenTitle, clickDate } = route.params
+  const [loading, setLoading] = useState(false)
 
   const [titleT, setTitleT] = useState('')
   const [descT, setDescT] = useState('')
@@ -66,13 +68,14 @@ export function ScAddTask({ route, navigation }) {
 
   useFocusEffect(//Quando focar na tela
     useCallback(() => {
-      if (taskId != undefined) {
+      if (taskId) {
         fetchTaskData()
       }
     }, [])
   )
 
   async function fetchTaskData() {
+    setLoading(true)
     if (taskId) {
       const response = await getItem()
       const dataTotal = response ? JSON.parse(response) : []
@@ -86,13 +89,14 @@ export function ScAddTask({ route, navigation }) {
       setDescT(data.descT)
       setDoneT(data.doneT)
     }
+    setLoading(false)
   }
 
   function handleSaveTask() {
-    if(titleT != '') {
+    if (titleT != '') {
       saveTask()
     }
-    else{
+    else {
       Toast.show({
         type: 'error',
         text1: 'Coloque um nome na tarefa',
@@ -101,6 +105,7 @@ export function ScAddTask({ route, navigation }) {
   }
 
   async function saveTask() {
+    setLoading(true)
     try {
       const id = taskId ? taskId : uuid.v4()
       let newTask = {
@@ -145,146 +150,155 @@ export function ScAddTask({ route, navigation }) {
         text1: 'Não foi possível adicionar tarefa',
       })
     }
+    setLoading(false)
   }
 
   async function handleRemoveTask() {
-		Alert.alert('Aviso!', 'Deseja realmente excluir o compromisso?', [
-			{
-				text: 'Cancelar',
-				onPress: () => console.log('Cancel Pressed'),
-			},
-			{
-				text: 'Sim',
-				onPress: () => removeItem(),
-			}
-		])
-	}
+    Alert.alert('Aviso!', 'Deseja realmente excluir o compromisso?', [
+      {
+        text: 'Cancelar',
+        onPress: () => console.log('Cancel Pressed'),
+      },
+      {
+        text: 'Sim',
+        onPress: () => removeItem(),
+      }
+    ])
+  }
 
-	// Remoção de item
-	async function removeItem() {
-		try {
-			const response = await getItem()
-			const previousTasks = response ? JSON.parse(response) : []
+  // Remoção de item
+  async function removeItem() {
+    setLoading(true)
+    try {
+      const response = await getItem()
+      const previousTasks = response ? JSON.parse(response) : []
 
-			const newTasksData = previousTasks.filter((item) => item.id !== taskId)
+      const newTasksData = previousTasks.filter((item) => item.id !== taskId)
 
-			await setItem(JSON.stringify(newTasksData))
+      await setItem(JSON.stringify(newTasksData))
 
-			Toast.show({
-				type: 'info',
-				text1: 'Compromisso excluído',
-			})
+      Toast.show({
+        type: 'info',
+        text1: 'Compromisso excluído',
+      })
 
-			navigation.goBack()
-		} catch {
-			console.log(error)
-			Toast.show({
-				type: 'error',
-				text1: 'Não foi possível excluir compromisso',
-			})
-		}
-	}
+      navigation.goBack()
+    } catch {
+      console.log(error)
+      Toast.show({
+        type: 'error',
+        text1: 'Não foi possível excluir compromisso',
+      })
+    }
+    setLoading(false)
+  }
 
   return (
     <SafeAreaView style={styles.container}>
       {/* Cabeçalho */}
-      <Header1 txt1={screenTitle} bt2Color={taskId ? '#9a8db0' : 'transparent'}
-      onPressBt2={taskId ? () => handleRemoveTask() : undefined} onPressBt1={() => navigation.goBack()} />
-      <ScrollView contentContainerStyle={styles.scrollStyle}>
+      <Header1 txt1={screenTitle} bt2Color={taskId ? THEME.COLORS.BUTTON : 'transparent'}
+        onPressBt2={taskId ? () => handleRemoveTask() : undefined} onPressBt1={() => navigation.goBack()} />
 
-        <View style={{ marginHorizontal: 20 }}>
-          {/* Dia */}
-          <Text style={styles.txtSelectDay}>Selecione o dia:</Text>
-          <View>
-            <TouchableOpacity onPress={() => setShowDP(true)} style={styles.monthStyle}>
-              <AntDesign name='calendar' size={18} color='#75739c' style={{ marginHorizontal: 5 }} />
-              <Text style={styles.txtDate}> {formatDate(date)} </Text>
-              <AntDesign name='caretdown' size={18} color='gray' style={{ marginHorizontal: 5 }} />
-            </TouchableOpacity>
+      {loading ?
+        <View style={{ alignSelf: 'center', justifyContent: 'center', flex: 1 }}>
+          <Loading size={10} />
+        </View> :
+        <ScrollView contentContainerStyle={styles.scrollStyle}>
 
-            {showDP && (
-              <DateTimePicker
-                value={date}
-                mode={'date'}
-                onChange={onChangeDate}
-              />
-            )}
+          <View style={{ marginHorizontal: 20 }}>
+            {/* Dia */}
+            <Text style={styles.txtSelectDay}>Selecione o dia:</Text>
+            <View>
+              <TouchableOpacity onPress={() => setShowDP(true)} style={styles.monthStyle}>
+                <AntDesign name='calendar' size={18} color={THEME.COLORS.PRIMARY} style={{ marginHorizontal: 5 }} />
+                <Text style={styles.txtDate}> {formatDate(date)} </Text>
+                <AntDesign name='caretdown' size={18} color='gray' style={{ marginHorizontal: 5 }} />
+              </TouchableOpacity>
+
+              {showDP && (
+                <DateTimePicker
+                  value={date}
+                  mode={'date'}
+                  onChange={onChangeDate}
+                />
+              )}
+            </View>
+
+            {/* Hora */}
+            <Text style={[styles.txtSelectDay, { marginTop: 20 }]}>Selecione o horário:</Text>
+            <View>
+              <TouchableOpacity onPress={() => setShowTP(true)} style={styles.monthStyle}>
+                <AntDesign name='clockcircleo' size={18} color={THEME.COLORS.PRIMARY} style={{ marginHorizontal: 5 }} />
+                <Text style={styles.txtDate}> {formatTime(time)} </Text>
+                <AntDesign name='caretdown' size={18} color={THEME.COLORS.GRAY} style={{ marginHorizontal: 5 }} />
+              </TouchableOpacity>
+
+              {showTP && (
+                <DateTimePicker
+                  value={time}
+                  mode={'time'}
+                  onChange={onChangeTime}
+                />
+              )}
+            </View>
+
+            {/* Nome */}
+            <Text style={styles.lineText}>Nome do Compromisso:</Text>
+            <TextInput style={styles.txtInformation} placeholder={'Ex: Banho no petshop'}
+              placeholderTextColor={THEME.COLORS.GRAY} onChangeText={setTitleT} value={titleT}>
+            </TextInput>
+
+            {/* Select do Tipo de Compromisso */}
+            <Text style={styles.lineText}>Tipo de Compromisso:</Text>
+            <Box>
+              <Select selectedValue={typeT} borderColor={THEME.COLORS.PRIMARY} color={THEME.COLORS.GRAY} size={THEME.FONT_SIZE.LG}
+                borderRadius='10' height={9} accessibilityLabel='Time' _selectedItem={{
+                  bg: THEME.COLORS.PRIMARY,
+                  borderRadius: '10',
+                }} mt={1} onValueChange={setTypeT}>
+                <Select.Item label='Tosa' value='content-cut' />
+                <Select.Item label='Banho' value='bathtub' />
+                <Select.Item label='Vacina' value='needle' />
+                <Select.Item label='Consulta' value='stethoscope' />
+                <Select.Item label='Remédio' value='medical-bag' />
+                <Select.Item label='Outro' value='paw' />
+              </Select>
+            </Box>
+
+            {/* descrição*/}
+            <Text style={[styles.lineText, { color: THEME.COLORS.TEXT }]}>Anotações do pet:</Text>
+            <TextInput
+              placeholder={'Ex: descreva seu compromisso aqui!'}
+              style={styles.txtDesc}
+              multiline={true}
+              onChangeText={setDescT}
+              maxLength={250}
+              value={descT}>
+            </TextInput>
           </View>
 
-          {/* Hora */}
-          <Text style={[styles.txtSelectDay, { marginTop: 20 }]}>Selecione o horário:</Text>
-          <View>
-            <TouchableOpacity onPress={() => setShowTP(true)} style={styles.monthStyle}>
-              <AntDesign name='clockcircleo' size={18} color='#75739c' style={{ marginHorizontal: 5 }} />
-              <Text style={styles.txtDate}> {formatTime(time)} </Text>
-              <AntDesign name='caretdown' size={18} color='gray' style={{ marginHorizontal: 5 }} />
-            </TouchableOpacity>
+          {/* Botão de adição */}
+          <ImageBackground
+            source={require('../../assets/images/Onda.png')}
+            resizeMode={'stretch'}>
+            <View
+              style={styles.imgView}>
+              <TouchableOpacity
+                style={styles.styleButton}
+                onPress={() => handleSaveTask()}>
+                <Text style={styles.stylesTextButton}>Salvar</Text>
+              </TouchableOpacity>
 
-            {showTP && (
-              <DateTimePicker
-                value={time}
-                mode={'time'}
-                onChange={onChangeTime}
-              />
-            )}
-          </View>
+              {/* Direitos Autorais */}
+              <Text
+                style={styles.styleCopyRight}>
+                COPYRIGHT@MonyPet
+              </Text>
+            </View>
+          </ImageBackground>
 
-          {/* Nome */}
-          <Text style={styles.lineText}>Nome do Compromisso:</Text>
-          <TextInput style={styles.txtInformation} placeholder={'Ex: Banho no petshop'}
-            placeholderTextColor='gray' onChangeText={setTitleT} value={titleT}>
-          </TextInput>
-
-          {/* Select do Tipo de Compromisso */}
-          <Text style={styles.lineText}>Tipo de Compromisso:</Text>
-          <Box>
-            <Select selectedValue={typeT} borderColor='#75739c' color='#747474' size={THEME.FONT_SIZE.LG}
-              borderRadius='10' height={9} accessibilityLabel='Time' _selectedItem={{
-                bg: '#75739c',
-                borderRadius: '10',
-              }} mt={1} onValueChange={setTypeT}>
-              <Select.Item label='Tosa' value='content-cut' />
-              <Select.Item label='Banho' value='bathtub' />
-              <Select.Item label='Vacina' value='needle' />
-              <Select.Item label='Consulta' value='stethoscope' />
-              <Select.Item label='Remédio' value='medical-bag' />
-              <Select.Item label='Outro' value='paw' />
-            </Select>
-          </Box>
-
-          {/* descTrição*/}
-          <Text style={[styles.lineText, { color: '#75739c' }]}>Anotações do pet:</Text>
-          <TextInput
-            placeholder={'Ex: descreva seu compromisso aqui!'}
-            style={styles.txtDesc}
-            multiline={true}
-            onChangeText={setDescT}
-            maxLength={250}
-            value={descT}>
-          </TextInput>
-        </View>
-
-        {/* Botão de adição */}
-        <ImageBackground
-          source={require('../../assets/images/Onda.png')}
-          resizeMode={'stretch'}>
-          <View
-            style={styles.imgView}>
-            <TouchableOpacity
-              style={styles.styleButton}
-              onPress={() => handleSaveTask()}>
-              <Text style={styles.stylesTextButton}>Salvar</Text>
-            </TouchableOpacity>
-
-            {/* Direitos Autorais */}
-            <Text
-              style={styles.styleCopyRight}>
-              COPYRIGHT@MonyPet
-            </Text>
-          </View>
-        </ImageBackground>
-
-      </ScrollView>
+        </ScrollView>
+      }
     </SafeAreaView>
   );
 }

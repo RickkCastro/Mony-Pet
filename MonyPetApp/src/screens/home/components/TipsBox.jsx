@@ -40,7 +40,7 @@ export default function (props) {
                     {tipsList[tipsIndex]}
                 </Text>
 
-                <FontAwesome name="hand-pointer-o" size={40} color="#75739c" style={styles.tipsButton}/>
+                <FontAwesome name="hand-pointer-o" size={40} color={THEME.COLORS.PRIMARY} style={styles.tipsButton}/>
             </TouchableOpacity>
         </View>
     );

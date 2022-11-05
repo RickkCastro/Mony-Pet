@@ -8,6 +8,9 @@ import { useAsyncStorage } from '@react-native-async-storage/async-storage'
 
 import { styles } from './styles'
 
+import { THEME } from '../../theme'
+import { RFPercentage } from 'react-native-responsive-fontsize'
+
 export function ScPetChoice(props) {
 	const navigation = useNavigation()
 
@@ -21,8 +24,6 @@ export function ScPetChoice(props) {
 		const { getItem, setItem, removeItem } = useAsyncStorage('@monypet:showSlides')
 		const response =  await getItem()
 		const showSlides = response ? JSON.parse(response) : {value: true}
-
-		console.log(showSlides)
 
 		showSlides.value && navigation.push('ScHelpSlides')
 	}
@@ -50,7 +51,7 @@ export function ScPetChoice(props) {
 					<TouchableOpacity
 						style={styles.addButton}
 						onPress={() => navigation.navigate('ScPetAdd')}>
-						<AntDesign name="plus" size={35} color="white" style={{ margin: 8 }} />
+						<AntDesign name="plus" size={RFPercentage(5)} color={THEME.COLORS.TEXT_BUTTON} style={{ margin: 8 }} />
 					</TouchableOpacity>
 
 					{/* Rodapé */}

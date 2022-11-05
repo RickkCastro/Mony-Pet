@@ -12,9 +12,11 @@ import * as ImagePicker from 'expo-image-picker'
 
 import { styles } from './styles'
 import { THEME } from '../../theme'
+import { Loading } from '../../components/Loading'
 
 export function ScVizuPet({ route, navigation }) {
 	const { petId } = route.params
+	const [loading, setLoading] = React.useState(false)
 
 	const [petName, setPetName] = useState('')
 	const [petYears, setPetYears] = useState('')
@@ -42,6 +44,7 @@ export function ScVizuPet({ route, navigation }) {
 	}
 
 	async function handleSaveData() {
+		setLoading(true)
 		try {
 			//Pet
 			const responsePets = await getItem()
@@ -63,7 +66,7 @@ export function ScVizuPet({ route, navigation }) {
 			}
 
 			previousPets[currentPetIndex] = newPetData
-        	await setItem(JSON.stringify(previousPets))
+			await setItem(JSON.stringify(previousPets))
 
 			Toast.show({
 				type: 'success',
@@ -72,7 +75,7 @@ export function ScVizuPet({ route, navigation }) {
 			})
 
 			// Aviso de exclusão de Pet
-			navigation.navigate('ScPetChoice')
+			navigation.navigate('ScHome', { petType: petType, petId: petId, petImage: petImage })
 		} catch {
 			console.log(error)
 			Toast.show({
@@ -80,10 +83,12 @@ export function ScVizuPet({ route, navigation }) {
 				text1: 'Não foi possível excluir pet',
 			})
 		}
+		setLoading(false)
 	}
 
 	// Aviso de carregagem de dados
 	async function handleFetchData() {
+		setLoading(true)
 		try {
 			const response = await getItem()
 			const data = response ? JSON.parse(response) : []
@@ -98,6 +103,7 @@ export function ScVizuPet({ route, navigation }) {
 				text1: 'Não foi possível carregar dados',
 			})
 		}
+		setLoading(false)
 	}
 
 	function setDataValues(data) {
@@ -135,6 +141,7 @@ export function ScVizuPet({ route, navigation }) {
 
 	// Remoção de item
 	async function removeItem() {
+		setLoading(true)
 		try {
 			//Pet
 			const responsePets = await getItem()
@@ -173,6 +180,7 @@ export function ScVizuPet({ route, navigation }) {
 				text1: 'Não foi possível excluir pet',
 			})
 		}
+		setLoading(false)
 	}
 
 	const pickImage = async () => {
@@ -192,176 +200,180 @@ export function ScVizuPet({ route, navigation }) {
 	return (
 		<SafeAreaView style={{ backgroundColor: 'white', flex: 1 }}>
 			{/* Cabeçalho */}
-			<Header1 txt1={'Informações do pet'} bt2Color={'#747474'} onPressBt2={() => handleRemovePet()} onPressBt1={() => navigation.goBack()} />
+			<Header1 txt1={'Informações do pet'} bt2Color={THEME.COLORS.GRAY} onPressBt2={() => handleRemovePet()} onPressBt1={() => navigation.goBack()} />
 
-			{/* Rolagem */}
-			<ScrollView contentContainerStyle={styles.scroll}>
-				{/* Imagem do pet */}
-				<View style={styles.viewImgPet}>
-					<FontAwesome name="pencil" size={20} color="transparent" style={{ marginRight: 10 }} />
-					<TouchableOpacity onPress={pickImage}>
-						<Image
-							source={petImage ? { uri: petImage } : petType == 'dog' ? require('../../assets/images/dogIcon.png') : require('../../assets/images/catIcon.png')}
-							resizeMode={'stretch'}
-							style={styles.imgPet}
-						/>
-					</TouchableOpacity>
-					<TouchableOpacity onPress={pickImage}>
-						<FontAwesome name="pencil" size={20} color="#7153af" style={{ marginLeft: 10 }} />
-					</TouchableOpacity>
-				</View>
-
-				{/* Informações de Nome */}
-				<View style={{ marginHorizontal: 30 }}>
-					<Text style={styles.lineText}> Nome do seu pet:</Text>
-					<View style={{ flexDirection: 'row' }}>
-						<TextInput
-							style={styles.txtInformation}
-							value={petName}
-							onChangeText={setPetName}
-							ref={refName}
-						>
-						</TextInput>
-						<TouchableOpacity style={styles.styleButton} onPress={() => handleClick(refName)}>
-							<FontAwesome name="pencil" size={20} color="#7153af" />
-						</TouchableOpacity>
-					</View>
-
-					{/* Informações de Idade */}
-					<Text style={styles.lineText}>Idade do seu pet:</Text>
-					<View style={{ flexDirection: 'row' }}>
-						<TextInput
-							style={styles.txtInformation}
-							value={petYears}
-							onPointerLeave={setPetYears}
-							ref={refYears}
-							keyboardType={'number-pad'}
-							maxLength={2}
-						>
-						</TextInput>
-						<TouchableOpacity style={styles.styleButton} onPress={() => handleClick(refYears)}>
-							<FontAwesome name="pencil" size={20} color="#7153af" />
-						</TouchableOpacity>
-					</View>
-
-					{/* Informações de Raça */}
-					<Text style={styles.lineText}>Raça:</Text>
-					<View style={{ flexDirection: 'row' }}>
-						<TextInput
-							style={styles.txtInformation}
-							value={petRace}
-							onChangeText={setPetRace}
-							ref={refRace}
-						>
-						</TextInput>
-						<TouchableOpacity style={styles.styleButton} onPress={() => handleClick(refRace)}>
-							<FontAwesome name="pencil" size={20} color="#7153af" />
-						</TouchableOpacity>
-					</View>
-
-					{/* Informações de Peso */}
-					<Text style={styles.lineText}>Peso:</Text>
-					<View style={{ flexDirection: 'row' }}>
-						<TextInput
-							style={styles.txtInformation}
-							value={petWeight}
-							onChangeText={setPetWeight}
-							ref={refWeight}
-							keyboardType={'number-pad'}
-							maxLength={3}
-						>
-						</TextInput>
-						<TouchableOpacity style={styles.styleButton} onPress={() => handleClick(refWeight)}>
-							<FontAwesome name="pencil" size={20} color="#7153af" />
-						</TouchableOpacity>
-					</View>
-
-					{/* Informações de Pelagem */}
-					<Text style={styles.lineText}>Tipo de Pelagem:</Text>
-					<View style={{ flexDirection: 'row' }}>
-						<TextInput
-							style={styles.txtInformation}
-							value={petFur}
-							onChangeText={setPetFur}
-							ref={refFur}
-						>
-						</TextInput>
-						<TouchableOpacity style={styles.styleButton} onPress={() => handleClick(refFur)}>
-							<FontAwesome name="pencil" size={20} color="#7153af" />
-						</TouchableOpacity>
-					</View>
-
-					{/* Dados de Comportamento */}
-					<Text style={styles.lineText}>Comportamento:</Text>
-					<View style={{ flexDirection: 'row' }}>
-						<TextInput
-							style={styles.txtInformation}
-							value={petBehavior}
-							onChangeText={setPetBehavior}
-							ref={refBehavior}
-						>
-						</TextInput>
-						<TouchableOpacity style={styles.styleButton} onPress={() => handleClick(refBehavior)}>
-							<FontAwesome name="pencil" size={20} color="#7153af" />
-						</TouchableOpacity>
-					</View>
-
-					{/* Conteúdo de Espécie */}
-					<Text style={styles.lineText}>Ele(a) é um:</Text>
-					<RadioButton.Group value={petType}
-						onValueChange={(newValue) => { setPetType(newValue) }}
-					>
-						<View style={styles.selectPet}>
-							<RadioButton
-								value="dog"
-								color="#75739c"
-								uncheckedColor="#75739c"
+			{loading ?
+				<View style={{alignSelf: 'center', flex: 1, justifyContent: 'center'}}>
+					<Loading size={10} />
+				</View> :
+				<ScrollView contentContainerStyle={styles.scroll}>
+					{/* Imagem do pet */}
+					<View style={styles.viewImgPet}>
+						<FontAwesome name="pencil" size={20} color="transparent" style={{ marginRight: 10 }} />
+						<TouchableOpacity onPress={pickImage}>
+							<Image
+								source={petImage ? { uri: petImage } : petType == 'dog' ? require('../../assets/images/dogIcon.png') : require('../../assets/images/catIcon.png')}
+								resizeMode={'stretch'}
+								style={styles.imgPet}
 							/>
-							<Text style={styles.styleTextSelection}>Cachorro</Text>
+						</TouchableOpacity>
+						<TouchableOpacity onPress={pickImage}>
+							<FontAwesome name="pencil" size={20} color={THEME.COLORS.PRIMARY} style={{ marginLeft: 10 }} />
+						</TouchableOpacity>
+					</View>
 
-							<RadioButton
-								value="cat"
-								color="#75739c"
-								uncheckedColor="#75739c"
-							/>
-							<Text style={styles.styleTextSelection}>Gato</Text>
+					{/* Informações de Nome */}
+					<View style={{ marginHorizontal: 30 }}>
+						<Text style={styles.lineText}>Nome do seu pet:</Text>
+						<View style={{ flexDirection: 'row' }}>
+							<TextInput
+								style={styles.txtInformation}
+								value={petName}
+								onChangeText={setPetName}
+								ref={refName}
+							>
+							</TextInput>
+							<TouchableOpacity style={styles.styleButton} onPress={() => handleClick(refName)}>
+								<FontAwesome name="pencil" size={20} color={THEME.COLORS.PRIMARY} />
+							</TouchableOpacity>
 						</View>
-					</RadioButton.Group>
 
-					{/* Informações de Descrição */}
-					<Text style={styles.lineText}>Descrição:</Text>
-					<View style={{ flexDirection: 'row' }}>
-						<TextInput
-							style={styles.txtDesc}
-							value={petDescription}
-							onChangeText={setPetDescription}
-							multiline={true}
-							numberOfLines={5}
-							maxLength={250}
-							ref={refDesc}
+						{/* Informações de Idade */}
+						<Text style={styles.lineText}>Idade do seu pet:</Text>
+						<View style={{ flexDirection: 'row' }}>
+							<TextInput
+								style={styles.txtInformation}
+								value={petYears}
+								onPointerLeave={setPetYears}
+								ref={refYears}
+								keyboardType={'number-pad'}
+								maxLength={2}
+							>
+							</TextInput>
+							<TouchableOpacity style={styles.styleButton} onPress={() => handleClick(refYears)}>
+								<FontAwesome name="pencil" size={20} color={THEME.COLORS.PRIMARY} />
+							</TouchableOpacity>
+						</View>
+
+						{/* Informações de Raça */}
+						<Text style={styles.lineText}>Raça:</Text>
+						<View style={{ flexDirection: 'row' }}>
+							<TextInput
+								style={styles.txtInformation}
+								value={petRace}
+								onChangeText={setPetRace}
+								ref={refRace}
+							>
+							</TextInput>
+							<TouchableOpacity style={styles.styleButton} onPress={() => handleClick(refRace)}>
+								<FontAwesome name="pencil" size={20} color={THEME.COLORS.PRIMARY} />
+							</TouchableOpacity>
+						</View>
+
+						{/* Informações de Peso */}
+						<Text style={styles.lineText}>Peso:</Text>
+						<View style={{ flexDirection: 'row' }}>
+							<TextInput
+								style={styles.txtInformation}
+								value={petWeight}
+								onChangeText={setPetWeight}
+								ref={refWeight}
+								keyboardType={'number-pad'}
+								maxLength={3}
+							>
+							</TextInput>
+							<TouchableOpacity style={styles.styleButton} onPress={() => handleClick(refWeight)}>
+								<FontAwesome name="pencil" size={20} color={THEME.COLORS.PRIMARY} />
+							</TouchableOpacity>
+						</View>
+
+						{/* Informações de Pelagem */}
+						<Text style={styles.lineText}>Tipo de Pelagem:</Text>
+						<View style={{ flexDirection: 'row' }}>
+							<TextInput
+								style={styles.txtInformation}
+								value={petFur}
+								onChangeText={setPetFur}
+								ref={refFur}
+							>
+							</TextInput>
+							<TouchableOpacity style={styles.styleButton} onPress={() => handleClick(refFur)}>
+								<FontAwesome name="pencil" size={20} color={THEME.COLORS.PRIMARY} />
+							</TouchableOpacity>
+						</View>
+
+						{/* Dados de Comportamento */}
+						<Text style={styles.lineText}>Comportamento:</Text>
+						<View style={{ flexDirection: 'row' }}>
+							<TextInput
+								style={styles.txtInformation}
+								value={petBehavior}
+								onChangeText={setPetBehavior}
+								ref={refBehavior}
+							>
+							</TextInput>
+							<TouchableOpacity style={styles.styleButton} onPress={() => handleClick(refBehavior)}>
+								<FontAwesome name="pencil" size={20} color={THEME.COLORS.PRIMARY} />
+							</TouchableOpacity>
+						</View>
+
+						{/* Conteúdo de Espécie */}
+						<Text style={styles.lineText}>Ele(a) é um:</Text>
+						<RadioButton.Group value={petType}
+							onValueChange={(newValue) => { setPetType(newValue) }}
 						>
-						</TextInput>
-						<TouchableOpacity style={styles.pencil} onPress={() => handleClick(refDesc)}>
-							<FontAwesome name="pencil" size={20} color="#7153af" />
-						</TouchableOpacity>
-					</View>
-				</View>
+							<View style={styles.selectPet}>
+								<RadioButton
+									value="dog"
+									color={THEME.COLORS.PRIMARY}
+									uncheckedColor={THEME.COLORS.PRIMARY}
+								/>
+								<Text style={styles.styleTextSelection}>Cachorro</Text>
 
-				<ImageBackground
-					source={require('../../assets/images/Onda.png')}
-					resizeMode={'stretch'}>
-					<View style={styles.styleWave}>
-						<TouchableOpacity style={styles.saveButton} onPress={handleSaveData}>
-							<Text style={{ color: 'white', fontSize: THEME.FONT_SIZE.LG }}>Salvar</Text>
-						</TouchableOpacity>
+								<RadioButton
+									value="cat"
+									color={THEME.COLORS.PRIMARY}
+									uncheckedColor={THEME.COLORS.PRIMARY}
+								/>
+								<Text style={styles.styleTextSelection}>Gato</Text>
+							</View>
+						</RadioButton.Group>
 
-						{/* Direitos Autorais */}
-						<Text style={styles.styleCopyRight}>
-							COPYRIGHT@MonyPet
-						</Text>
+						{/* Informações de Descrição */}
+						<Text style={styles.lineText}>Descrição:</Text>
+						<View style={{ flexDirection: 'row' }}>
+							<TextInput
+								style={styles.txtDesc}
+								value={petDescription}
+								onChangeText={setPetDescription}
+								multiline={true}
+								numberOfLines={5}
+								maxLength={250}
+								ref={refDesc}
+							>
+							</TextInput>
+							<TouchableOpacity style={styles.pencil} onPress={() => handleClick(refDesc)}>
+								<FontAwesome name="pencil" size={20} color={THEME.COLORS.PRIMARY} />
+							</TouchableOpacity>
+						</View>
 					</View>
-				</ImageBackground>
-			</ScrollView>
+
+					<ImageBackground
+						source={require('../../assets/images/Onda.png')}
+						resizeMode={'stretch'}>
+						<View style={styles.styleWave}>
+							<TouchableOpacity style={styles.saveButton} onPress={handleSaveData}>
+								<Text style={{ color: THEME.COLORS.TEXT_BUTTON, fontSize: THEME.FONT_SIZE.LG }}>Salvar</Text>
+							</TouchableOpacity>
+
+							{/* Direitos Autorais */}
+							<Text style={styles.styleCopyRight}>
+								COPYRIGHT@MonyPet
+							</Text>
+						</View>
+					</ImageBackground>
+				</ScrollView>
+			}
 		</SafeAreaView>
 	)
 }

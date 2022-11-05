@@ -4,7 +4,7 @@ import { THEME } from "../../theme";
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: THEME.COLORS.BACKGROUND,
   },
   header: {
     flexDirection: "row",
@@ -15,19 +15,19 @@ export default StyleSheet.create({
 
   scrollStyle: {
     minHeight: "92%",
-    backgroundColor: "#fff",
+    backgroundColor: THEME.COLORS.BACKGROUND,
     justifyContent: "space-between",
   },
 
   txtSelectDay: {
-    color: "#75739c",
+    color: THEME.COLORS.TEXT,
     fontSize: THEME.FONT_SIZE.LG,
     marginBottom: 10,
     textAlign: "center",
   },
 
   txtDate: {
-    color: "#75739c",
+    color: THEME.COLORS.TEXT,
     fontSize: THEME.FONT_SIZE.LG,
     textDecorationLine: "underline",
     fontWeight: "700",
@@ -36,15 +36,15 @@ export default StyleSheet.create({
   txtInformation: {
     paddingHorizontal: 10,
     borderWidth: 1,
-    borderColor: "#75739c",
+    borderColor: THEME.COLORS.PRIMARY,
     borderRadius: 10,
     marginBottom: 30,
     fontSize: THEME.FONT_SIZE.LG,
-    backgroundColor: "#fff",
+    backgroundColor: THEME.COLORS.BACKGROUND,
   },
 
   lineText: {
-    color: "#75739c",
+    color: THEME.COLORS.TEXT,
     fontSize: THEME.FONT_SIZE.LG,
     marginBottom: 5,
   },
@@ -59,7 +59,7 @@ export default StyleSheet.create({
 
   styleButton: {
     borderRadius: 10,
-    backgroundColor: "#7153af",
+    backgroundColor: THEME.COLORS.BUTTON,
     alignItems: "center",
     justifyContent: "center",
     height: 50,
@@ -69,7 +69,7 @@ export default StyleSheet.create({
 
   styleTextSelection: {
     fontSize: THEME.FONT_SIZE.MD,
-    color: "gray",
+    color: THEME.COLORS.GRAY,
     paddingRight: 10,
   },
 
@@ -82,7 +82,7 @@ export default StyleSheet.create({
   },
 
   lineRegister: {
-    color: "#75739c",
+    color: THEME.COLORS.TEXT,
     fontSize: THEME.FONT_SIZE.LG,
     marginBottom: 3,
     textAlign: "center",
@@ -92,11 +92,11 @@ export default StyleSheet.create({
   txtDesc: {
     padding: 10,
     borderWidth: 1,
-    borderColor: "#75739c",
+    borderColor: THEME.COLORS.TEXT,
     borderRadius: 10,
     marginBottom: 15,
     fontSize: THEME.FONT_SIZE.MD,
-    backgroundColor: "#fff",
+    backgroundColor: THEME.COLORS.BACKGROUND,
     width: "90%",
     textAlignVertical: "top",
     height: 125,
@@ -105,7 +105,7 @@ export default StyleSheet.create({
   },
 
   styleCopyRight: {
-    color: "#252424",
+    color: THEME.COLORS.COPY,
     fontSize: THEME.FONT_SIZE.SM,
     alignSelf: "center",
     marginTop: 10,
@@ -114,7 +114,7 @@ export default StyleSheet.create({
 
   backgroundRegister: {
     paddingHorizontal: 20,
-    backgroundColor: "#ece4fc",
+    backgroundColor: THEME.COLORS.ITENS_BACKGROUND,
     alignSelf: "center",
     borderRadius: 50,
     justifyContent: "space-between",
@@ -134,13 +134,13 @@ export default StyleSheet.create({
     textAlign: "center",
     fontSize: THEME.FONT_SIZE.SM,
     width: 54,
-    color: "#75739c",
+    color: THEME.COLORS.TEXT,
   },
 
   selected: {
     borderWidth: 1.8,
     borderRadius: 100,
-    borderColor: "#a54c1b",
+    borderColor: THEME.COLORS.EMOTE_ANGRY,
   },
 
   unselected: {
@@ -150,7 +150,7 @@ export default StyleSheet.create({
   },
 
   stylesTextButton: {
-    color: "white",
+    color: THEME.COLORS.TEXT_BUTTON,
     fontSize: THEME.FONT_SIZE.LG,
   },
   

@@ -1,47 +1,72 @@
 import AppIntroSlider from "react-native-app-intro-slider";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 import { THEME } from "../theme";
 import { useAsyncStorage } from '@react-native-async-storage/async-storage'
 
-//tutorial
-const slides = [
-  {
-    key: '1',
-    title: "Titulo 1",
-    text: "texto 1",
-    image: require("../assets/images/loading.gif"),
-  },
-  {
-    key: '2',
-    title: "Titulo 2",
-    text: "texto 2",
-    image: require("../assets/images/loading.gif"),
-  },
-  {
-    key: '3',
-    title: "Titulo 3",
-    text: "texto 3",
-    image: require("../assets/images/loading.gif"),
-  },
-];
-
 function renderSlides({ item }) {
   return (
-    <View style={styles.slidesView}>
+    <View style={{ flex: 1, backgroundColor: item.backgroundColor, justifyContent: "space-evenly" }}>
       <Image source={item.image} style={styles.slidesImage} />
-      <Text style={styles.slidesTitle}>{item.title}</Text>
-      <Text style={styles.slidesText}>{item.text}</Text>
+      <View style={styles.viewText}>
+        <Text style={styles.slidesTitle}>{item.title}</Text>
+        <Text style={styles.slidesText}>{item.text}</Text>
+      </View>
     </View>
   )
 }
 
-export function ScHelpSlides({navigation}) {
-  
+export function ScHelpSlides({ navigation }) {
+  //tutorial
+  const slides = [
+    {
+      key: '1',
+      title: "Bem vindo!",
+      text: "MonyPet está aqui para ajuda-lo a monitorar e organizar a vida de seus bichinhos.",
+      image: require("../assets/images/logo.png"),
+      backgroundColor: THEME.COLORS.ITENS_BACKGROUND
+    },
+    {
+      key: '2',
+      title: "Vamos começar adicionando um pet, que tal?",
+      text: "Nessa tela você vai colocar todas as informações solicitadas nos campos, posteriormente você vai poder alterar os dados se desejar.",
+      image: require("../assets/images/loading.gif"),
+      backgroundColor: THEME.COLORS.ITENS_BACKGROUND
+    },
+    {
+      key: '3',
+      title: "Primeiros registros!!!",
+      text: "É nessa tela que a magia acontece, diga como está seu animalzinho de estimação, diariamente, e tenha um monitoramento completo com nossas estatísticas e um controle maior nos cuidados dele.",
+      image: require("../assets/images/loading.gif"),
+      backgroundColor: THEME.COLORS.ITENS_BACKGROUND
+    },
+    {
+      key: '4',
+      title: "Analise os gráficos",
+      text: "É nessa parte que ficará armazenado todos os dados inseridos na tela de registros. A partir de 3 registros, gráficos irão surgir e é aqui que você terá noção de como está seu animal.",
+      image: require("../assets/images/loading.gif"),
+      backgroundColor: THEME.COLORS.ITENS_BACKGROUND
+    },
+    {
+      key: '5',
+      title: "Fique atento as datas!!!",
+      text: "O nosso aplicativo também disponibiliza um calendário, onde você pode anotar os compromissos de seu pet, como banho, tosa, vacinação e outras possibilidades de compromissos. Fique à vontade em adicionar quantos compromissos quiser.",
+      image: require("../assets/images/loading.gif"),
+      backgroundColor: THEME.COLORS.ITENS_BACKGROUND
+    },
+    {
+      key: '6',
+      title: "Agora é sua vez",
+      text: "Nós agradecemos sua preferência ao utilizar nosso aplicativo, conte aos seus amigos e familiares para aumentarmos nossa comunidade! A MonyPet fica feliz em ter você. MonyPet, o melhor companheiro do seu melhor amigo.",
+      image: require("../assets/images/loading.gif"),
+      backgroundColor: THEME.COLORS.ITENS_BACKGROUND
+    },
+  ]
+
   async function slidesDone() {
     const { setItem } = useAsyncStorage('@monypet:showSlides')
-    await setItem(JSON.stringify({value: false}))
-  
+    await setItem(JSON.stringify({ value: false }))
+
     navigation.pop()
   }
 
@@ -50,7 +75,7 @@ export function ScHelpSlides({navigation}) {
       renderItem={renderSlides}
       data={slides}
       activeDotStyle={{
-        backgroundColor: '#75739c',
+        backgroundColor: THEME.COLORS.PRIMARY,
         width: 30
       }}
       showPrevButton
@@ -65,26 +90,33 @@ export function ScHelpSlides({navigation}) {
 const styles = StyleSheet.create({
   slidesView: {
     flex: 1,
+    backgroundColor: '#000'
   },
 
   slidesImage: {
     resizeMode: "contain",
-    height: '70%',
+    height: '65%',
     width: '100%',
   },
 
+  viewText: {
+    justifyContent: "flex-end",
+    marginBottom: 60,
+  },
+
   slidesTitle: {
-    paddingTop: 25,
-    paddingBottom: 10,
+    paddingBottom: 15,
     fontSize: THEME.FONT_SIZE.LG,
     fontWeight: "bold",
-    color: '#75739c',
-    alignSelf: 'center'
+    color: THEME.COLORS.TEXT,
+    alignSelf: 'center',
+    textAlign: 'center',
+    marginHorizontal: 25,
   },
 
   slidesText: {
     textAlign: 'center',
-    color: '#b5b5b5',
+    color: THEME.COLORS.GRAY,
     paddingHorizontal: 25,
     fontSize: THEME.FONT_SIZE.MD
   },
@@ -92,14 +124,14 @@ const styles = StyleSheet.create({
   btDone: {
     fontSize: THEME.FONT_SIZE.MD,
     fontWeight: "bold",
-    color: '#75739c',
+    color: THEME.COLORS.TEXT,
     paddingTop: 10,
     paddingRight: 10,
   },
-  
+
   btNext: {
     fontSize: THEME.FONT_SIZE.MD,
-    color: '#75739c',
+    color: THEME.COLORS.TEXT,
     paddingTop: 10,
     paddingHorizontal: 10,
   },

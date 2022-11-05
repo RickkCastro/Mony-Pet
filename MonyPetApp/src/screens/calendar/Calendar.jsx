@@ -16,6 +16,8 @@ import { TaskBox } from './components/taskBox/TaskBox';
 import { useFocusEffect } from '@react-navigation/native'
 import AsyncStorage, { useAsyncStorage } from '@react-native-async-storage/async-storage'
 import Toast from 'react-native-toast-message'
+import { THEME } from '../../theme';
+import { Loading } from '../../components/Loading';
 
 LocaleConfig.locales['br'] = {
     monthNames: [
@@ -41,6 +43,7 @@ LocaleConfig.defaultLocale = 'br';
 
 export function ScCalendar({ route, navigation }) {
     const { petId, petType, petImage } = route.params
+    const [loading, setLoading] = React.useState(true)
 
     const [tasksData, setTasksData] = useState([])
     const [nextTasksData, setNextTasksData] = useState([])
@@ -69,7 +72,7 @@ export function ScCalendar({ route, navigation }) {
         setSelected(day.dateString)
 
         let date = new Date(day.dateString)
-        date.setDate(date.getDate() +1)
+        date.setDate(date.getDate() + 1)
         date.setHours(0, 0, 0, 0)
 
         setDate(date)
@@ -93,7 +96,7 @@ export function ScCalendar({ route, navigation }) {
 
         for (let index = 0; index < days.length; index++) {
             points[days[index]] = {
-                dotColor: '#7153a3',
+                dotColor: THEME.COLORS.BUTTON,
                 marked: true
             }
         }
@@ -101,8 +104,8 @@ export function ScCalendar({ route, navigation }) {
         points[selected] = {
             selected: true,
             disableTouchEvent: true,
-            selectedColor: '#7153a3',
-            selectedTextColor: '#fff'
+            selectedColor: THEME.COLORS.BUTTON,
+            selectedTextColor: THEME.COLORS.TEXT_BUTTON
         }
 
         return (points)
@@ -111,6 +114,7 @@ export function ScCalendar({ route, navigation }) {
     const { getItem, setItem } = useAsyncStorage('@monypet:tasks')
 
     async function handleFetchData() {
+        setLoading(true)
         const response = await getItem()
         const TotalData = response ? JSON.parse(response) : []
 
@@ -128,6 +132,7 @@ export function ScCalendar({ route, navigation }) {
 
         setTasksData(data)
         setNextTasksData(nextTasks)
+        setLoading(false)
     }
 
     function handleSetDailyTasksData(tasksData = []) {
@@ -214,13 +219,41 @@ export function ScCalendar({ route, navigation }) {
                     onDayPress={onDayPress}
                 />
 
-                {nextTasksData.length > 0 ?
-                    <View>
-                        <Text style={styles.titlte2}>Compromissos do dia:</Text>
-                        {dailyTasksData.length > 0 ?
+                {loading ?
+                    <View style={{ alignSelf: 'center', justifyContent: 'center', marginTop: 20 }}>
+                        <Loading size={10} />
+                    </View> :
+                    nextTasksData.length > 0 ?
+                        <View>
+                            <Text style={styles.titlte2}>Compromissos do dia:</Text>
+                            {dailyTasksData.length > 0 ?
+                                <View style={styles.dayTasksList}>
+                                    <ScrollView nestedScrollEnabled>
+                                        {dailyTasksData.map((item) => {
+                                            return (
+                                                <TaskBox key={item.id}
+                                                    done={item.doneT}
+                                                    icon={item.typeT}
+                                                    date={formatDate(item.date)}
+                                                    title={item.titleT}
+                                                    desc={item.descT ? item.descT : 'Sem descrição'}
+                                                    handleCheck={() => handleDoneTask(item.id, item.doneT)}
+                                                    handleTaskPress={() => navigation.navigate('ScAddTask',
+                                                        { petId: petId, taskId: item.id, screenTitle: 'Editar compromisso' })}
+                                                />
+                                            )
+                                        })}
+                                    </ScrollView>
+                                </View> :
+                                <View>
+                                    <Text style={styles.txt1}>Seu pet não possui nenhum compromisso para esse dia</Text>
+                                </View>
+                            }
+
+                            <Text style={styles.titlte2}>Todos os compromissos:</Text>
                             <View style={styles.dayTasksList}>
                                 <ScrollView nestedScrollEnabled>
-                                    {dailyTasksData.map((item) => {
+                                    {nextTasksData.map((item) => {
                                         return (
                                             <TaskBox key={item.id}
                                                 done={item.doneT}
@@ -235,41 +268,22 @@ export function ScCalendar({ route, navigation }) {
                                         )
                                     })}
                                 </ScrollView>
-                            </View> :
-                            <View>
-                                <Text style={styles.txt1}>Seu pet não possui nenhum compromisso para esse dia</Text>
                             </View>
-                        }
-
-                        <Text style={styles.titlte2}>Todos os compromissos:</Text>
-                        <View style={styles.dayTasksList}>
-                            <ScrollView nestedScrollEnabled>
-                                {nextTasksData.map((item) => {
-                                    return (
-                                        <TaskBox key={item.id}
-                                            done={item.doneT}
-                                            icon={item.typeT}
-                                            date={formatDate(item.date)}
-                                            title={item.titleT}
-                                            desc={item.descT ? item.descT : 'Sem descrição'}
-                                            handleCheck={() => handleDoneTask(item.id, item.doneT)}
-                                            handleTaskPress={() => navigation.navigate('ScAddTask',
-                                                { petId: petId, taskId: item.id, screenTitle: 'Editar compromisso' })}
-                                        />
-                                    )
-                                })}
-                            </ScrollView>
+                        </View> :
+                        <View>
+                            <Text style={styles.titlte2}>Seu pet não possui nenhum compromisso</Text>
                         </View>
-                    </View> :
-                    <View>
-                        <Text style={styles.titlte2}>Seu pet não possui nenhum compromisso</Text>
-                    </View>
                 }
 
                 <TouchableOpacity style={styles.addButton} onPress={() => navigation.navigate('ScAddTask', { petId: petId, screenTitle: 'Adicionar compromisso', clickDate: date })}>
-                    <AntDesign name="plus" size={35} color="white" style={{ margin: 8 }} />
+                    <AntDesign name="plus" size={35} color={THEME.COLORS.TEXT_BUTTON} style={{ margin: 8 }} />
                 </TouchableOpacity>
-                {doneTasksData.length > 0 &&
+
+                {loading ?
+                    <View style={{ alignSelf: 'center', justifyContent: 'center', marginTop: 20 }}>
+                        <Loading size={10} />
+                    </View> :
+                    doneTasksData.length > 0 &&
                     <View>
                         <Text style={styles.titlte2}>Compromissos concluídos:</Text>
                         <View style={styles.dayTasksList}>
@@ -292,6 +306,7 @@ export function ScCalendar({ route, navigation }) {
                         </View>
                     </View>
                 }
+
             </ScrollView>
 
             {/* Menu de botoes */}

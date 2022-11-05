@@ -9,14 +9,17 @@ import { useFocusEffect } from '@react-navigation/native'
 import Toast from 'react-native-toast-message'
 
 import styles from './styles'
+import { THEME } from '../../theme';
 
 import Header1 from '../../components/Header1';
 import Registers from './components/Registers';
+import { Loading } from '../../components/Loading'
 
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export function ScRegisterAdd({ navigation, route }) {
 	const { petType, petId, regId, screenTitle } = route.params
+	const [loading, setLoading] = React.useState(false)
 
 	const data = {
 		mood: [
@@ -84,13 +87,14 @@ export function ScRegisterAdd({ navigation, route }) {
 
 	useFocusEffect(//Quando focar na tela
 		useCallback(() => {
-			if (regId != undefined) {
+			if (regId) {
 				fetchRegsData()
 			}
 		}, [])
 	)
 
 	async function fetchRegsData() {
+		setLoading(true)
 		if (regId) {
 			const response = await getItem()
 			const dataTotal = response ? JSON.parse(response) : []
@@ -110,9 +114,11 @@ export function ScRegisterAdd({ navigation, route }) {
 			//cat
 			data.hairLossV != undefined ? setHairLossV(data.hairLossV) : 1
 		}
+		setLoading(false)
 	}
 
 	async function handleSaveReg() {
+		setLoading(true)
 		try {
 			const id = regId ? regId : uuid.v4()
 			let newReg
@@ -180,6 +186,7 @@ export function ScRegisterAdd({ navigation, route }) {
 				text1: 'Não foi possível adicionar registro',
 			})
 		}
+		setLoading(false)
 	}
 
 	async function handleRemoveReg() {
@@ -197,6 +204,7 @@ export function ScRegisterAdd({ navigation, route }) {
 
 	// Remoção de item
 	async function removeItem() {
+		setLoading(true)
 		try {
 			const response = await getItem()
 			const previousRegs = response ? JSON.parse(response) : []
@@ -218,6 +226,7 @@ export function ScRegisterAdd({ navigation, route }) {
 				text1: 'Não foi possível excluir registro',
 			})
 		}
+		setLoading(false)
 	}
 
 	const [date, setDate] = useState(() => {
@@ -263,77 +272,82 @@ export function ScRegisterAdd({ navigation, route }) {
 
 	return (
 		<SafeAreaView
-			style={{flex: 1,backgroundColor: 'white',}}>
+			style={{ flex: 1, backgroundColor:THEME.COLORS.BACKGROUND }}>
 
 			{/* Cabeçalho */}
-			<Header1 txt1={screenTitle} bt2Color={regId ? '#9a8db0' : 'transparent'} 
-			onPressBt1={() => navigation.goBack()} onPressBt2={regId ? () => handleRemoveReg() : undefined}/>
+			<Header1 txt1={screenTitle} bt2Color={regId ? THEME.COLORS.PRIMARY : 'transparent'}
+				onPressBt1={() => navigation.goBack()} onPressBt2={regId ? () => handleRemoveReg() : undefined} />
 
 			{/* Rolagem */}
-			<ScrollView contentContainerStyle={styles.scrollStyle}>
+			{loading ?
+				<View style={{ alignSelf: 'center', flex: 1, justifyContent: 'center' }}>
+					<Loading size={10}/>
+				</View> :
+				<ScrollView contentContainerStyle={styles.scrollStyle}>
 
-				{/* Mes */}
-				<Text style={styles.txtSelectDay}>Selecione o dia:</Text>
-				<View>
-					<TouchableOpacity onPress={() => setShowDP(true)} style={styles.monthStyle}>
-						<AntDesign name="calendar" size={18} color="#75739c" style={{ marginHorizontal: 5 }} />
-						<Text style={styles.txtDate}> {formatDate(date)} </Text>
-						<AntDesign name="caretdown" size={18} color="gray" style={{ marginHorizontal: 5 }} />
-					</TouchableOpacity>
+					{/* Mes */}
+					<Text style={styles.txtSelectDay}>Selecione o dia:</Text>
+					<View>
+						<TouchableOpacity onPress={() => setShowDP(true)} style={styles.monthStyle}>
+							<AntDesign name="calendar" size={18} color={THEME.COLORS.PRIMARY} style={{ marginHorizontal: 5 }} />
+							<Text style={styles.txtDate}> {formatDate(date)} </Text>
+							<AntDesign name="caretdown" size={18} color={THEME.COLORS.GRAY} style={{ marginHorizontal: 5 }} />
+						</TouchableOpacity>
 
-					{showDP && (
-						<DateTimePicker
-							value={date}
-							mode={'date'}
-							onChange={onChangeDate}
-						/>
-					)}
-				</View>
+						{showDP && (
+							<DateTimePicker
+								value={date}
+								mode={'date'}
+								onChange={onChangeDate}
+							/>
+						)}
+					</View>
 
 
-				{/* Registros, Descrição e Botão */}
-				<View>
-					{/* Humor - mood */}
-					<Registers text={'Avalie o humor do seu pet:'} dataMap={data.mood} var={moodV} setVar={setMoodV} />
-					{/* Bagunça - mess */}
-					<Registers text={'Avalie em relação a bagunça:'} dataMap={data.mess} var={messV} setVar={setMessV} />
-					{/* //Alimentacao - feeding */}
-					<Registers text={'Avalie o estado da alimentação:'} dataMap={data.feeding} var={feedingV} setVar={setFeedingV} />
+					{/* Registros, Descrição e Botão */}
+					<View>
+						{/* Humor - mood */}
+						<Registers text={'Avalie o humor do seu pet:'} dataMap={data.mood} var={moodV} setVar={setMoodV} />
+						{/* Bagunça - mess */}
+						<Registers text={'Avalie em relação a bagunça:'} dataMap={data.mess} var={messV} setVar={setMessV} />
+						{/* //Alimentacao - feeding */}
+						<Registers text={'Avalie o estado da alimentação:'} dataMap={data.feeding} var={feedingV} setVar={setFeedingV} />
 
-					{/* especifico e gato e cachorro */}
-					{petType == 'dog' ? dogItens() : catItens()}
+						{/* especifico e gato e cachorro */}
+						{petType == 'dog' ? dogItens() : catItens()}
 
-					{/* Descrição do pet */}
-					<Text style={[styles.lineRegister, { color: '#75739c' }]}>Anotações do pet:</Text>
-					<TextInput
-						style={styles.txtDesc}
-						multiline={true}
-						onChangeText={setNoteV}
-						maxLength={250}
-						value={noteV}>
-					</TextInput>
+						{/* Descrição do pet */}
+						<Text style={[styles.lineRegister, { color: THEME.COLORS.TEXT }]}>Anotações do pet:</Text>
+						<TextInput
+							style={styles.txtDesc}
+							multiline={true}
+							onChangeText={setNoteV}
+							maxLength={250}
+							value={noteV}>
+						</TextInput>
 
-					{/* Botão de adição */}
-					<ImageBackground
-						source={require('../../assets/images/Onda.png')}
-						resizeMode={'stretch'}>
-						<View
-							style={styles.imgView}>
-							<TouchableOpacity
-								style={styles.styleButton}
-								onPress={() => handleSaveReg()}>
-								<Text style={styles.stylesTextButton}>Salvar</Text>
-							</TouchableOpacity>
+						{/* Botão de adição */}
+						<ImageBackground
+							source={require('../../assets/images/Onda.png')}
+							resizeMode={'stretch'}>
+							<View
+								style={styles.imgView}>
+								<TouchableOpacity
+									style={styles.styleButton}
+									onPress={() => handleSaveReg()}>
+									<Text style={styles.stylesTextButton}>Salvar</Text>
+								</TouchableOpacity>
 
-							{/* Direitos Autorais */}
-							<Text
-								style={styles.styleCopyRight}>
-								COPYRIGHT@MonyPet
-							</Text>
-						</View>
-					</ImageBackground>
-				</View>
-			</ScrollView>
+								{/* Direitos Autorais */}
+								<Text
+									style={styles.styleCopyRight}>
+									COPYRIGHT@MonyPet
+								</Text>
+							</View>
+						</ImageBackground>
+					</View>
+				</ScrollView>
+			}
 		</SafeAreaView>
 	);
 }

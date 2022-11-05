@@ -13,12 +13,17 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 
 import { useFocusEffect } from '@react-navigation/native'
 import { useAsyncStorage } from '@react-native-async-storage/async-storage'
+import { Loading } from '../../components/Loading';
+
+import { THEME } from '../../theme';
 
 export function ScStatistics({ route, navigation }) {
   const { petId, petType, petImage } = route.params
+  const [loading, setLoading] = React.useState(false)
 
   const [filter, setFilter] = React.useState('diario')
   const [dataT, setDataT] = useState([])
+  const [chartBlock, setChartBlock] = useState(true)
 
   const [finalDate, setFinalDate] = useState(() => {
     const date = new Date()
@@ -42,6 +47,7 @@ export function ScStatistics({ route, navigation }) {
   const [hairLossData, setHairLossData] = useState([])
 
   async function fetchRegsData() {
+    setLoading(true)
     const response = await getItem()
     const TotalData = response ? JSON.parse(response) : []
 
@@ -54,6 +60,8 @@ export function ScStatistics({ route, navigation }) {
     })
 
     setDataT(data)
+    data.length >= 3 ? setChartBlock(false) : setChartBlock(true)
+    setLoading(false)
   }
 
   useFocusEffect(//Quando focar na tela
@@ -150,7 +158,7 @@ export function ScStatistics({ route, navigation }) {
       initialDate.setDate(initialDate.getDate() - i)
 
       if (!dates.includes(initialDate.toString())) {
-        finalData.push({value: 0, date: initialDate})
+        finalData.push({ value: 0, date: initialDate })
       }
     }
 
@@ -161,7 +169,7 @@ export function ScStatistics({ route, navigation }) {
     })
 
     finalData.map((item) => item.date = formatDate(item.date))
-  
+
     return finalData
   }
 
@@ -202,7 +210,7 @@ export function ScStatistics({ route, navigation }) {
     const thisYear = finalDate.getFullYear()
 
     for (let i = 0; i < 12; i++) {
-      const valuesMonth = data.filter((item) => item.date.getMonth() == i && item.date.getFullYear() == thisYear ).map((item) => item.value)
+      const valuesMonth = data.filter((item) => item.date.getMonth() == i && item.date.getFullYear() == thisYear).map((item) => item.value)
 
       let dataMonth = 0
       if (valuesMonth.length > 0) {
@@ -220,7 +228,9 @@ export function ScStatistics({ route, navigation }) {
   }
 
   useEffect(() => {
+    setLoading(true)
     setAttributesData(dataT)
+    setLoading(false)
   }, [filter, dataT, finalDate])
 
   const [showDP, setShowDP] = useState(false);
@@ -264,9 +274,9 @@ export function ScStatistics({ route, navigation }) {
           <Text style={styles.graphicTitle}> Data: </Text>
           <View style={styles.datesView}>
             <TouchableOpacity onPress={() => setShowDP(true)} style={styles.monthStyle}>
-              <AntDesign name="calendar" size={13} color="#75739c" style={{ marginHorizontal: 5 }} />
+              <AntDesign name="calendar" size={13} color={THEME.COLORS.PRIMARY} style={{ marginHorizontal: 5 }} />
               <Text style={styles.txtDate}> {formatDate(finalDate)} </Text>
-              <AntDesign name="caretdown" size={13} color="gray" style={{ marginHorizontal: 5 }} />
+              <AntDesign name="caretdown" size={13} color={THEME.COLORS.GRAY} style={{ marginHorizontal: 5 }} />
             </TouchableOpacity>
 
             {showDP && (
@@ -283,58 +293,62 @@ export function ScStatistics({ route, navigation }) {
         </View>
 
         {/* Graficos */}
-        {dataT.length >= 3 ?
-          <View style={{ alignItems: 'center' }}>
-            {/* Humor */}
-            {moodData.length > 0 ?
-              <View style={{ flex: 1 }}>
-                <Text style={styles.graphicTitle}> Gráfico de Humor </Text>
-                <Chart data={moodData} />
-              </View> : null
-            }
-
-            {/* Bagunça */}
-            {messData.length > 0 ?
-              <View style={{ flex: 1 }}>
-                <Text style={styles.graphicTitle}> Gráfico de Bagunça </Text>
-                <Chart data={messData} />
-              </View> : null
-            }
-
-            {/* Alimentação */}
-            {feedingData.length > 0 ?
-              <View style={{ flex: 1 }}>
-                <Text style={styles.graphicTitle}> Gráfico de Alimentação </Text>
-                <Chart data={feedingData} />
-              </View> : null
-            }
-
-            {/* Dog */}
-            {restData.length > 0 ?
-              <View style={{ flex: 1 }}>
-                <Text style={styles.graphicTitle}> Gráfico de Sono </Text>
-                <Chart data={restData} />
-              </View> : null
-            }
-            {tourData.length > 0 ?
-              <View style={{ flex: 1 }}>
-                <Text style={styles.graphicTitle}> Gráfico de Passeio </Text>
-                <Chart data={tourData} />
-              </View> : null
-            }
-
-            {/* Cat */}
-            {hairLossData.length > 0 ?
-              <View style={{ flex: 1 }}>
-                <Text style={styles.graphicTitle}> Gráfico de Queda de Pelo </Text>
-                <Chart data={hairLossData} />
-              </View> : null
-            }
+        {loading ?
+          <View style={{ alignSelf: 'center', justifyContent: 'center', marginTop: 50, }}>
+            <Loading size={10} />
           </View> :
-          <View style={styles.zeroText}>
-            <Text style={styles.graphicTitle}>Adicione alguns registros para visualizar as estatísticas</Text>
-            <AntDesign name="arrowdown" size={40} color="#75739c" />
-          </View>
+          chartBlock ?
+            <View style={styles.zeroText}>
+              <Text style={styles.graphicTitle}>Adicione alguns registros para visualizar as estatísticas</Text>
+              <AntDesign name="arrowdown" size={40} color={THEME.COLORS.PRIMARY} />
+            </View> :
+            <View style={{ alignItems: 'center' }}>
+              {/* Humor */}
+              {moodData.length > 0 ?
+                <View style={{ flex: 1 }}>
+                  <Text style={styles.graphicTitle}> Gráfico de Humor </Text>
+                  <Chart data={moodData} />
+                </View> : null
+              }
+
+              {/* Bagunça */}
+              {messData.length > 0 ?
+                <View style={{ flex: 1 }}>
+                  <Text style={styles.graphicTitle}> Gráfico de Bagunça </Text>
+                  <Chart data={messData} />
+                </View> : null
+              }
+
+              {/* Alimentação */}
+              {feedingData.length > 0 ?
+                <View style={{ flex: 1 }}>
+                  <Text style={styles.graphicTitle}> Gráfico de Alimentação </Text>
+                  <Chart data={feedingData} />
+                </View> : null
+              }
+
+              {/* Dog */}
+              {restData.length > 0 ?
+                <View style={{ flex: 1 }}>
+                  <Text style={styles.graphicTitle}> Gráfico de Sono </Text>
+                  <Chart data={restData} />
+                </View> : null
+              }
+              {tourData.length > 0 ?
+                <View style={{ flex: 1 }}>
+                  <Text style={styles.graphicTitle}> Gráfico de Passeio </Text>
+                  <Chart data={tourData} />
+                </View> : null
+              }
+
+              {/* Cat */}
+              {hairLossData.length > 0 ?
+                <View style={{ flex: 1 }}>
+                  <Text style={styles.graphicTitle}> Gráfico de Queda de Pelo </Text>
+                  <Chart data={hairLossData} />
+                </View> : null
+              }
+            </View>
         }
       </ScrollView>
 

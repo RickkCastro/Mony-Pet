@@ -11,12 +11,12 @@ export const styles = StyleSheet.create({
 
       safeTela:{
         flex: 1, 
-        backgroundColor: 'white'
+        backgroundColor: THEME.COLORS.BACKGROUND
       },
     
       scrollStyle: {
         minHeight: '92%',
-        backgroundColor: '#fff',
+        backgroundColor: THEME.COLORS.BACKGROUND,
         justifyContent: 'space-between',
       },
 
@@ -29,25 +29,25 @@ export const styles = StyleSheet.create({
       addPhoto: {
         borderColor: 'black',
         borderWidth: 1,
-        borderRadius: 5,
+        borderRadius: 15,
         justifyContent: 'center',
         alignItems: 'center',
-        height: 170,
-        width: 170,
+        height: 130,
+        width: 130,
       },
     
       txtInformation: {
         paddingHorizontal: 10,
         borderWidth: 1,
-        borderColor: '#527BCB',
+        borderColor: THEME.COLORS.PRIMARY,
         borderRadius: 10,
         marginBottom: 30,
         fontSize: THEME.FONT_SIZE.MD,
-        backgroundColor: '#fff',
+        backgroundColor: THEME.COLORS.BACKGROUND,
       },
     
       lineText: {
-        color: '#527BCB',
+        color: THEME.COLORS.PRIMARY,
         fontSize: THEME.FONT_SIZE.LG,
         marginBottom: 5,
       },
@@ -60,7 +60,7 @@ export const styles = StyleSheet.create({
     
       styleTextSelection: {
         fontSize: THEME.FONT_SIZE.MD,
-        color: 'gray',
+        color: THEME.COLORS.GRAY,
         paddingRight: 10,
       },
 
@@ -81,7 +81,7 @@ export const styles = StyleSheet.create({
 
       styleButton: {
         borderRadius: 10,
-        backgroundColor: '#7153af',
+        backgroundColor: THEME.COLORS.BUTTON,
         alignItems: 'center',
         justifyContent: 'center',
         height: 50,
@@ -90,7 +90,7 @@ export const styles = StyleSheet.create({
       },
 
       styleCopyRight: {
-        color: '#252424',
+        color: THEME.COLORS.COPY,
         fontSize: THEME.FONT_SIZE.SM,
         alignSelf: 'center',
         marginTop: 10,
@@ -98,7 +98,7 @@ export const styles = StyleSheet.create({
       },
 
       stylesTextButton:{
-        color: 'white', 
+        color: THEME.COLORS.BACKGROUND, 
         fontSize: THEME.FONT_SIZE.LG 
       },
 });

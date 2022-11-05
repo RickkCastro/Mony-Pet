@@ -5,7 +5,7 @@ import { THEME } from '../../theme';
 export default StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'white'
+        backgroundColor: THEME.COLORS.BACKGROUND
     },
 
     scrollStyle: {
@@ -17,20 +17,20 @@ export default StyleSheet.create({
 
     Title: {
         textAlign: 'center',
-        color: '#9a8db0',
+        color: THEME.COLORS.TEXT,
         fontSize: THEME.FONT_SIZE.LG,
         marginBottom: 20,
         fontWeight: '700'
     },
 
     headerStyle: {
-        backgroundColor: 'white',
+        backgroundColor: THEME.COLORS.BACKGROUND,
         alignItems: 'center',
         justifyContent: 'flex-end'
     },
 
     lineText: {
-        color: '#6c8ed1',
+        color: THEME.COLORS.TEXT,
         fontSize: THEME.FONT_SIZE.LG,
         marginBottom: 5,
         marginRight: 10,
@@ -49,12 +49,12 @@ export default StyleSheet.create({
     },
 
     ateTxt: {
-        color: '#75739c',
+        color: THEME.COLORS.TEXT,
         fontSize: THEME.FONT_SIZE.MD,
     },
 
     txtDate: {
-        color: '#75739c',
+        color: THEME.COLORS.TEXT,
         fontSize: THEME.FONT_SIZE.LG,
         textDecorationLine: 'underline',
         marginVertical: 10,
@@ -63,14 +63,14 @@ export default StyleSheet.create({
 
     scrollTitle: {
         textAlign: 'center',
-        color: '#75739c',
+        color: THEME.COLORS.TEXT,
         marginTop: 30,
         fontSize: THEME.FONT_SIZE.LG,
         marginBottom: 20
     },
 
     tipsStyle: {
-        backgroundColor: '#ECE4FC',
+        backgroundColor: THEME.COLORS.ITENS_BACKGROUND,
         height: 250,
         alignItems: 'center',
         justifyContent: 'flex-end',
@@ -91,7 +91,7 @@ export default StyleSheet.create({
     boxRegs: {
 		height: 100,
 		flexDirection: 'row',
-		backgroundColor: '#ECE4FC',
+		backgroundColor: THEME.COLORS.ITENS_BACKGROUND,
 		alignItems: 'center',
 		marginBottom: 20,
 		marginHorizontal: 20,
@@ -106,7 +106,7 @@ export default StyleSheet.create({
 
     addRegsTitle: {
         textAlign: 'center',
-        color: '#75739c',
+        color: THEME.COLORS.TEXT,
         marginTop: 30,
         fontSize: THEME.FONT_SIZE.LG,
         marginBottom: 5
@@ -114,13 +114,13 @@ export default StyleSheet.create({
 
     notRegsTitle: {
         textAlign: 'center',
-        color: '#75739c',
+        color: THEME.COLORS.TEXT,
         fontSize: THEME.FONT_SIZE.LG,
         marginBottom: 25
     },
 
     bottomRegsTxt: {
-        color: '#75739c'
+        color: THEME.COLORS.TEXT
     },
 
     viewTextRegister:{
@@ -130,7 +130,7 @@ export default StyleSheet.create({
     },
 
     textDay:{
-        color: '#75739c', 
+        color: THEME.COLORS.TEXT, 
         marginBottom: 5
     },
 
@@ -145,7 +145,7 @@ export default StyleSheet.create({
     },
 
     informationTips:{
-        color: '#75739c', 
+        color: THEME.COLORS.TEXT, 
         fontSize: THEME.FONT_SIZE.LG, 
         textAlign: 'center', 
         flex: 1, 

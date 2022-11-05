@@ -1,35 +1,69 @@
+import { useContext, useState } from "react";
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import { useAsyncStorage } from '@react-native-async-storage/async-storage'
+
+let darkTheme = async () => {
+  const { getItem, setItem, removeItem } = useAsyncStorage('@monypet:darkTheme')
+	const response =  await getItem()
+	const darkTheme = response ? JSON.parse(response) : false
+
+  return darkTheme
+}
 
 export const THEME = {
-    COLORS: {
-      BACKGROUND_900: '#121214',
-      BACKGROUND_800: '#18181B',
-  
-      TEXT: '#FFFFFF',
-  
-      CAPTION_500: '#71717A',
-      CAPTION_400: '#A1A1AA',
-      CAPTION_300: '#D4D4D8',
-  
-      SHAPE: '#2A2634',
-  
-      PRIMARY: '#8B5CF6',
-      SUCCESS: '#34D399',
-      ALERT: '#F87171',
-  
-      FOOTER: ['rgba(0,0,0,0)', 'rgba(0,0,0,0.9)'],
-      OVERLAY: 'rgba(0,0,0,0.6)',
-    },
-  
-    // FONT_FAMILY: {
-    //   REGULAR: 'Inter_400Regular',
-    //   SEMI_BOLD: 'Inter_600SemiBold',
-    //   BOLD: 'Inter_700Bold',
-    //   BLACK: 'Inter_900Black'
-    // },
-    FONT_SIZE: {
-      SM: RFPercentage(1.5), //10 - 13
-      MD: RFPercentage(2.3), //14 - 16
-      LG: RFPercentage(3) //18>>
-    }
-};
+  COLORS: {
+    PRIMARY: "#7658B0",
+    TEXT: "#7658B0",
+    GRAY: "#545454",
+    COPY: '#252424',
+
+    BACKGROUND: "#FFF",
+    ITENS_BACKGROUND: "#ECE4FC",
+
+    BUTTON: "#532E9E",
+    TEXT_BUTTON: "#FFF",
+    TEXT_BORDER: "#532E9E",
+
+    EMOTE_EXCITED: "#107D07",
+    EMOTE_HAPPY: "#68B166",
+    EMOTE_NEUTRAL: "#7A7777",
+    EMOTE_SAD: "#E1CC0F",
+    EMOTE_ANGRY: "#A54C1B",
+
+    SUCCESS: '#107D07',
+    FAIL: '#E53',
+  },
+
+  DARK: {
+    PRIMARY: "#7658B0",
+    TEXT: "#D1C7E4",
+    GRAY: "#B1A3CB",
+
+    BACKGROUND: "#282C34",
+    ITENS_BACKGROUND: "#533198",
+
+    BUTTON: "#441D92",
+    TEXT_BUTTON: "#FFF",
+    TEXT_BORDER: "#533198",
+
+    EMOTE_EXCITED: "#107D07",
+    EMOTE_HAPPY: "#68B166",
+    EMOTE_NEUTRAL: "#7A7777",
+    EMOTE_SAD: "#E1CC0F",
+    EMOTE_ANGRY: "#A54C1B",
+  },
+
+  // FONT_FAMILY: {
+  //   REGULAR: 'Inter_400Regular',
+  //   SEMI_BOLD: 'Inter_600SemiBold',
+  //   BOLD: 'Inter_700Bold',
+  //   BLACK: 'Inter_900Black'
+  // },
+
+  FONT_SIZE: {
+    SM: RFPercentage(1.5), //10 - 13
+    MD: RFPercentage(2.3), //14 - 16
+    LG: RFPercentage(3), //18>>
+  },
+}
+

@@ -6,6 +6,7 @@ import { Defs, LinearGradient, Stop, Circle } from 'react-native-svg'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 
 import { styles } from './styles'
+import { THEME } from '../../../../theme'
 
 export function Chart(props) {
     const data = props.data ? props.data : [
@@ -18,11 +19,11 @@ export function Chart(props) {
         { value: 5, date: '05 / 05' },
     ]
     const emojiList = props.emojiList ? props.emojiList : [
-        {name: 'emoticon-excited', color: '#107d07'},
-        {name: 'emoticon-happy', color: '#68b166'},
-        {name: 'emoticon-neutral', color: '#7a7777'},
-        {name: 'emoticon-sad', color: '#e1cc0f'},
-        {name: 'emoticon-angry', color: '#a54c1b'},
+        {name: 'emoticon-excited', color: THEME.COLORS.EMOTE_EXCITED},
+        {name: 'emoticon-happy', color: THEME.COLORS.EMOTE_HAPPY},
+        {name: 'emoticon-neutral', color: THEME.COLORS.EMOTE_NEUTRAL},
+        {name: 'emoticon-sad', color: THEME.COLORS.EMOTE_SAD},
+        {name: 'emoticon-angry', color: THEME.COLORS.EMOTE_ANGRY},
         {name: 'null', color: '#000'}
     ]
 
@@ -32,8 +33,8 @@ export function Chart(props) {
     const Gradient = () => (
         <Defs key={'gradient'}>
             <LinearGradient id={'gradient'} x1={'0'} y={'0%'} x2={'0%'} y2={'100%'}>
-                <Stop offset={'0%'} stopColor={'#B589D6'} />
-                <Stop offset={'100%'} stopColor={'#6f4fc3'} />
+                <Stop offset={'0%'} stopColor={THEME.COLORS.PRIMARY} />
+                <Stop offset={'100%'} stopColor={THEME.COLORS.BUTTON} />
             </LinearGradient>
         </Defs>
     )
@@ -45,7 +46,7 @@ export function Chart(props) {
                 cx={ x(index) }
                 cy={ y(value) }
                 r={ 4 }
-                stroke={ '#804FB3' }
+                stroke={ THEME.COLORS.PRIMARY }
                 fill={ 'white' }
             />
         ))

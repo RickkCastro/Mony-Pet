@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
 
 	scroll: {
 		minHeight: '92%',
-		backgroundColor: '#fff',
+		backgroundColor: THEME.COLORS.BACKGROUND,
 		justifyContent: 'space-between',
 	},
 
@@ -36,11 +36,11 @@ export const styles = StyleSheet.create({
 	txtInformation: {
 		paddingHorizontal: 10,
 		borderWidth: 1,
-		borderColor: '#75739c',
+		borderColor: THEME.COLORS.PRIMARY,
 		borderRadius: 10,
 		marginBottom: 15,
 		fontSize: THEME.FONT_SIZE.MD,
-		backgroundColor: '#fff',
+		backgroundColor: THEME.COLORS.BACKGROUND,
 		width: '90%',
 		color: 'black',
 	},
@@ -48,11 +48,11 @@ export const styles = StyleSheet.create({
 	txtDesc: {
 		padding: 10,
 		borderWidth: 1,
-		borderColor: '#75739c',
+		borderColor: THEME.COLORS.PRIMARY,
 		borderRadius: 10,
 		marginBottom: 15,
 		fontSize: THEME.FONT_SIZE.MD,
-		backgroundColor: '#fff',
+		backgroundColor: THEME.COLORS.BACKGROUND,
 		width: '90%',
 		textAlignVertical: 'top',
 		height: 150,
@@ -60,7 +60,7 @@ export const styles = StyleSheet.create({
 	},
 
 	lineText: {
-		color: '#75739c',
+		color: THEME.COLORS.TEXT,
 		fontSize: THEME.FONT_SIZE.LG,
 		marginBottom: 5,
 	},
@@ -73,7 +73,7 @@ export const styles = StyleSheet.create({
 	},
 	saveButton: {
 		borderRadius: 10,
-		backgroundColor: '#7153af',
+		backgroundColor: THEME.COLORS.BUTTON,
 		alignItems: 'center',
 		justifyContent: 'center',
 		height: 50,
@@ -83,7 +83,7 @@ export const styles = StyleSheet.create({
 
 	styleTextSelection: {
 		fontSize: THEME.FONT_SIZE.MD,
-		color: 'gray',
+		color: THEME.COLORS.GRAY,
 		paddingRight: 10,
 	},
 
@@ -117,7 +117,7 @@ export const styles = StyleSheet.create({
     },
 
     styleCopyRight: {
-        color: '#252424',
+        color: THEME.COLORS.COPY,
         fontSize: THEME.FONT_SIZE.SM,
         alignSelf: 'center',
         marginTop: 10,

@@ -13,7 +13,7 @@ export function TaskBox(props) {
 		<TouchableOpacity style={styles.container} onPress={props.handleTaskPress}>
 
 			{/* Icon */}
-			<MaterialCommunityIcons name={props.icon} size={40} color={'gray'} />
+			<MaterialCommunityIcons name={props.icon} size={40} color={THEME.COLORS.GRAY} />
 
 			{/* Textos */}
 			<View style={{ height: '100%', width: '55%' }}>
@@ -23,8 +23,8 @@ export function TaskBox(props) {
 			</View>
 
 			{/* CheckBox */}
-			<TouchableOpacity style={done ? [styles.checkBox, {borderColor: 'green'}] : styles.checkBox} onPress={props.handleCheck}>
-				{done && <MaterialCommunityIcons name={'check'} size={25} color={'green'} />}
+			<TouchableOpacity style={done ? [styles.checkBox, {borderColor: THEME.COLORS.SUCCESS}] : styles.checkBox} onPress={props.handleCheck}>
+				{done && <MaterialCommunityIcons name={'check'} size={25} color={THEME.COLORS.SUCCESS} />}
 			</TouchableOpacity>
 
 		</TouchableOpacity>

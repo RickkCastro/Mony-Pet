@@ -4,24 +4,24 @@ import { THEME } from "../../theme";
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: THEME.COLORS.BACKGROUND,
   },
 
   scrollStyle: {
     minHeight: "92%",
-    backgroundColor: "#fff",
+    backgroundColor: THEME.COLORS.BACKGROUND,
     justifyContent: "space-between",
   },
 
   txtSelectDay: {
-    color: "#75739c",
+    color: THEME.COLORS.TEXT,
     fontSize: THEME.FONT_SIZE.LG,
     marginBottom: 10,
     textAlign: "center",
   },
 
   txtDate: {
-    color: "#75739c",
+    color: THEME.COLORS.TEXT,
     fontSize: THEME.FONT_SIZE.LG,
     textDecorationLine: "underline",
     fontWeight: "700",
@@ -35,7 +35,7 @@ export const styles = StyleSheet.create({
   },
   
   lineText: {
-    color: "#75739c",
+    color: THEME.COLORS.TEXT,
     fontSize: THEME.FONT_SIZE.LG,
     marginBottom: 5,
     marginTop: 20
@@ -44,26 +44,26 @@ export const styles = StyleSheet.create({
   txtInformation: {
     paddingHorizontal: 10,
     borderWidth: 1,
-    borderColor: "#75739c",
+    borderColor: THEME.COLORS.PRIMARY,
     borderRadius: 10,
     fontSize: THEME.FONT_SIZE.MD,
-    backgroundColor: "#fff",
+    backgroundColor: THEME.COLORS.BACKGROUND,
   },
 
   txtDesc: {
     padding: 10,
     borderWidth: 1,
-    borderColor: "#75739c",
+    borderColor: THEME.COLORS.PRIMARY,
     borderRadius: 10,
     marginBottom: 30,
     fontSize: THEME.FONT_SIZE.MD,
-    backgroundColor: "#fff",
+    backgroundColor: THEME.COLORS.BACKGROUND,
     textAlignVertical: "top",
     height: 125,
   },
 
   styleCopyRight: {
-    color: "#252424",
+    color: THEME.COLORS.COPY,
     fontSize: THEME.FONT_SIZE.SM,
     alignSelf: "center",
     marginTop: 10,
@@ -77,7 +77,7 @@ export const styles = StyleSheet.create({
   },
   styleButton: {
     borderRadius: 10,
-    backgroundColor: "#7153af",
+    backgroundColor: THEME.COLORS.BUTTON,
     alignItems: "center",
     justifyContent: "center",
     height: 50,
@@ -85,11 +85,11 @@ export const styles = StyleSheet.create({
     marginBottom: 10,
   },
   stylesTextButton: {
-    color: "white",
+    color: THEME.COLORS.BACKGROUND,
     fontSize: THEME.FONT_SIZE.LG,
   },
   styleCopyRight: {
-    color: "#252424",
+    color: THEME.COLORS.COPY,
     fontSize: THEME.FONT_SIZE.SM,
     alignSelf: "center",
     marginTop: 10,

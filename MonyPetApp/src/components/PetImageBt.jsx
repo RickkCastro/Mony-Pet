@@ -15,9 +15,9 @@ export function PetImageBT(props) {
 
 const styles = StyleSheet.create({
     imgPet: {
-        borderColor: 'black',
+        borderColor: '#000',
         borderWidth: 1,
-        borderRadius: 5,
+        borderRadius: 25,
         justifyContent: 'center',
         alignItems: 'center',
         height: 130,

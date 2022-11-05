@@ -5,7 +5,7 @@ import { THEME } from "../../../../theme";
 export const styles = StyleSheet.create({
     container:{
 		height: 130,
-		backgroundColor: '#ECE4FC',
+		backgroundColor: THEME.COLORS.ITENS_BACKGROUND,
 		alignItems: 'center',
 		marginBottom: 20,
 		marginHorizontal: 20,
@@ -21,7 +21,7 @@ export const styles = StyleSheet.create({
 	},
 
 	txtData:{
-		color: '#7153a3', 
+		color: THEME.COLORS.TEXT, 
 		fontSize: THEME.FONT_SIZE.MD, 
 		marginBottom: 6, 
 		fontWeight: 'bold' 
@@ -37,10 +37,10 @@ export const styles = StyleSheet.create({
 		width: 30, 
 		height: 30, 
 		borderWidth: 2, 
-		borderColor: '#7153a3', 
+		borderColor: THEME.COLORS.PRIMARY, 
 		borderRadius: 2, 
 		justifyContent: 'center', 
 		alignItems: 'center', 
-		backgroundColor: '#fff' 
+		backgroundColor: THEME.COLORS.BACKGROUND 
 	}
 })

@@ -4,7 +4,8 @@ import { THEME } from '../../theme';
 export const styles = StyleSheet.create({
     container: {
 		flex: 1,
-		backgroundColor: '#fff',
+		backgroundColor: THEME.COLORS.BACKGROUND,
+		justifyContent: 'space-between'
 	},
 
     title: {
@@ -24,22 +25,22 @@ export const styles = StyleSheet.create({
 		alignItems: 'center',
 		height: '25%',
 		width: '75%',
-		backgroundColor: '#7b5eb4',
+		backgroundColor: THEME.COLORS.BUTTON,
 		alignSelf: 'center',
-		marginBottom: 60,
+		marginBottom: 50,
 		borderRadius: 30,
 	},
 
     styleCopyRight: {
-        color: '#252424',
+        color: THEME.COLORS.COPY,
 		fontSize: THEME.FONT_SIZE.SM,
         alignSelf: 'center',
         alignItems: 'flex-end',
-		marginBottom: 10,
+		marginBottom: 25,
       },
 
 	  circle: {
-		backgroundColor: '#7b5eb4',
+		backgroundColor: THEME.COLORS.BUTTON,
 		borderRadius: 100,
 		width: 140,
 		height: 140,
@@ -54,7 +55,7 @@ export const styles = StyleSheet.create({
 	  },
 
 	  txtName: {
-		color: 'white',
+		color: THEME.COLORS.TEXT_BUTTON,
 		textAlign: 'center',
 		fontSize: THEME.FONT_SIZE.MD + 3,
 	  },

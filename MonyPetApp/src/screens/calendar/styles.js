@@ -4,7 +4,7 @@ import { THEME } from "../../theme";
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: THEME.COLORS.BACKGROUND,
   },
 
   scrollStyle: {
@@ -15,21 +15,21 @@ export const styles = StyleSheet.create({
   },
 
   calendarTheme: {
-    backgroundColor: "#ffffff",
-    calendarBackground: "#fff",
-    textSectionTitleColor: "#7153a3",
-    textSectionTitleDisabledColor: "#d9e1e8",
+    backgroundColor: THEME.COLORS.BACKGROUND,
+    calendarBackground: THEME.COLORS.BACKGROUND,
+    textSectionTitleColor: THEME.COLORS.TEXT,
+    textSectionTitleDisabledColor: THEME.COLORS.ITENS_BACKGROUND,
     selectedDayBackgroundColor: "#000",
-    selectedDayTextColor: "#ffffff",
-    todayTextColor: "#7153a3",
-    dayTextColor: "#2d4150",
-    textDisabledColor: "#d9e1e8",
-    dotColor: "#7153a3",
-    selectedDotColor: "#ffffff",
-    arrowColor: "#7153a3",
-    disabledArrowColor: "#d9e1e8",
-    monthTextColor: "#7153a3",
-    indicatorColor: "#7153a3",
+    selectedDayTextColor: THEME.COLORS.BACKGROUND,
+    todayTextColor: THEME.COLORS.TEXT,
+    dayTextColor: THEME.COLORS.TEXT,
+    textDisabledColor: THEME.COLORS.ITENS_BACKGROUND,
+    dotColor: THEME.COLORS.TEXT,
+    selectedDotColor: THEME.COLORS.BACKGROUND,
+    arrowColor: THEME.COLORS.TEXT,
+    disabledArrowColor: THEME.COLORS.ITENS_BACKGROUND,
+    monthTextColor: THEME.COLORS.TEXT,
+    indicatorColor: THEME.COLORS.TEXT,
     textDayFontFamily: "monospace",
     textMonthFontFamily: "monospace",
     textDayHeaderFontFamily: "monospace",
@@ -48,7 +48,7 @@ export const styles = StyleSheet.create({
 
   Title: {
     textAlign: "center",
-    color: "#9a8db0",
+    color: THEME.COLORS.TEXT,
     fontSize: THEME.FONT_SIZE.LG,
     marginBottom: 20,
     fontWeight: "700",
@@ -56,7 +56,7 @@ export const styles = StyleSheet.create({
 
   titlte2: {
     textAlign: "center",
-    color: "#9a8db0",
+    color: THEME.COLORS.TEXT,
     fontSize: THEME.FONT_SIZE.LG,
     marginBottom: 20,
     fontWeight: "700",
@@ -65,7 +65,7 @@ export const styles = StyleSheet.create({
 
   txt1: {
     textAlign: "center",
-    color: "#9a8db0",
+    color: THEME.COLORS.TEXT,
     fontSize: THEME.FONT_SIZE.MD,
     marginBottom: 20,
     marginTop: 20,
@@ -78,7 +78,7 @@ export const styles = StyleSheet.create({
   },
 
   headerStyle: {
-    backgroundColor: "white",
+    backgroundColor: THEME.COLORS.BACKGROUND,
     alignItems: "center",
     justifyContent: "flex-end",
     marginBottom: 10,
@@ -89,7 +89,7 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     height: 50,
     width: "75%",
-    backgroundColor: "#7b5eb4",
+    backgroundColor: THEME.COLORS.BUTTON,
     alignSelf: "center",
     marginBottom: 10,
     borderRadius: 30,

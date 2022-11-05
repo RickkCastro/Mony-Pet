@@ -13,9 +13,9 @@ export function FilterSelected(props) {
             <Text style={styles.graphicTitle}>Mostrar Dados:</Text> 
             <Center>
                 <Box maxW="300">
-                    <Select selectedValue={props.selectedValue} borderColor= "#75739c" color= "#75739c" size={THEME.FONT_SIZE.SM} 
+                    <Select selectedValue={props.selectedValue} borderColor= {THEME.COLORS.PRIMARY} color= {THEME.COLORS.TEXT} size={THEME.FONT_SIZE.SM} 
                             borderRadius="10" minWidth="225" marginTop={5} accessibilityLabel="Time" _selectedItem={{
-                            bg: "#75739c",
+                            bg: THEME.COLORS.PRIMARY,
                             borderRadius:"10",
                         }} mt={1} onValueChange={props.onValueChange}>
                             <Select.Item label="Diários" value="diario" />

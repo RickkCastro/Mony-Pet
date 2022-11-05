@@ -1,11 +1,12 @@
 import react from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
-import { THEME } from "../../../theme";
+import { THEME } from "../../../theme"
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 export function NormalBT(props) {
     return (
-        <TouchableOpacity style={[styles.buttons, {backgroundColor: props.backColor ? props.backColor : '#7b5eb4'}]} onPress={props.onPress}>
+        <TouchableOpacity style={[styles.buttons, {backgroundColor: props.backColor ? props.backColor : THEME.COLORS.BUTTON}]} onPress={props.onPress}>
             <View style={styles.btItensView}>
                 <FontAwesome name={props.icon} size={THEME.FONT_SIZE.MD + 1} color="white" style={styles.btIcons} />
                 <Text style={styles.textBt}>{props.text}</Text>
@@ -18,7 +19,7 @@ const styles = StyleSheet.create({
     buttons: {
         justifyContent: "center",
         alignItems: "flex-start",
-        height: 50,
+        height: RFPercentage(7),
         width: "75%",
         alignSelf: "center",
         borderRadius: 10,
@@ -30,11 +31,12 @@ const styles = StyleSheet.create({
     },
 
     btIcons: {
-        marginHorizontal: 15
+        marginHorizontal: 15,
+        top: 3
     },
 
     textBt: {
         fontSize: THEME.FONT_SIZE.MD,
-        color: '#fff'
+        color: THEME.COLORS.TEXT_BUTTON
     },
 });

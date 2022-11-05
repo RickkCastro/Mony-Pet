@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Text, View, ImageBackground, TouchableOpacity, Image, FlatList, TextInput, ScrollView, Alert} from 'react-native'
+import { Text, View, ImageBackground, TouchableOpacity, Image, FlatList, TextInput, ScrollView, Alert } from 'react-native'
 
 import { AntDesign } from '@expo/vector-icons'
 import { RadioButton } from 'react-native-paper'
@@ -12,6 +12,7 @@ import * as ImagePicker from 'expo-image-picker';
 
 import { styles } from './styles'
 import { THEME } from '../../theme'
+import { Loading } from '../../components/Loading'
 
 export function ScPetAdd({ navigation }) {
   const [petName, setPetName] = React.useState('')
@@ -21,10 +22,12 @@ export function ScPetAdd({ navigation }) {
   const [petType, setPetType] = React.useState('dog')
 
   const [petImage, setPetImage] = React.useState(null)
+  const [loading, setLoading] = React.useState(false)
 
   const { getItem, setItem } = useAsyncStorage('@monypet:pets')
   // Dados do Pet
   async function handleSavePet() {
+    setLoading(true)
     try {
       if (petName != '') {
         const id = uuid.v4()
@@ -69,6 +72,7 @@ export function ScPetAdd({ navigation }) {
         text1: 'Não foi possível cadastrar',
       })
     }
+    setLoading(false)
   }
 
   const pickImage = async () => {
@@ -88,105 +92,111 @@ export function ScPetAdd({ navigation }) {
     // Barra de informações
     <SafeAreaView style={styles.safeTela}>
       {/* Cabeçalho */}
-      <Header1 txt1={'Adicionar pet'} bt2Color={'transparent'} onPressBt1={() => navigation.goBack()}/>
+      <Header1 txt1={'Adicionar pet'} bt2Color={'transparent'} onPressBt1={() => navigation.goBack()} />
 
       {/* Rolagem */}
-      <ScrollView contentContainerStyle={styles.scrollStyle}>
-        <View style={styles.backgroundAnimal}>
-          {/* Imagem de Fundo */}
+      {loading ?
+        <View style={{ alignSelf: 'center', flex: 1, justifyContent: 'center' }}>
+          <Loading size={10} />
+        </View> :
+        <ScrollView contentContainerStyle={styles.scrollStyle}>
+          <View style={styles.backgroundAnimal}>
+            {/* Imagem de Fundo */}
             <TouchableOpacity onPress={pickImage}>
-              {petImage ? 
-                <Image 
-                  source={{uri: petImage}}
+              {petImage ?
+                <Image
+                  source={{ uri: petImage }}
                   resizeMode={'stretch'}
                   style={styles.addPhoto}
-                />: 
+                /> :
                 <View style={styles.addPhoto}>
                   <AntDesign name="plus" size={30} color="black" />
                 </View>}
             </TouchableOpacity>
-        </View>
-
-        {/* Barra de nome */}
-        <View style={{ marginHorizontal: 20 }}>
-          <Text style={styles.lineText}>Nome do pet:</Text>
-          <TextInput
-            style={styles.txtInformation}
-            placeholder={'Ex: Rex'}
-            placeholderTextColor="gray"
-            onChangeText={setPetName}></TextInput>
-
-          {/* Seleção de Espécie */}
-          <Text style={styles.lineText}>Animal:</Text>
-          <RadioButton.Group
-            onValueChange={(newValue) => {
-              setPetType(newValue)
-            }}
-            value={petType}>
-            <View style={styles.viewRadio}>
-              <RadioButton
-                value="dog"
-                color="#527BCB"
-                uncheckedColor="#527BCB"
-              />
-              <Text style={styles.styleTextSelection}>Cachorro</Text>
-
-              <RadioButton
-                value="cat"
-                color="#527BCB"
-                uncheckedColor="#527BCB"
-              />
-              <Text style={styles.styleTextSelection}>Gato</Text>
-            </View>
-          </RadioButton.Group>
-
-          {/* Barra de idade */}
-          <Text style={styles.lineText}>Idade:</Text>
-          <TextInput
-            style={styles.txtInformation}
-            placeholder={'Ex: 6'}
-            placeholderTextColor="gray"
-            onChangeText={setPetYears}
-            keyboardType={'number-pad'}
-            maxLength={2}></TextInput>
-
-          {/* Barra de Raça */}
-          <Text style={styles.lineText}>Raça:</Text>
-          <TextInput
-            style={styles.txtInformation}
-            placeholder={'Ex: Pinscher'}
-            placeholderTextColor="gray"
-            onChangeText={setPetRace}></TextInput>
-
-          {/* Barra de Peso */}
-          <Text style={styles.lineText}>Peso:</Text>
-          <TextInput
-            style={styles.txtInformation}
-            placeholder={'Ex: 3,2kg'}
-            placeholderTextColor="gray"
-            onChangeText={setPetWeight}
-            keyboardType={'number-pad'}
-            maxLength={3}></TextInput>
-        </View>
-
-        {/* Botão de adição */}
-        <ImageBackground
-          source={require('../../assets/images/Onda.png')}
-          resizeMode={'stretch'}>
-          <View style={styles.viewButton}>
-            <TouchableOpacity
-              style={styles.styleButton}
-              onPress={handleSavePet}>
-              <Text style={styles.stylesTextButton}>Adicionar</Text>
-            </TouchableOpacity>
-
-            {/* Direitos Autorais */}
-            <Text style={styles.styleCopyRight}>
-              COPYRIGHT@MonyPet
-            </Text>
           </View>
-        </ImageBackground>
-      </ScrollView>
+
+          {/* Barra de nome */}
+          <View style={{ marginHorizontal: 20 }}>
+            <Text style={styles.lineText}>Nome do pet:</Text>
+            <TextInput
+              style={styles.txtInformation}
+              placeholder={'Ex: Rex'}
+              placeholderTextColor={THEME.COLORS.GRAY}
+              onChangeText={setPetName}></TextInput>
+
+            {/* Seleção de Espécie */}
+            <Text style={styles.lineText}>Animal:</Text>
+            <RadioButton.Group
+              onValueChange={(newValue) => {
+                setPetType(newValue)
+              }}
+              value={petType}>
+              <View style={styles.viewRadio}>
+                <RadioButton
+                  value="dog"
+                  color={THEME.COLORS.TEXT}
+                  uncheckedColor={THEME.COLORS.TEXT}
+                />
+                <Text style={styles.styleTextSelection}>Cachorro</Text>
+
+                <RadioButton
+                  value="cat"
+                  color={THEME.COLORS.TEXT}
+                  uncheckedColor={THEME.COLORS.TEXT}
+                />
+                <Text style={styles.styleTextSelection}>Gato</Text>
+              </View>
+            </RadioButton.Group>
+
+            {/* Barra de idade */}
+            <Text style={styles.lineText}>Idade:</Text>
+            <TextInput
+              style={styles.txtInformation}
+              placeholder={'Ex: 6'}
+              placeholderTextColor={THEME.COLORS.GRAY}
+              onChangeText={setPetYears}
+              keyboardType={'number-pad'}
+              maxLength={2}></TextInput>
+
+            {/* Barra de Raça */}
+            <Text style={styles.lineText}>Raça:</Text>
+            <TextInput
+              style={styles.txtInformation}
+              placeholder={'Ex: Pinscher'}
+              placeholderTextColor={THEME.COLORS.GRAY}
+              onChangeText={setPetRace}></TextInput>
+
+            {/* Barra de Peso */}
+            <Text style={styles.lineText}>Peso:</Text>
+            <TextInput
+              style={styles.txtInformation}
+              placeholder={'Ex: 3,2kg'}
+              placeholderTextColor={THEME.COLORS.GRAY}
+              onChangeText={setPetWeight}
+              keyboardType={'number-pad'}
+              maxLength={3}></TextInput>
+          </View>
+
+          {/* Botão de adição */}
+          <ImageBackground
+            source={require('../../assets/images/Onda.png')}
+            resizeMode={'stretch'}>
+            <View style={styles.viewButton}>
+              <TouchableOpacity
+                disabled={loading ? true : false}
+                style={styles.styleButton}
+                onPress={handleSavePet}>
+                <Text style={styles.stylesTextButton}>Adicionar</Text>
+              </TouchableOpacity>
+
+              {/* Direitos Autorais */}
+              <Text style={styles.styleCopyRight}>
+                COPYRIGHT@MonyPet
+              </Text>
+            </View>
+          </ImageBackground>
+        </ScrollView>
+      }
     </SafeAreaView>
   )
 }

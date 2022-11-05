@@ -4,7 +4,7 @@ import { THEME } from '../../theme'
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'white',
+        backgroundColor: THEME.COLORS.BACKGROUND,
     },
 
     scrollStyle: {
@@ -15,14 +15,14 @@ export const styles = StyleSheet.create({
     },
 
     headerStyle: {
-        backgroundColor: 'white',
+        backgroundColor: THEME.COLORS.BACKGROUND,
         alignItems: 'center',
         justifyContent: 'flex-end',
     },
 
 	Title: {
         textAlign: 'center',
-        color: '#9a8db0',
+        color: THEME.COLORS.PRIMARY,
         fontSize: THEME.FONT_SIZE.LG,
         marginBottom: 20,
         fontWeight: '700'
@@ -30,7 +30,7 @@ export const styles = StyleSheet.create({
 
 	graphicTitle: {
         textAlign: 'center',
-        color: '#75739c',
+        color: THEME.COLORS.PRIMARY,
         marginTop: 30,
         fontSize: THEME.FONT_SIZE.LG,
         marginBottom: 5
@@ -54,7 +54,7 @@ export const styles = StyleSheet.create({
     },
 
 	txtDate: {
-        color: '#75739c',
+        color: THEME.COLORS.PRIMARY,
         fontSize: THEME.FONT_SIZE.LG,
         textDecorationLine: 'underline',
         marginVertical: 10,

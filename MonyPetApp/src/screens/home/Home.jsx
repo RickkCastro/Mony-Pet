@@ -12,6 +12,9 @@ import TipsBox from './components/TipsBox';
 import { MenuButtons } from '../../components/MenuButtons';
 import { PetImageBT } from '../../components/PetImageBt';
 
+import {THEME} from '../../theme';
+
+
 export function ScHome({ route, navigation }) {
 
     const { petId, petType, petImage } = route.params
@@ -77,9 +80,9 @@ export function ScHome({ route, navigation }) {
                     <Text style={styles.scrollTitle}> Intervalo de data dos registros: </Text>
                     <View style={styles.datesView}>
                         <TouchableOpacity onPress={() => setShowDP1(true)} style={styles.monthStyle}>
-                            <AntDesign name="calendar" size={13} color="#75739c" style={{ marginHorizontal: 5 }} />
+                            <AntDesign name="calendar" size={13} color={THEME.COLORS.PRIMARY} style={{ marginHorizontal: 5 }} />
                             <Text style={styles.txtDate}> {formatDate(minDate)} </Text>
-                            <AntDesign name="caretdown" size={13} color="gray" style={{ marginHorizontal: 5 }} />
+                            <AntDesign name="caretdown" size={13} color={THEME.COLORS.GRAY} style={{ marginHorizontal: 5 }} />
                         </TouchableOpacity>
 
                         {showDP1 && (
@@ -93,9 +96,9 @@ export function ScHome({ route, navigation }) {
                         <Text style={styles.ateTxt}>Até</Text>
 
                         <TouchableOpacity onPress={() => setShowDP2(true)} style={styles.monthStyle}>
-                            <AntDesign name="calendar" size={13} color="#75739c" />
+                            <AntDesign name="calendar" size={13} color={THEME.COLORS.PRIMARY} />
                             <Text style={styles.txtDate}> {formatDate(maxDate)} </Text>
-                            <AntDesign name="caretdown" size={13} color="gray" />
+                            <AntDesign name="caretdown" size={13} color={THEME.COLORS.GRAY} />
                         </TouchableOpacity>
 
                         {showDP2 && (
