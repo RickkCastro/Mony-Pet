@@ -1,4 +1,4 @@
-package com.monypet.newarchitecture;
+package com.rickkcastro.MonyPet.newarchitecture;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
@@ -20,9 +20,9 @@ import com.facebook.react.fabric.EmptyReactNativeConfig;
 import com.facebook.react.fabric.FabricJSIModuleProvider;
 import com.facebook.react.fabric.ReactNativeConfig;
 import com.facebook.react.uimanager.ViewManagerRegistry;
-import com.monypet.BuildConfig;
-import com.monypet.newarchitecture.components.MainComponentsRegistry;
-import com.monypet.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
+import com.rickkcastro.MonyPet.BuildConfig;
+import com.rickkcastro.MonyPet.newarchitecture.components.MainComponentsRegistry;
+import com.rickkcastro.MonyPet.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
 import java.util.ArrayList;
 import java.util.List;
 
