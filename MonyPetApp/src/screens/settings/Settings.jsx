@@ -13,10 +13,12 @@ import Toast from 'react-native-toast-message'
 import { THEME } from '../../theme';
 import { postNotification } from '../../Backend/postNotification';
 import { setPushState } from '../../Backend/setPushState';
+import { ScHelpSlides } from '../../components/HelpSlides';
 
 export function ScSettings({ route, navigation }) {
     const { petId, petType, petImage } = route.params
     const [notification, setNotification] = useState('ativada')
+    const [showSlides, setShowSlides] = useState(false);
 
     function handlePushConfig() {
         setPushState()
@@ -71,43 +73,40 @@ export function ScSettings({ route, navigation }) {
         }
     }
 
-    function handleShowHelpSlides() {
-        navigation.push('ScHelpSlides')
-    }
-
     return (
-        <SafeAreaView style={styles.container}>
-            <ScrollView contentContainerStyle={styles.scrollStyle}>
+        showSlides ? <ScHelpSlides slideDone={() => setShowSlides(false)} /> :
+            <SafeAreaView style={styles.container}>
+                <ScrollView contentContainerStyle={styles.scrollStyle}>
 
-                {/* cabeçalho */}
-                <View style={styles.headerStyle}>
-                    <Text style={styles.Title}>Configurações</Text>
-                    <PetImageBT onPress={() => navigation.navigate('ScVizuPet', { petId: petId })}
-                        source={petImage ? { uri: petImage } :
-                            petType == 'dog' ? require('../../assets/images/dogIcon.png') : require('../../assets/images/catIcon.png')}
-                    />
-                </View>
+                    {/* cabeçalho */}
+                    <View style={styles.headerStyle}>
+                        <Text style={styles.Title}>Configurações</Text>
+                        <PetImageBT onPress={() => navigation.navigate('ScVizuPet', { petId: petId })}
+                            source={petImage ? { uri: petImage } :
+                                petType == 'dog' ? require('../../assets/images/dogIcon.png') : require('../../assets/images/catIcon.png')}
+                        />
+                    </View>
 
-                {/* Botoes */}
-                <View style={{ marginTop: 15 }}>
-                    <NormalBT icon='undo' text='Trocar pet' onPress={() => navigation.navigate('ScPetChoice')} />
+                    {/* Botoes */}
+                    <View style={{ marginTop: 15 }}>
+                        <NormalBT icon='undo' text='Trocar pet' onPress={() => navigation.navigate('ScPetChoice')} />
 
-                    <NormalBT icon='bell' text={`Notificações: ${notification}`}
-                        backColor={notification == 'ativada' ? THEME.COLORS.SUCCESS : THEME.COLORS.GRAY}
-                        onPress={() => handlePushConfig()}
-                    />
+                        <NormalBT icon='bell' text={`Notificações: ${notification}`}
+                            backColor={notification == 'ativada' ? THEME.COLORS.SUCCESS : THEME.COLORS.GRAY}
+                            onPress={() => handlePushConfig()}
+                        />
 
-                    <NormalBT icon='bell' text='Testar notificação' onPress={() => postNotification()} />
-                    <NormalBT icon='group' text='Sobre' onPress={() => postNotification()} />
-                    <NormalBT icon='info-circle' text='Tutorial' onPress={() => handleShowHelpSlides()} />
-                    <NormalBT icon='exclamation-triangle' text='Apagar dados' backColor={THEME.COLORS.FAIL} onPress={() => handleDeleteData()} />
-                </View>
+                        <NormalBT icon='bell' text='Testar notificação' onPress={() => postNotification()} />
+                        <NormalBT icon='group' text='Sobre' onPress={() => postNotification()} />
+                        <NormalBT icon='info-circle' text='Tutorial' onPress={() => setShowSlides(true)} />
+                        <NormalBT icon='exclamation-triangle' text='Apagar dados' backColor={THEME.COLORS.FAIL} onPress={() => handleDeleteData()} />
+                    </View>
 
-            </ScrollView>
+                </ScrollView>
 
-            {/* Menu de botoes */}
-            <MenuButtons petType={petType} petId={petId} petImage={petImage} />
+                {/* Menu de botoes */}
+                <MenuButtons petType={petType} petId={petId} petImage={petImage} />
 
-        </SafeAreaView>
+            </SafeAreaView>
     );
 }

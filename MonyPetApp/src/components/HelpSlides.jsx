@@ -16,7 +16,7 @@ function renderSlides({ item }) {
   )
 }
 
-export function ScHelpSlides({ navigation }) {
+export function ScHelpSlides(props, { navigation }) {
   //tutorial
   const slides = [
     {
@@ -63,11 +63,6 @@ export function ScHelpSlides({ navigation }) {
     },
   ]
 
-  function slidesDone() {
-    setData()
-    navigation.pop()
-  }
-
   async function setData() {
     const { setItem, getItem, removeItem } = useAsyncStorage('@monypet:config')
     const response = await getItem()
@@ -75,6 +70,10 @@ export function ScHelpSlides({ navigation }) {
 
     await setItem(JSON.stringify({...previousData, showSlides: false}))
   }
+
+  useEffect(() => {
+    setData()
+  }, [])
 
   return (
     <AppIntroSlider
@@ -88,7 +87,7 @@ export function ScHelpSlides({ navigation }) {
       renderPrevButton={() => <Text style={styles.btNext}>Voltar</Text>}
       renderNextButton={() => <Text style={styles.btNext}>Próximo</Text>}
       renderDoneButton={() => <Text style={styles.btDone}>Concluir</Text>}
-      onDone={() => slidesDone()}
+      onDone={props.slideDone}
     />
   )
 }

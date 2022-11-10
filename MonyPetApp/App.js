@@ -1,8 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Routes } from "./src/routes";
 import Toast, { BaseToast } from "react-native-toast-message";
 import OneSignal from "react-native-onesignal";
 import { StatusBar } from "expo-status-bar";
+import { useAsyncStorage } from "@react-native-async-storage/async-storage";
+import { ScHelpSlides } from "./src/components/HelpSlides";
 
 // OneSignal Initialization
 OneSignal.setAppId("43517dad-1dea-4573-bbb4-a0135ac4e7f5");
@@ -23,10 +25,24 @@ const toastConfig = {
 };
 
 export default function App() {
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const [showSlides, setShowSlides] = useState(true);
+
+  async function fetchData() {
+    const { getItem, setItem, removeItem } = useAsyncStorage("@monypet:config");
+    const response = await getItem();
+    const config = response ? JSON.parse(response) : { showSlides: true };
+
+    setShowSlides(config.showSlides);
+  }
+
   return (
     <>
       <StatusBar style="dark" />
-      <Routes />
+      {showSlides ? <ScHelpSlides slideDone={() => setShowSlides(false)}/> : <Routes />}
       <Toast config={toastConfig} />
     </>
   );

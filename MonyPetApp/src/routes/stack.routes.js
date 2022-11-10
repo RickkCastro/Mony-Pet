@@ -27,7 +27,6 @@ export function StackRoutes() {
       }}
     >
       <Screen name="ScPetChoice" component={ScPetChoice} />
-      <Screen name="ScHelpSlides" component={ScHelpSlides} />
       <Screen name="ScPetAdd" component={ScPetAdd} />
       <Screen name="ScVizuPet" component={ScVizuPet} />
       <Screen name="ScHome" component={ScHome} />
@@ -36,6 +35,8 @@ export function StackRoutes() {
       <Screen name="ScCalendar" component={ScCalendar} />
       <Screen name="ScAddTask" component={ScAddTask} />
       <Screen name="ScSettings" component={ScSettings} />
+
+      <Screen name="ScHelpSlides" component={ScHelpSlides} />
     </Navigator>
   );
 }

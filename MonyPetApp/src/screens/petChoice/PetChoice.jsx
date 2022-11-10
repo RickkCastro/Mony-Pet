@@ -14,20 +14,6 @@ import { RFPercentage } from 'react-native-responsive-fontsize'
 export function ScPetChoice(props) {
 	const navigation = useNavigation()
 
-	useFocusEffect(//Quando focar na tela
-		useCallback(() => {
-			fetchData()
-		}, [])
-	)
-
-	async function fetchData() {
-		const { getItem, setItem, removeItem } = useAsyncStorage('@monypet:config')
-		const response =  await getItem()
-		const config = response ? JSON.parse(response) : {}
-
-		config.showSlides != false && navigation.push('ScHelpSlides')
-	}
-
 	return (
 		<View style={styles.container}>
 			<ImageBackground
