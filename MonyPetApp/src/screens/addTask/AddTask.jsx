@@ -9,13 +9,12 @@ import { useAsyncStorage } from '@react-native-async-storage/async-storage'
 import { useFocusEffect } from '@react-navigation/native'
 import Toast from 'react-native-toast-message'
 
-import { Select, Box, CheckIcon, Center } from 'native-base';
-
 import Header1 from '../../components/Header1'
 
 import { styles } from './styles';
 import { THEME } from '../../theme';
 import { Loading } from '../../components/Loading';
+import SelectDropdown from 'react-native-select-dropdown';
 
 export function ScAddTask({ route, navigation }) {
   const { petId, taskId, screenTitle, clickDate } = route.params
@@ -24,6 +23,15 @@ export function ScAddTask({ route, navigation }) {
   const [titleT, setTitleT] = useState('')
   const [descT, setDescT] = useState('')
   const [typeT, setTypeT] = useState('stethoscope')
+
+  const typeSelects = [
+    {label: 'Tosa', value:'content-cut'},
+    {label: 'Banho', value:'bathtub'},
+    {label: 'Vacina', value:'needle'},
+    {label: 'Consulta', value:'stethoscope'},
+    {label: 'Remédio', value:'medical-bag'},
+    {label: 'Outro', value:'paw'},
+  ]
 
   const [date, setDate] = useState(clickDate ? new Date(clickDate) : new Date())
   const [showDP, setShowDP] = useState(false)
@@ -250,20 +258,13 @@ export function ScAddTask({ route, navigation }) {
 
             {/* Select do Tipo de Compromisso */}
             <Text style={styles.lineText}>Tipo de Compromisso:</Text>
-            <Box>
-              <Select selectedValue={typeT} borderColor={THEME.COLORS.PRIMARY} color={THEME.COLORS.GRAY} size={THEME.FONT_SIZE.LG}
-                borderRadius='10' height={9} accessibilityLabel='Time' _selectedItem={{
-                  bg: THEME.COLORS.PRIMARY,
-                  borderRadius: '10',
-                }} mt={1} onValueChange={setTypeT}>
-                <Select.Item label='Tosa' value='content-cut' />
-                <Select.Item label='Banho' value='bathtub' />
-                <Select.Item label='Vacina' value='needle' />
-                <Select.Item label='Consulta' value='stethoscope' />
-                <Select.Item label='Remédio' value='medical-bag' />
-                <Select.Item label='Outro' value='paw' />
-              </Select>
-            </Box>
+            <SelectDropdown
+                data={typeSelects.map((item) => item.label)}
+                defaultValue={typeSelects.find((item) => item.value === typeT).label}
+                defaultButtonText={typeSelects.find((item) => item.value === typeT).label}
+                onSelect={(selectedItem, index) => setTypeT(typeSelects[index].value)}
+                renderDropdownIcon={() => <AntDesign name="down" size={20} color="black" />}
+            />
 
             {/* descrição*/}
             <Text style={[styles.lineText, { color: THEME.COLORS.TEXT }]}>Anotações do pet:</Text>

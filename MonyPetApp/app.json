@@ -3,9 +3,15 @@
     "name": "MonyPet",
     "slug": "MonyPet",
     "version": "0.4.0",
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
     "extra": {
       "eas": {
         "projectId": "ef1db521-85ba-4bcb-bbb4-614ae7683a6e"

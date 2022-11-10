@@ -21,11 +21,11 @@ export function ScPetChoice(props) {
 	)
 
 	async function fetchData() {
-		const { getItem, setItem, removeItem } = useAsyncStorage('@monypet:showSlides')
+		const { getItem, setItem, removeItem } = useAsyncStorage('@monypet:config')
 		const response =  await getItem()
-		const showSlides = response ? JSON.parse(response) : {value: true}
+		const config = response ? JSON.parse(response) : {}
 
-		showSlides.value && navigation.push('ScHelpSlides')
+		config.showSlides != false && navigation.push('ScHelpSlides')
 	}
 
 	return (

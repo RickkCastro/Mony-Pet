@@ -1,0 +1,10 @@
+{
+  "name": "@api/monypet",
+  "main": "./index.js",
+  "types": "./index.d.ts",
+  "dependencies": {
+    "api": "^5.0.1",
+    "json-schema-to-ts": "^2.6.0",
+    "oas": "^20.0.1"
+  }
+}

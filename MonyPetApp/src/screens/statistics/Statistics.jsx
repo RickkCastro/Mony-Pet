@@ -21,7 +21,7 @@ export function ScStatistics({ route, navigation }) {
   const { petId, petType, petImage } = route.params
   const [loading, setLoading] = React.useState(false)
 
-  const [filter, setFilter] = React.useState('diario')
+  const [filter, setFilter] = React.useState('Diários')
   const [dataT, setDataT] = useState([])
   const [chartBlock, setChartBlock] = useState(true)
 
@@ -83,13 +83,13 @@ export function ScStatistics({ route, navigation }) {
     let feedingDataTemp = []
     data.map((item, index) => feedingDataTemp[index] = { value: item.feedingV, date: item.date })
 
-    if (filter === 'diario') {
+    if (filter === 'Diários') {
       setMoodData(returnDataDiario(moodDataTemp))
       setMessData(returnDataDiario(messDataTemp))
       setFeedingData(returnDataDiario(feedingDataTemp))
     }
 
-    else if (filter === 'semanal') {
+    else if (filter === 'Semanais') {
       setMoodData(returnDataSemanal(moodDataTemp))
       setMessData(returnDataSemanal(messDataTemp))
       setFeedingData(returnDataSemanal(feedingDataTemp))
@@ -108,12 +108,12 @@ export function ScStatistics({ route, navigation }) {
       let tourDataTemp = []
       data.map((item, index) => tourDataTemp[index] = { value: item.tourV, date: item.date })
 
-      if (filter === 'diario') {
+      if (filter === 'Diários') {
         setRestData(returnDataDiario(restDataTemp))
         setTourData(returnDataDiario(tourDataTemp))
       }
 
-      else if (filter === 'semanal') {
+      else if (filter === 'Semanais') {
         setRestData(returnDataSemanal(restDataTemp))
         setTourData(returnDataSemanal(tourDataTemp))
       }
@@ -128,11 +128,11 @@ export function ScStatistics({ route, navigation }) {
       let hairLossDataTemp = []
       data.map((item, index) => hairLossDataTemp[index] = { value: item.hairLossV, date: item.date })
 
-      if (filter === 'diario') {
+      if (filter === 'Diários') {
         setHairLossData(returnDataDiario(hairLossDataTemp))
       }
 
-      else if (filter === 'semanal') {
+      else if (filter === 'Semanais') {
         setHairLossData(returnDataSemanal(hairLossDataTemp))
       }
 
@@ -289,7 +289,7 @@ export function ScStatistics({ route, navigation }) {
           </View>
 
           {/* Filtro */}
-          <FilterSelected onValueChange={itemValue => setFilter(itemValue)} selectedValue={filter} />
+          <FilterSelected onValueChange={(selectedItem) => {setFilter(selectedItem), console.log(filter)}} selectedValue={filter} />
         </View>
 
         {/* Graficos */}

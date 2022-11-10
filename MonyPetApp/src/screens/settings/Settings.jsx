@@ -13,20 +13,10 @@ import AsyncStorage, { useAsyncStorage } from '@react-native-async-storage/async
 import Toast from 'react-native-toast-message'
 
 import { THEME } from '../../theme';
+import { TaskNotification } from '../../Backend/OneSignal/TaskNotification';
 
 export function ScSettings({ route, navigation }) {
     const { petId, petType, petImage } = route.params
-
-    useFocusEffect(//Quando focar na tela
-        useCallback(() => {
-            setData()
-        }, [])
-    )
-
-    async function setData() {
-        const { setItem } = useAsyncStorage('@monypet:showSlides')
-        await setItem(JSON.stringify({ value: false }))
-    }
 
     function handleDeleteData() {
         Alert.alert('Aviso!', 'Deseja realmente excluir todos os dados do aplicativo?', [
@@ -76,11 +66,8 @@ export function ScSettings({ route, navigation }) {
         }
     }
 
-    async function handleShowHelpSlides() {
-        const { setItem } = useAsyncStorage('@monypet:showSlides')
-        await setItem(JSON.stringify({ value: true }))
-
-        navigation.push('ScHelpSlides')
+    function handleShowHelpSlides() {
+        navigation.push('ScHelpSlides') 
     }
 
     return (
@@ -99,7 +86,7 @@ export function ScSettings({ route, navigation }) {
                 {/* Botoes */}
                 <View style={{ marginTop: 15 }}>
                     <NormalBT icon='undo' text='Trocar pet' onPress={() => navigation.navigate('ScPetChoice')} />
-                    <NormalBT icon='group' text='Sobre nós' onPress={() => { }} />
+                    <NormalBT icon='group' text='Sobre nós' onPress={() => TaskNotification()} />
                     <NormalBT icon='info-circle' text='Tutorial' onPress={() => handleShowHelpSlides()} />
                     <NormalBT icon='exclamation-triangle' text='Apagar dados' backColor={THEME.COLORS.FAIL} onPress={() => handleDeleteData()} />
                 </View>

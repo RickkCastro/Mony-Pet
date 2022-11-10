@@ -1,0 +1,11 @@
+{
+  "version": "1.0",
+  "apis": [
+    {
+      "identifier": "monypet",
+      "source": "https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.0/petstore.json",
+      "integrity": "sha512-MbRTUMurlfzdBPQikiS6k5GFKBV/PhM7QSWvVLa10/xAMyXM/WEuhQmYfORDOEXDeS8eNCbgillUXVSUjWOj3A==",
+      "installerVersion": "5.0.1"
+    }
+  ]
+}

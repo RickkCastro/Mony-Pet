@@ -1,29 +1,41 @@
 import React from 'react';
-import { View, Text} from 'react-native';
-
-// styles do Statistics, não do próprio FilterSelected
-import { styles } from '../../styles';
-
-import { Select, Box, CheckIcon, Center } from "native-base";
+import { View, Text, StyleSheet } from 'react-native';
 import { THEME } from '../../../../theme';
+import SelectDropdown from 'react-native-select-dropdown'
+import { AntDesign } from '@expo/vector-icons';
 
 export function FilterSelected(props) {
+    const filters = ['Diários', 'Semanais', 'Mensais']
+
     return (
-        <View> 
-            <Text style={styles.graphicTitle}>Mostrar Dados:</Text> 
-            <Center>
-                <Box maxW="300">
-                    <Select selectedValue={props.selectedValue} borderColor= {THEME.COLORS.PRIMARY} color= {THEME.COLORS.TEXT} size={THEME.FONT_SIZE.SM} 
-                            borderRadius="10" minWidth="225" marginTop={5} accessibilityLabel="Time" _selectedItem={{
-                            bg: THEME.COLORS.PRIMARY,
-                            borderRadius:"10",
-                        }} mt={1} onValueChange={props.onValueChange}>
-                            <Select.Item label="Diários" value="diario" />
-                            <Select.Item label="Semanais" value="semanal" />
-                            <Select.Item label="Mensais" value="mensal" />
-                    </Select>
-                </Box>
-            </Center>
+        <View>
+            <Text style={styles.graphicTitle}>Mostrar Dados:</Text>
+            <SelectDropdown
+                buttonStyle={styles.filterButton}
+                data={filters}
+                defaultValue={props.selectedValue}
+                defaultButtonText={props.selectedValue}
+                onSelect={props.onValueChange}
+                renderDropdownIcon={() => <AntDesign name="down" size={20} color="black" />}
+            />
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+    graphicTitle: {
+        textAlign: 'center',
+        color: THEME.COLORS.PRIMARY,
+        marginTop: 30,
+        fontSize: THEME.FONT_SIZE.LG,
+        marginBottom: 5
+    },
+    
+    filterButton: {
+        backgroundColor: '#fff',
+        borderColor: THEME.COLORS.PRIMARY,
+        borderWidth: 1,
+        borderRadius: 20,
+        paddingHorizontal: 10,
+    },
+})
