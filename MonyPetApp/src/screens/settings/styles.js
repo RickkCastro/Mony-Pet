@@ -8,7 +8,9 @@ export const styles = StyleSheet.create({
   },
 
   scrollStyle: {
+    width: '100%',
     paddingTop: 10,
+    paddingBottom: 60,
     justifyContent: "flex-start",
   },
 

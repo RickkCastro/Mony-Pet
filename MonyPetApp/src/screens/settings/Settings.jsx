@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { View, ScrollView, Text, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -7,16 +7,21 @@ import { styles } from './styles';
 import { MenuButtons } from '../../components/MenuButtons';
 import { NormalBT } from './components/NormalBt';
 
-import { useFocusEffect } from '@react-navigation/native';
-
 import AsyncStorage, { useAsyncStorage } from '@react-native-async-storage/async-storage'
 import Toast from 'react-native-toast-message'
 
 import { THEME } from '../../theme';
-import { TaskNotification } from '../../Backend/OneSignal/TaskNotification';
+import { postNotification } from '../../Backend/postNotification';
+import { setPushState } from '../../Backend/setPushState';
 
 export function ScSettings({ route, navigation }) {
     const { petId, petType, petImage } = route.params
+    const [notification, setNotification] = useState('ativada')
+
+    function handlePushConfig() {
+        setPushState()
+        setNotification(notification == 'ativada' ? 'desativada' : 'ativada')
+    }
 
     function handleDeleteData() {
         Alert.alert('Aviso!', 'Deseja realmente excluir todos os dados do aplicativo?', [
@@ -67,7 +72,7 @@ export function ScSettings({ route, navigation }) {
     }
 
     function handleShowHelpSlides() {
-        navigation.push('ScHelpSlides') 
+        navigation.push('ScHelpSlides')
     }
 
     return (
@@ -86,7 +91,14 @@ export function ScSettings({ route, navigation }) {
                 {/* Botoes */}
                 <View style={{ marginTop: 15 }}>
                     <NormalBT icon='undo' text='Trocar pet' onPress={() => navigation.navigate('ScPetChoice')} />
-                    <NormalBT icon='group' text='Sobre nós' onPress={() => TaskNotification()} />
+
+                    <NormalBT icon='bell' text={`Notificações: ${notification}`}
+                        backColor={notification == 'ativada' ? THEME.COLORS.SUCCESS : THEME.COLORS.GRAY}
+                        onPress={() => handlePushConfig()}
+                    />
+
+                    <NormalBT icon='bell' text='Testar notificação' onPress={() => postNotification()} />
+                    <NormalBT icon='group' text='Sobre' onPress={() => postNotification()} />
                     <NormalBT icon='info-circle' text='Tutorial' onPress={() => handleShowHelpSlides()} />
                     <NormalBT icon='exclamation-triangle' text='Apagar dados' backColor={THEME.COLORS.FAIL} onPress={() => handleDeleteData()} />
                 </View>

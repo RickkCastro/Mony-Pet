@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     buttons: {
         justifyContent: "center",
         alignItems: "flex-start",
-        height: RFPercentage(7),
+        height: 55,
         width: "75%",
         alignSelf: "center",
         borderRadius: 10,
