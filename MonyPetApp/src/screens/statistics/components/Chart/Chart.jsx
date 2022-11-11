@@ -4,6 +4,7 @@ import { View, Text, ScrollView } from 'react-native'
 import { Grid, LineChart } from 'react-native-svg-charts'
 import { Defs, LinearGradient, Stop, Circle } from 'react-native-svg'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
+import * as Animatable from 'react-native-animatable';
 
 import { styles } from './styles'
 import { THEME } from '../../../../theme'
@@ -19,12 +20,12 @@ export function Chart(props) {
         { value: 5, date: '05 / 05' },
     ]
     const emojiList = props.emojiList ? props.emojiList : [
-        {name: 'emoticon-excited', color: THEME.COLORS.EMOTE_EXCITED},
-        {name: 'emoticon-happy', color: THEME.COLORS.EMOTE_HAPPY},
-        {name: 'emoticon-neutral', color: THEME.COLORS.EMOTE_NEUTRAL},
-        {name: 'emoticon-sad', color: THEME.COLORS.EMOTE_SAD},
-        {name: 'emoticon-angry', color: THEME.COLORS.EMOTE_ANGRY},
-        {name: 'null', color: '#000'}
+        { name: 'emoticon-excited', color: THEME.COLORS.EMOTE_EXCITED },
+        { name: 'emoticon-happy', color: THEME.COLORS.EMOTE_HAPPY },
+        { name: 'emoticon-neutral', color: THEME.COLORS.EMOTE_NEUTRAL },
+        { name: 'emoticon-sad', color: THEME.COLORS.EMOTE_SAD },
+        { name: 'emoticon-angry', color: THEME.COLORS.EMOTE_ANGRY },
+        { name: 'null', color: '#000' }
     ]
 
     const contentInset = { top: 10, bottom: 10, right: 10, left: 10 }
@@ -42,24 +43,24 @@ export function Chart(props) {
     const Decorator = ({ x, y, data }) => {
         return data.map((value, index) => (
             <Circle
-                key={ index }
-                cx={ x(index) }
-                cy={ y(value) }
-                r={ 4 }
-                stroke={ THEME.COLORS.PRIMARY }
-                fill={ 'white' }
+                key={index}
+                cx={x(index)}
+                cy={y(value)}
+                r={4}
+                stroke={THEME.COLORS.PRIMARY}
+                fill={'white'}
             />
         ))
     }
 
     return (
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} 
-        contentContainerStyle={styles.scrollGraphic}>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.scrollGraphic}>
             {/* Emojis - eixo y*/}
             <View style={styles.graphicY}>
                 {emojiList.map((emoji, index) => {
-                    return(
-                        <MaterialCommunityIcons key={index} 
+                    return (
+                        <MaterialCommunityIcons key={index}
                             name={emoji.name} size={iconSize} color={emoji.color} />
                     )
                 })}
@@ -67,7 +68,7 @@ export function Chart(props) {
             <View style={{ flex: 1 }}>
                 {/* Grafico */}
                 <LineChart
-                    style={{ flex: 1, minWidth: 300}}
+                    style={{ flex: 1, minWidth: 300 }}
                     data={data.map((d) => d.value)}
                     contentInset={contentInset}
                     svg={{
@@ -79,7 +80,7 @@ export function Chart(props) {
                 >
                     <Grid />
                     <Gradient />
-                    <Decorator/>
+                    <Decorator />
                 </LineChart>
                 {/* Datas - eixo x */}
                 <View style={styles.graphicX}>
@@ -91,5 +92,6 @@ export function Chart(props) {
                 </View>
             </View>
         </ScrollView>
+
     )
 }

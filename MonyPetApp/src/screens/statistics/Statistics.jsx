@@ -5,11 +5,12 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { styles } from './styles';
 import { MenuButtons } from '../../components/MenuButtons';
 import { Chart } from './components/Chart/Chart';
-import { FilterSelected } from './components/FilterSelected/FilterSelected';
+import { FilterSelected } from '../../components/FilterSelected/FilterSelected';
 import { PetImageBT } from '../../components/PetImageBt';
 
 import { AntDesign } from '@expo/vector-icons';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import * as Animatable from 'react-native-animatable';
 
 import { useFocusEffect } from '@react-navigation/native'
 import { useAsyncStorage } from '@react-native-async-storage/async-storage'
@@ -22,6 +23,8 @@ export function ScStatistics({ route, navigation }) {
   const [loading, setLoading] = React.useState(false)
 
   const [filter, setFilter] = React.useState('Diários')
+  const filters = ['Diários', 'Semanais', 'Mensais']
+
   const [dataT, setDataT] = useState([])
   const [chartBlock, setChartBlock] = useState(true)
 
@@ -289,7 +292,9 @@ export function ScStatistics({ route, navigation }) {
           </View>
 
           {/* Filtro */}
-          <FilterSelected onValueChange={(selectedItem) => {setFilter(selectedItem), console.log(filter)}} selectedValue={filter} />
+          <Text style={styles.graphicTitle}>Mostrar Dados:</Text>
+          <FilterSelected onValueChange={(selectedItem) => { setFilter(selectedItem), console.log(filter) }}
+            selectedValue={filter} data={filters} />
         </View>
 
         {/* Graficos */}
@@ -302,7 +307,7 @@ export function ScStatistics({ route, navigation }) {
               <Text style={styles.graphicTitle}>Adicione alguns registros para visualizar as estatísticas</Text>
               <AntDesign name="arrowdown" size={40} color={THEME.COLORS.PRIMARY} />
             </View> :
-            <View style={{ alignItems: 'center' }}>
+            <Animatable.View animation={'zoomInUp'} style={{ alignItems: 'center' }}>
               {/* Humor */}
               {moodData.length > 0 ?
                 <View style={{ flex: 1 }}>
@@ -348,7 +353,7 @@ export function ScStatistics({ route, navigation }) {
                   <Chart data={hairLossData} />
                 </View> : null
               }
-            </View>
+            </Animatable.View>
         }
       </ScrollView>
 

@@ -3,16 +3,17 @@ import React, { useEffect } from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 import { THEME } from "../theme";
 import { useAsyncStorage } from '@react-native-async-storage/async-storage'
+import * as Animatable from 'react-native-animatable';
 
 function renderSlides({ item }) {
   return (
-    <View style={{ flex: 1, backgroundColor: item.backgroundColor, justifyContent: "space-evenly" }}>
-      <Image source={item.image} defaultSource={item.image} style={styles.slidesImage} />
-      <View style={styles.viewText}>
-        <Text style={styles.slidesTitle}>{item.title}</Text>
-        <Text style={styles.slidesText}>{item.text}</Text>
-      </View>
-    </View>
+      <Animatable.View animation={'fadeInUp'} duration={400}  style={{ flex: 1, backgroundColor: item.backgroundColor, justifyContent: "space-evenly" }}>
+        <Image source={item.image} defaultSource={item.image} style={styles.slidesImage} />
+        <View style={styles.viewText}>
+          <Text style={styles.slidesTitle}>{item.title}</Text>
+          <Text style={styles.slidesText}>{item.text}</Text>
+        </View>
+      </Animatable.View>
   )
 }
 
@@ -76,19 +77,20 @@ export function ScHelpSlides(props, { navigation }) {
   }, [])
 
   return (
-    <AppIntroSlider
-      renderItem={renderSlides}
-      data={slides}
-      activeDotStyle={{
-        backgroundColor: THEME.COLORS.PRIMARY,
-        width: 30
-      }}
-      showPrevButton
-      renderPrevButton={() => <Text style={styles.btNext}>Voltar</Text>}
-      renderNextButton={() => <Text style={styles.btNext}>Próximo</Text>}
-      renderDoneButton={() => <Text style={styles.btDone}>Concluir</Text>}
-      onDone={props.slideDone}
-    />
+      <AppIntroSlider
+        renderItem={renderSlides}
+        data={slides}
+        activeDotStyle={{
+          backgroundColor: THEME.COLORS.PRIMARY,
+          width: 40
+        }}
+        showPrevButton
+        renderPrevButton={() => <Text style={styles.btNext}>Voltar</Text>}
+        renderNextButton={() => <Text style={styles.btNext}>Próximo</Text>}
+        renderDoneButton={() => <Text style={styles.btDone}>Concluir</Text>}
+        onDone={props.slideDone}
+      />
+
   )
 }
 

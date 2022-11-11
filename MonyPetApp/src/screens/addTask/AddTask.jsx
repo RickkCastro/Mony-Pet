@@ -16,6 +16,7 @@ import { THEME } from '../../theme';
 import { Loading } from '../../components/Loading';
 import SelectDropdown from 'react-native-select-dropdown';
 import { postNotification } from '../../Backend/postNotification';
+import { FilterSelected } from '../../components/FilterSelected/FilterSelected';
 
 export function ScAddTask({ route, navigation }) {
   const { petId, taskId, screenTitle, clickDate } = route.params
@@ -34,10 +35,10 @@ export function ScAddTask({ route, navigation }) {
     { label: 'Outro', value: 'paw' },
   ]
 
-  const [date, setDate] = useState(clickDate ? new Date(clickDate) : new Date())
+  const [date, setDate] = useState(new Date(clickDate))
   const [showDP, setShowDP] = useState(false)
 
-  const [time, setTime] = useState(clickDate ? new Date(clickDate) : new Date())
+  const [time, setTime] = useState(new Date(clickDate))
   const [showTP, setShowTP] = useState(false)
 
   const [doneT, setDoneT] = useState(false)
@@ -283,12 +284,9 @@ export function ScAddTask({ route, navigation }) {
 
             {/* Select do Tipo de Compromisso */}
             <Text style={styles.lineText}>Tipo de Compromisso:</Text>
-            <SelectDropdown
-              data={typeSelects.map((item) => item.label)}
-              defaultValue={typeSelects.find((item) => item.value === typeT).label}
-              defaultButtonText={typeSelects.find((item) => item.value === typeT).label}
-              onSelect={(selectedItem, index) => setTypeT(typeSelects[index].value)}
-              renderDropdownIcon={() => <AntDesign name="down" size={20} color="black" />}
+            <FilterSelected onValueChange={(selectedItem, index) => setTypeT(typeSelects[index].value)}
+              selectedValue={typeSelects.find((item) => item.value === typeT).label}
+              data={typeSelects.map((item) => item.label)} 
             />
 
             {/* descrição*/}

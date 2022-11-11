@@ -275,7 +275,7 @@ export function ScCalendar({ route, navigation }) {
                         </View>
                 }
 
-                <TouchableOpacity style={styles.addButton} onPress={() => navigation.navigate('ScAddTask', { petId: petId, screenTitle: 'Adicionar compromisso', clickDate: date })}>
+                <TouchableOpacity style={styles.addButton} onPress={() => navigation.navigate('ScAddTask', { petId: petId, screenTitle: 'Adicionar compromisso', clickDate: date.toDateString() })}>
                     <AntDesign name="plus" size={35} color={THEME.COLORS.TEXT_BUTTON} style={{ margin: 8 }} />
                 </TouchableOpacity>
 
@@ -311,7 +311,7 @@ export function ScCalendar({ route, navigation }) {
 
             {/* Menu de botoes */}
             <MenuButtons petType={petType} petId={petId} petImage={petImage}
-                handlePlusBt={() => navigation.navigate('ScAddTask', { petId: petId, screenTitle: 'Adicionar compromisso', clickDate: date })} />
+                handlePlusBt={() => navigation.navigate('ScAddTask', { petId: petId, screenTitle: 'Adicionar compromisso', clickDate: date.toDateString() })} />
         </SafeAreaView>
     );
 }

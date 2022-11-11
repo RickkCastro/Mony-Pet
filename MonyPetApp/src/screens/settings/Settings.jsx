@@ -15,6 +15,7 @@ import { postNotification } from '../../Backend/postNotification';
 import { setPushState } from '../../Backend/setPushState';
 import { ScHelpSlides } from '../../components/HelpSlides';
 import OneSignal from 'react-native-onesignal';
+import * as Animatable from 'react-native-animatable';
 
 export function ScSettings({ route, navigation }) {
     const { petId, petType, petImage } = route.params
@@ -111,7 +112,8 @@ export function ScSettings({ route, navigation }) {
     }
 
     return (
-        showSlides ? <ScHelpSlides slideDone={() => setShowSlides(false)} /> :
+        showSlides ?
+            <ScHelpSlides slideDone={() => setShowSlides(false)} />  :
             <SafeAreaView style={styles.container}>
                 <ScrollView contentContainerStyle={styles.scrollStyle}>
 
