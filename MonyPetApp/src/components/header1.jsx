@@ -18,7 +18,7 @@ export default function(props){
         <TouchableOpacity
           style={styles.headerButtons}
           onPress={props.onPressBt2}>
-          <FontAwesome name="trash" size={24} color={props.bt2Color}/>
+          <FontAwesome name="trash" size={24} color={props.bt2Color ? props.bt2Color : 'transparent'}/>
         </TouchableOpacity>
       </View>
   );

@@ -26,7 +26,6 @@ export function ScStatistics({ route, navigation }) {
   const filters = ['Diários', 'Semanais', 'Mensais']
 
   const [dataT, setDataT] = useState([])
-  const [chartBlock, setChartBlock] = useState(true)
 
   const [finalDate, setFinalDate] = useState(() => {
     const date = new Date()
@@ -63,7 +62,6 @@ export function ScStatistics({ route, navigation }) {
     })
 
     setDataT(data)
-    data.length >= 3 ? setChartBlock(false) : setChartBlock(true)
     setLoading(false)
   }
 
@@ -302,58 +300,53 @@ export function ScStatistics({ route, navigation }) {
           <View style={{ alignSelf: 'center', justifyContent: 'center', marginTop: 50, }}>
             <Loading size={10} />
           </View> :
-          chartBlock ?
-            <View style={styles.zeroText}>
-              <Text style={styles.graphicTitle}>Adicione alguns registros para visualizar as estatísticas</Text>
-              <AntDesign name="arrowdown" size={40} color={THEME.COLORS.PRIMARY} />
-            </View> :
-            <Animatable.View animation={'zoomInUp'} style={{ alignItems: 'center' }}>
-              {/* Humor */}
-              {moodData.length > 0 ?
-                <View style={{ flex: 1 }}>
-                  <Text style={styles.graphicTitle}> Gráfico de Humor </Text>
-                  <Chart data={moodData} />
-                </View> : null
-              }
+          <Animatable.View animation={'zoomInUp'} style={{ alignItems: 'center' }}>
+            {/* Humor */}
+            {moodData.length > 0 ?
+              <View style={{ flex: 1 }}>
+                <Text style={styles.graphicTitle}> Gráfico de Humor </Text>
+                <Chart data={moodData} />
+              </View> : null
+            }
 
-              {/* Bagunça */}
-              {messData.length > 0 ?
-                <View style={{ flex: 1 }}>
-                  <Text style={styles.graphicTitle}> Gráfico de Bagunça </Text>
-                  <Chart data={messData} />
-                </View> : null
-              }
+            {/* Bagunça */}
+            {messData.length > 0 ?
+              <View style={{ flex: 1 }}>
+                <Text style={styles.graphicTitle}> Gráfico de Bagunça </Text>
+                <Chart data={messData} />
+              </View> : null
+            }
 
-              {/* Alimentação */}
-              {feedingData.length > 0 ?
-                <View style={{ flex: 1 }}>
-                  <Text style={styles.graphicTitle}> Gráfico de Alimentação </Text>
-                  <Chart data={feedingData} />
-                </View> : null
-              }
+            {/* Alimentação */}
+            {feedingData.length > 0 ?
+              <View style={{ flex: 1 }}>
+                <Text style={styles.graphicTitle}> Gráfico de Alimentação </Text>
+                <Chart data={feedingData} />
+              </View> : null
+            }
 
-              {/* Dog */}
-              {restData.length > 0 ?
-                <View style={{ flex: 1 }}>
-                  <Text style={styles.graphicTitle}> Gráfico de Sono </Text>
-                  <Chart data={restData} />
-                </View> : null
-              }
-              {tourData.length > 0 ?
-                <View style={{ flex: 1 }}>
-                  <Text style={styles.graphicTitle}> Gráfico de Passeio </Text>
-                  <Chart data={tourData} />
-                </View> : null
-              }
+            {/* Dog */}
+            {restData.length > 0 ?
+              <View style={{ flex: 1 }}>
+                <Text style={styles.graphicTitle}> Gráfico de Sono </Text>
+                <Chart data={restData} />
+              </View> : null
+            }
+            {tourData.length > 0 ?
+              <View style={{ flex: 1 }}>
+                <Text style={styles.graphicTitle}> Gráfico de Passeio </Text>
+                <Chart data={tourData} />
+              </View> : null
+            }
 
-              {/* Cat */}
-              {hairLossData.length > 0 ?
-                <View style={{ flex: 1 }}>
-                  <Text style={styles.graphicTitle}> Gráfico de Queda de Pelo </Text>
-                  <Chart data={hairLossData} />
-                </View> : null
-              }
-            </Animatable.View>
+            {/* Cat */}
+            {hairLossData.length > 0 ?
+              <View style={{ flex: 1 }}>
+                <Text style={styles.graphicTitle}> Gráfico de Queda de Pelo </Text>
+                <Chart data={hairLossData} />
+              </View> : null
+            }
+          </Animatable.View>
         }
       </ScrollView>
 

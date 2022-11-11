@@ -1,5 +1,5 @@
 import React, { useCallback, useState, useEffect } from 'react';
-import { View, ScrollView, Text, Alert } from 'react-native';
+import { View, ScrollView, Text, Alert, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { PetImageBT } from '../../components/PetImageBt';
@@ -16,13 +16,15 @@ import { setPushState } from '../../Backend/setPushState';
 import { ScHelpSlides } from '../../components/HelpSlides';
 import OneSignal from 'react-native-onesignal';
 import * as Animatable from 'react-native-animatable';
+import { Entypo } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
 
 export function ScSettings({ route, navigation }) {
     const { petId, petType, petImage } = route.params
     const [notification, setNotification] = useState('ativada')
     const [showSlides, setShowSlides] = useState(false);
 
-    const [userId, setUserId ] = useState()
+    const [userId, setUserId] = useState()
 
     useEffect(() => {
         setUserIdF()
@@ -104,16 +106,16 @@ export function ScSettings({ route, navigation }) {
         };
 
         fetch("https://onesignal.com/api/v1/notifications", options)
-        .then((response) => response.json())
-        .then((response) => setPushId(response.id))
-        .catch((err) => console.log(err))
+            .then((response) => response.json())
+            .then((response) => setPushId(response.id))
+            .catch((err) => console.log(err))
 
         console.log("Push id:", pushId)
     }
 
     return (
         showSlides ?
-            <ScHelpSlides slideDone={() => setShowSlides(false)} />  :
+            <ScHelpSlides slideDone={() => setShowSlides(false)} /> :
             <SafeAreaView style={styles.container}>
                 <ScrollView contentContainerStyle={styles.scrollStyle}>
 
@@ -127,7 +129,7 @@ export function ScSettings({ route, navigation }) {
                     </View>
 
                     {/* Botoes */}
-                    <View style={{ marginTop: 15 }}>
+                    <Animatable.View animation={'bounceInUp'} style={{ marginTop: 15 }}>
                         <NormalBT icon='undo' text='Trocar pet' onPress={() => navigation.navigate('ScPetChoice')} />
 
                         <NormalBT icon='bell' text={`Notificações: ${notification}`}
@@ -136,10 +138,24 @@ export function ScSettings({ route, navigation }) {
                         />
 
                         <NormalBT icon='bell' text='Testar notificação' onPress={() => postNotification()} />
-                        <NormalBT icon='group' text='Sobre' onPress={() => TaskNotification()} />
+                        <NormalBT icon='group' text='Sobre' onPress={() => navigation.navigate('ScAbout')} />
                         <NormalBT icon='info-circle' text='Tutorial' onPress={() => setShowSlides(true)} />
+
+                        <TouchableOpacity style={styles.buttons}>
+                            {/* <LinearGradient
+                                colors={['#515bd4', '#8134af', '#dd2a7b', '#feda77']}
+                                start={{ x: 0, y: 0 }}
+                                end={{ x: 1, y: 1 }}
+                                style={styles.instaDegrade}
+                            > */}
+                                <View style={styles.btItensView}>
+                                    <Entypo name={'instagram'} size={THEME.FONT_SIZE.MD + 1} color="white" style={styles.btIcons} />
+                                    <Text style={styles.textBt}>Instagram</Text>
+                                </View>
+                        </TouchableOpacity>
+
                         <NormalBT icon='exclamation-triangle' text='Apagar dados' backColor={THEME.COLORS.FAIL} onPress={() => handleDeleteData()} />
-                    </View>
+                    </Animatable.View>
 
                 </ScrollView>
 

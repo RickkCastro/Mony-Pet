@@ -30,21 +30,21 @@ export function ScHelpSlides(props, { navigation }) {
     {
       key: '2',
       title: "Vamos começar adicionando um pet, que tal?",
-      text: "Nessa tela você vai colocar todas as informações solicitadas nos campos, posteriormente você vai poder alterar os dados se desejar.",
+      text: "Você vai colocar todas as informações solicitadas nos campos, posteriormente vai poder alterar os dados se desejar.",
       image: require("../assets/slides/cachorro2.png"),
       backgroundColor: THEME.COLORS.ITENS_BACKGROUND
     },
     {
       key: '3',
       title: "Primeiros registros!!!",
-      text: "É nessa tela que a magia acontece, diga como está seu animalzinho de estimação, diariamente, e tenha um monitoramento completo com nossas estatísticas e um controle maior nos cuidados dele.",
+      text: "Aqui a magia acontece, diga como está seu animalzinho de estimação, diariamente, e tenha um monitoramento completo com nossas estatísticas e um controle maior nos cuidados dele.",
       image: require("../assets/slides/registros.png"),
       backgroundColor: THEME.COLORS.ITENS_BACKGROUND
     },
     {
       key: '4',
       title: "Analise os gráficos",
-      text: "É nessa parte que ficará armazenado todos os dados inseridos na tela de registros. A partir de 3 registros, gráficos irão surgir e é aqui que você terá noção de como está seu animal.",
+      text: "Analisar os gráficos vão te auxiliar nos cuidados do seu animal, então sempre fique de olho.  Não se assuste se não aparecer nada com os primeiros registros é a partir de 3 registros que os gráficos surgem.",
       image: require("../assets/slides/grafico.png"),
       backgroundColor: THEME.COLORS.ITENS_BACKGROUND
     },

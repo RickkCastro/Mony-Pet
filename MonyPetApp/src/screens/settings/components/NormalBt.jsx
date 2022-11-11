@@ -2,7 +2,7 @@ import react from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import { THEME } from "../../../theme"
-import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+
 
 export function NormalBT(props) {
     return (
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     },
 
     btItensView: {
-        flexDirection: 'row'
+        flexDirection: 'row',
     },
 
     btIcons: {
