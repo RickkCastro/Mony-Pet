@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { View, Text, TouchableOpacity, ScrollView, TextInput, ImageBackground, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, TextInput, ImageBackground, Alert, Switch } from 'react-native';
 
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AntDesign } from '@expo/vector-icons';
@@ -15,6 +15,7 @@ import { styles } from './styles';
 import { THEME } from '../../theme';
 import { Loading } from '../../components/Loading';
 import SelectDropdown from 'react-native-select-dropdown';
+import { postNotification } from '../../Backend/postNotification';
 
 export function ScAddTask({ route, navigation }) {
   const { petId, taskId, screenTitle, clickDate } = route.params
@@ -25,12 +26,12 @@ export function ScAddTask({ route, navigation }) {
   const [typeT, setTypeT] = useState('stethoscope')
 
   const typeSelects = [
-    {label: 'Tosa', value:'content-cut'},
-    {label: 'Banho', value:'bathtub'},
-    {label: 'Vacina', value:'needle'},
-    {label: 'Consulta', value:'stethoscope'},
-    {label: 'Remédio', value:'medical-bag'},
-    {label: 'Outro', value:'paw'},
+    { label: 'Tosa', value: 'content-cut' },
+    { label: 'Banho', value: 'bathtub' },
+    { label: 'Vacina', value: 'needle' },
+    { label: 'Consulta', value: 'stethoscope' },
+    { label: 'Remédio', value: 'medical-bag' },
+    { label: 'Outro', value: 'paw' },
   ]
 
   const [date, setDate] = useState(clickDate ? new Date(clickDate) : new Date())
@@ -40,6 +41,11 @@ export function ScAddTask({ route, navigation }) {
   const [showTP, setShowTP] = useState(false)
 
   const [doneT, setDoneT] = useState(false)
+
+  const [isNotify, setIsNotify] = useState(true);
+  const toggleSwitch = () => setIsNotify(!isNotify);
+
+  const [pushCreate, setPushCreate] = useState(false)
 
   const onChangeDate = (event, selectedDate) => {
     setShowDP(false)
@@ -96,6 +102,9 @@ export function ScAddTask({ route, navigation }) {
       setTypeT(data.typeT)
       setDescT(data.descT)
       setDoneT(data.doneT)
+
+      setPushCreate(data.pushCreate)
+      setIsNotify(data.isNotify)
     }
     setLoading(false)
   }
@@ -114,10 +123,26 @@ export function ScAddTask({ route, navigation }) {
 
   async function saveTask() {
     setLoading(true)
+    console.log(pushCreate)
+
+    let push = pushCreate
+
+    if (date > new Date()) {
+      push = pushCreate ? true : isNotify && !pushCreate ? true : false
+
+      if (isNotify && !pushCreate) {
+        postNotification("MonyPet - Compromisso", `Você possui um comrpomisso marcado: ${titleT}`,
+          date.toUTCString())
+      }
+    }
+
     try {
       const id = taskId ? taskId : uuid.v4()
+
       let newTask = {
         id,
+        pushCreate: push,
+        isNotify,
         petId,
         date,
         titleT,
@@ -259,15 +284,15 @@ export function ScAddTask({ route, navigation }) {
             {/* Select do Tipo de Compromisso */}
             <Text style={styles.lineText}>Tipo de Compromisso:</Text>
             <SelectDropdown
-                data={typeSelects.map((item) => item.label)}
-                defaultValue={typeSelects.find((item) => item.value === typeT).label}
-                defaultButtonText={typeSelects.find((item) => item.value === typeT).label}
-                onSelect={(selectedItem, index) => setTypeT(typeSelects[index].value)}
-                renderDropdownIcon={() => <AntDesign name="down" size={20} color="black" />}
+              data={typeSelects.map((item) => item.label)}
+              defaultValue={typeSelects.find((item) => item.value === typeT).label}
+              defaultButtonText={typeSelects.find((item) => item.value === typeT).label}
+              onSelect={(selectedItem, index) => setTypeT(typeSelects[index].value)}
+              renderDropdownIcon={() => <AntDesign name="down" size={20} color="black" />}
             />
 
             {/* descrição*/}
-            <Text style={[styles.lineText, { color: THEME.COLORS.TEXT }]}>Anotações do pet:</Text>
+            <Text style={styles.lineText}>Anotações do pet:</Text>
             <TextInput
               placeholder={'Ex: descreva seu compromisso aqui!'}
               style={styles.txtDesc}
@@ -276,12 +301,25 @@ export function ScAddTask({ route, navigation }) {
               maxLength={250}
               value={descT}>
             </TextInput>
+
+            {taskId ? null :
+              <View style={styles.switchView}>
+                <Text style={styles.lineText}>Ativar notificação:</Text>
+                <Switch
+                  style={styles.switch}
+                  trackColor={{ false: THEME.COLORS.GRAY, true: THEME.COLORS.PRIMARY }}
+                  thumbColor={isNotify ? THEME.COLORS.BUTTON : '#fff'}
+                  onValueChange={toggleSwitch}
+                  value={isNotify}
+                />
+              </View>
+            }
           </View>
 
           {/* Botão de adição */}
           <ImageBackground
             source={require('../../assets/images/Onda.png')}
-            resizeMode={'stretch'}>
+            resizeMode={'stretch'} style={{ marginTop: 30, }}>
             <View
               style={styles.imgView}>
               <TouchableOpacity

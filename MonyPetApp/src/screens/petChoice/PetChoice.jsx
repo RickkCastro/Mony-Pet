@@ -18,6 +18,7 @@ export function ScPetChoice(props) {
 		<View style={styles.container}>
 			<ImageBackground
 				source={require('../../assets/images/BgTelaEscolhaPet.png')}
+				defaultSource={require('../../assets/images/BgTelaEscolhaPet.png')}
 				resizeMode="cover"
 				style={{ flex: 1 }}>
 				{/* Titulo */}

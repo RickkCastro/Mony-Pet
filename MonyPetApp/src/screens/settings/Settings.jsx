@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { View, ScrollView, Text, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -14,11 +14,23 @@ import { THEME } from '../../theme';
 import { postNotification } from '../../Backend/postNotification';
 import { setPushState } from '../../Backend/setPushState';
 import { ScHelpSlides } from '../../components/HelpSlides';
+import OneSignal from 'react-native-onesignal';
 
 export function ScSettings({ route, navigation }) {
     const { petId, petType, petImage } = route.params
     const [notification, setNotification] = useState('ativada')
     const [showSlides, setShowSlides] = useState(false);
+
+    const [userId, setUserId ] = useState()
+
+    useEffect(() => {
+        setUserIdF()
+    }, [])
+
+    async function setUserIdF() {
+        const { userId } = await OneSignal.getDeviceState();
+        setUserId(userId)
+    }
 
     function handlePushConfig() {
         setPushState()
@@ -73,6 +85,31 @@ export function ScSettings({ route, navigation }) {
         }
     }
 
+    const [pushId, setPushId] = useState()
+
+    function TaskNotification() {
+        const options = {
+            method: "POST",
+            headers: {
+                accept: "application/json",
+                Authorization: "Basic NWZmODk1ZTktYTc3Zi00Y2I4LTgxYmQtNDU4NDU2MTdiMjFi",
+                "content-type": "application/json",
+            },
+            body: JSON.stringify({
+                include_player_ids: [userId],
+                contents: { en: "Teste" },
+                app_id: "43517dad-1dea-4573-bbb4-a0135ac4e7f5",
+            }),
+        };
+
+        fetch("https://onesignal.com/api/v1/notifications", options)
+        .then((response) => response.json())
+        .then((response) => setPushId(response.id))
+        .catch((err) => console.log(err))
+
+        console.log("Push id:", pushId)
+    }
+
     return (
         showSlides ? <ScHelpSlides slideDone={() => setShowSlides(false)} /> :
             <SafeAreaView style={styles.container}>
@@ -97,7 +134,7 @@ export function ScSettings({ route, navigation }) {
                         />
 
                         <NormalBT icon='bell' text='Testar notificação' onPress={() => postNotification()} />
-                        <NormalBT icon='group' text='Sobre' onPress={() => postNotification()} />
+                        <NormalBT icon='group' text='Sobre' onPress={() => TaskNotification()} />
                         <NormalBT icon='info-circle' text='Tutorial' onPress={() => setShowSlides(true)} />
                         <NormalBT icon='exclamation-triangle' text='Apagar dados' backColor={THEME.COLORS.FAIL} onPress={() => handleDeleteData()} />
                     </View>

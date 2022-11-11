@@ -38,7 +38,7 @@ export const styles = StyleSheet.create({
     color: THEME.COLORS.TEXT,
     fontSize: THEME.FONT_SIZE.LG,
     marginBottom: 5,
-    marginTop: 20
+    marginTop: 20,
   },
 
   txtInformation: {
@@ -55,7 +55,6 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: THEME.COLORS.PRIMARY,
     borderRadius: 10,
-    marginBottom: 30,
     fontSize: THEME.FONT_SIZE.MD,
     backgroundColor: THEME.COLORS.BACKGROUND,
     textAlignVertical: "top",
@@ -69,12 +68,14 @@ export const styles = StyleSheet.create({
     marginTop: 10,
     alignItems: "flex-end",
   },
+
   imgView: {
     alignItems: "center",
     height: 180,
     justifyContent: "flex-end",
     paddingBottom: 10,
   },
+
   styleButton: {
     borderRadius: 10,
     backgroundColor: THEME.COLORS.BUTTON,
@@ -84,15 +85,27 @@ export const styles = StyleSheet.create({
     width: 300,
     marginBottom: 10,
   },
+
   stylesTextButton: {
     color: THEME.COLORS.BACKGROUND,
     fontSize: THEME.FONT_SIZE.LG,
   },
+
   styleCopyRight: {
     color: THEME.COLORS.COPY,
     fontSize: THEME.FONT_SIZE.SM,
     alignSelf: "center",
     marginTop: 10,
     alignItems: "flex-end",
+  },
+
+  switchView: {
+    flexDirection: "row",
+    alignItems: 'center',
+  },
+
+  switch: {
+    paddingHorizontal: 10,
+    top: 9,
   },
 });

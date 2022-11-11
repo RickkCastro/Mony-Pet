@@ -1,11 +1,14 @@
+import { useState } from 'react';
 import OneSignal from 'react-native-onesignal';
 
-export async function postNotification() {
+export async function postNotification(headings = "Titulo", contents = "Teste de notificação", send_after = null) {
   const { userId } = await OneSignal.getDeviceState();
 
   const notificationObj = {
-    contents: { en: "Teste de notificação" },
+    headings: { en: headings },
+    contents: { en: contents },
     include_player_ids: [userId],
+    send_after: send_after
   };
 
   const jsonString = JSON.stringify(notificationObj);
