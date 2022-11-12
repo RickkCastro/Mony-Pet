@@ -3310,21 +3310,10 @@ expo-linear-gradient@~11.4.0:
   resolved "https://registry.yarnpkg.com/expo-linear-gradient/-/expo-linear-gradient-11.4.0.tgz#20ecad4d11e66e35b31600e5389ec9c4067f7312"
   integrity sha512-qtIfsLs7NOpfxYrFSJL5uLtNHIkBHQFuQ3f7++XpoJTSm4eQVFxjjkCGWiLIrkpVjKzmgp3DLuIVsadsGX21lA==
 
-expo-modules-autolinking@0.10.3:
+expo-modules-autolinking@0.10.3, expo-modules-autolinking@~0.10.1:
   version "0.10.3"
   resolved "https://registry.yarnpkg.com/expo-modules-autolinking/-/expo-modules-autolinking-0.10.3.tgz#31bfcf3e4b613a7c3949fb1f1e9c23eea4c14caf"
   integrity sha512-av9ln2zwUt303g98raX7sDmESgL3SXs1sbbtIjh1rL7R0676XIUacIKgbydR0/4tMbOShWx14Z9fozpk9xIAJA==
-  dependencies:
-    chalk "^4.1.0"
-    commander "^7.2.0"
-    fast-glob "^3.2.5"
-    find-up "^5.0.0"
-    fs-extra "^9.1.0"
-
-expo-modules-autolinking@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/expo-modules-autolinking/-/expo-modules-autolinking-1.0.0.tgz#2daac20035e1ecf8e66d74dca9bd1b0d6c09166c"
-  integrity sha512-MoRRkOVMoGUH/Lr8XS6UmBIZT/qrwbRt2IzUBALcM6MWZKtDn9Uct9XgMRxue82FJhRCfy9p1xZJVKHBRo4zEA==
   dependencies:
     chalk "^4.1.0"
     commander "^7.2.0"

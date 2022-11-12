@@ -284,7 +284,7 @@ export function ScCalendar({ route, navigation }) {
             setPushId(null)
         } else {
             if (currentTask.isNotify && new Date(currentTask.date) > new Date()) {
-                createNotification("MonyPet - Compromisso", `Você possui um comrpomisso marcado: ${currentTask.titleT}`,
+                createNotification("MonyPet - Compromisso", `Você possui um compromisso marcado: ${currentTask.titleT}`,
                     new Date(currentTask.date).toUTCString())
             } else {
                 setPushId(null)

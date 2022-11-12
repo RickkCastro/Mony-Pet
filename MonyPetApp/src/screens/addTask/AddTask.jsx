@@ -185,7 +185,7 @@ export function ScAddTask({ route, navigation }) {
 
 	function editNotification(pushId) {
 		cancelNotification(pushId)
-		createNotification("MonyPet - Compromisso", `Você possui um comrpomisso marcado: ${titleT}`,
+		createNotification("MonyPet - Compromisso", `Você possui um compromisso marcado: ${titleT}`,
 			date.toUTCString())
 		console.log('editado')
 	}
@@ -210,7 +210,7 @@ export function ScAddTask({ route, navigation }) {
 			}
 			else { //Não possui notificação
 				if (isNotify) { //Notificação ativada
-					createNotification("MonyPet - Compromisso", `Você possui um comrpomisso marcado: ${titleT}`,
+					createNotification("MonyPet - Compromisso", `Você possui um compromisso marcado: ${titleT}`,
 						date.toUTCString())
 					console.log('criado')
 				} else {
