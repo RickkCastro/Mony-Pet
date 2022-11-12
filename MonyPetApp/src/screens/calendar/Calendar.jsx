@@ -19,6 +19,8 @@ import Toast from 'react-native-toast-message'
 import { THEME } from '../../theme';
 import { Loading } from '../../components/Loading';
 
+import OneSignal from 'react-native-onesignal';
+
 LocaleConfig.locales['br'] = {
     monthNames: [
         'Janeiro',
@@ -49,6 +51,23 @@ export function ScCalendar({ route, navigation }) {
     const [nextTasksData, setNextTasksData] = useState([])
     const [dailyTasksData, setDailyTasksData] = useState([])
     const [doneTasksData, setDoneTasksData] = useState([])
+
+    const [userId, setUserId] = useState()
+    const [pushId, setPushId] = useState()
+    const [fakePushId, setFakePushId] = useState()
+    const [isSave, setIsSave] = useState(false)
+
+    const [id, setId] = useState()
+    const [doneT, setDoneT] = useState()
+
+    useEffect(() => {
+        setUserIdF()
+    }, [])
+
+    async function setUserIdF() {
+        const { userId } = await OneSignal.getDeviceState();
+        setUserId(userId)
+    }
 
     const [date, setDate] = useState(() => {
         const date = new Date()
@@ -182,6 +201,47 @@ export function ScCalendar({ route, navigation }) {
         return (`${date1} - ${time}`)
     }
 
+    function cancelNotification(pushId) {
+        const options = {
+            method: 'DELETE',
+            headers: { accept: 'application/json', Authorization: 'Basic NWZmODk1ZTktYTc3Zi00Y2I4LTgxYmQtNDU4NDU2MTdiMjFi' }
+        };
+
+        fetch(`https://onesignal.com/api/v1/notifications/${pushId}?app_id=43517dad-1dea-4573-bbb4-a0135ac4e7f5`, options)
+            .then(response => response.json())
+            .then(response => console.log(response))
+            .catch(err => console.error(err));
+    }
+
+    function createNotification(headings = "Titulo", contents = "Teste de notificação", send_after = null) {
+        const options = {
+            method: "POST",
+            headers: {
+                accept: "application/json",
+                Authorization: "Basic NWZmODk1ZTktYTc3Zi00Y2I4LTgxYmQtNDU4NDU2MTdiMjFi",
+                "content-type": "application/json",
+            },
+            body: JSON.stringify({
+                headings: { en: headings },
+                contents: { en: contents },
+                include_player_ids: [userId],
+                send_after: send_after,
+                app_id: "43517dad-1dea-4573-bbb4-a0135ac4e7f5",
+            }),
+        };
+
+        fetch("https://onesignal.com/api/v1/notifications", options)
+            .then((response) => response.json())
+            .then((response) => { setPushId(response.id), console.log(response) })
+            .catch((err) => console.log(err))
+    }
+
+    useEffect(() => {
+		if (isSave) {
+			handleDoneTask(id, doneT)
+		}
+	}, [pushId])
+
     async function handleDoneTask(id, doneT = false) {
         const response = await getItem()
         const TotalData = response ? JSON.parse(response) : []
@@ -189,16 +249,47 @@ export function ScCalendar({ route, navigation }) {
         let currentTask = TotalData.find((task) => task.id == id)
         currentTask.doneT = !doneT
 
+        currentTask.pushId = pushId
+        console.log(pushId)
+
         const index = TotalData.indexOf(TotalData.find((task) => task.id === id))
         TotalData[index] = currentTask
-        setItem(JSON.stringify(TotalData))
+        await setItem(JSON.stringify(TotalData))
 
         Toast.show({
             type: 'success',
             text1: 'Compromissos Atulizados',
         })
 
+        setPushId(undefined)
+
         handleFetchData()
+    }
+
+    async function setNotification(id, doneT = false) {
+        const response = await getItem()
+        const TotalData = response ? JSON.parse(response) : []
+
+        setIsSave(true)
+        setId(id)
+        setDoneT(doneT)
+
+        let currentTask = TotalData.find((task) => task.id == id)
+        currentTask.doneT = !doneT
+
+        if (!doneT) { //concluido
+            if (currentTask.pushId) {
+                cancelNotification(currentTask.pushId)
+            }
+            setPushId(null)
+        } else {
+            if (currentTask.isNotify && new Date(currentTask.date) > new Date()) {
+                createNotification("MonyPet - Compromisso", `Você possui um comrpomisso marcado: ${currentTask.titleT}`,
+                    new Date(currentTask.date).toUTCString())
+            } else {
+                setPushId(null)
+            }
+        }
     }
 
     return (
@@ -237,7 +328,7 @@ export function ScCalendar({ route, navigation }) {
                                                     date={formatDate(item.date)}
                                                     title={item.titleT}
                                                     desc={item.descT ? item.descT : 'Sem descrição'}
-                                                    handleCheck={() => handleDoneTask(item.id, item.doneT)}
+                                                    handleCheck={() => setNotification(item.id, item.doneT)}
                                                     handleTaskPress={() => navigation.navigate('ScAddTask',
                                                         { petId: petId, taskId: item.id, screenTitle: 'Editar compromisso' })}
                                                 />
@@ -261,7 +352,7 @@ export function ScCalendar({ route, navigation }) {
                                                 date={formatDate(item.date)}
                                                 title={item.titleT}
                                                 desc={item.descT ? item.descT : 'Sem descrição'}
-                                                handleCheck={() => handleDoneTask(item.id, item.doneT)}
+                                                handleCheck={() => setNotification(item.id, item.doneT)}
                                                 handleTaskPress={() => navigation.navigate('ScAddTask',
                                                     { petId: petId, taskId: item.id, screenTitle: 'Editar compromisso' })}
                                             />
@@ -296,7 +387,7 @@ export function ScCalendar({ route, navigation }) {
                                             date={formatDate(item.date)}
                                             title={item.titleT}
                                             desc={item.descT ? item.descT : 'Sem descrição'}
-                                            handleCheck={() => handleDoneTask(item.id, item.doneT)}
+                                            handleCheck={() => setNotification(item.id, item.doneT)}
                                             handleTaskPress={() => navigation.navigate('ScAddTask',
                                                 { petId: petId, taskId: item.id, screenTitle: 'Editar compromisso' })}
                                         />

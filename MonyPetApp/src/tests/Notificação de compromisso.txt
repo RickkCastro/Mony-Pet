@@ -1,0 +1,31 @@
+Criação
+
+- Teste 1: Notificação ativa / horario permitido - Criar notificação - return(id) @ @done
+- Teste 2: Notificação desativada / horario permitido - Não criar - return(null) @done
+- Teste 3: Notificação desativada / horario não permitido - Não criar - return(null) @done
+- Teste 4: Notificação ativada / horario não permitido - Não criar - return(null) @done
+
+Edição
+
+- Notificação já criada / salvou igual - mudar nada - return(mesmo da criação) @done
+
+- Notificação ativada (PARA) Notificação desativada - cancelar notificação - return(null) @done
+- Notificação desativada (PARA) Notificação ativada - criar notificação - return(id) @done
+
+- Data permitida (PARA) Data permitida - cancelar e criar notificação - return(id) @done
+- Data não permitida (PARA) Data permitida- criar notificação - return(id) @done
+- Data não permitida (PARA) Data não permitida - return(null) @done
+- Data permitida (PARA) Data não permitida - cancelar notificação - return(null) @done
+
+Deletar
+
+- Cancelar Notificação return(null) @done
+
+Concluir
+
+- Cancelar Noticação return(null) @done
+
+Desconcluir
+
+- Criar Notificação return(id) @done
+

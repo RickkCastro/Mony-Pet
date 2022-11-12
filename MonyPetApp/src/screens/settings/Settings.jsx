@@ -137,7 +137,7 @@ export function ScSettings({ route, navigation }) {
                             onPress={() => handlePushConfig()}
                         />
 
-                        <NormalBT icon='bell' text='Testar notificação' onPress={() => postNotification()} />
+                        <NormalBT icon='bell' text='Testar notificação' onPress={() => TaskNotification()} />
                         <NormalBT icon='group' text='Sobre' onPress={() => navigation.navigate('ScAbout')} />
                         <NormalBT icon='info-circle' text='Tutorial' onPress={() => setShowSlides(true)} />
 
