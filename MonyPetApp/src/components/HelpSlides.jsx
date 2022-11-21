@@ -44,7 +44,7 @@ export function ScHelpSlides(props, { navigation }) {
     {
       key: '4',
       title: "Analise os gráficos",
-      text: "Analisar os gráficos vão te auxiliar nos cuidados do seu animal, então sempre fique de olho.  Não se assuste se não aparecer nada com os primeiros registros é a partir de 3 registros que os gráficos surgem.",
+      text: "Analisar os gráficos vai te auxiliar nos cuidados do seu animal, então sempre fique de olho.",
       image: require("../assets/slides/grafico.png"),
       backgroundColor: THEME.COLORS.ITENS_BACKGROUND
     },

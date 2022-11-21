@@ -11,13 +11,12 @@ import AsyncStorage, { useAsyncStorage } from '@react-native-async-storage/async
 import Toast from 'react-native-toast-message'
 
 import { THEME } from '../../theme';
-import { postNotification } from '../../Backend/postNotification';
 import { setPushState } from '../../Backend/setPushState';
 import { ScHelpSlides } from '../../components/HelpSlides';
 import OneSignal from 'react-native-onesignal';
 import * as Animatable from 'react-native-animatable';
 import { Entypo } from '@expo/vector-icons';
-import { LinearGradient } from 'expo-linear-gradient';
+import {Linking} from 'react-native'
 
 export function ScSettings({ route, navigation }) {
     const { petId, petType, petImage } = route.params
@@ -141,7 +140,7 @@ export function ScSettings({ route, navigation }) {
                         <NormalBT icon='group' text='Sobre' onPress={() => navigation.navigate('ScAbout')} />
                         <NormalBT icon='info-circle' text='Tutorial' onPress={() => setShowSlides(true)} />
 
-                        <TouchableOpacity style={styles.buttons}>
+                        <TouchableOpacity style={styles.buttons} onPress={() => Linking.openURL("https://www.instagram.com/monypet6/")}>
                             {/* <LinearGradient
                                 colors={['#515bd4', '#8134af', '#dd2a7b', '#feda77']}
                                 start={{ x: 0, y: 0 }}

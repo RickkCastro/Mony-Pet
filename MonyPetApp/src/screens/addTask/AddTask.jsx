@@ -112,7 +112,6 @@ export function ScAddTask({ route, navigation }) {
 	)
 
 	async function fetchTaskData() {
-		setLoading(true)
 		if (taskId) {
 			const response = await getItem()
 			const dataTotal = response ? JSON.parse(response) : []
@@ -191,6 +190,7 @@ export function ScAddTask({ route, navigation }) {
 	}
 
 	function setNotification() {
+		setLoading(true)
 		if (date > new Date()) { //Data permitida
 			if (fakePushId) { //Ja possui notificação
 				//Notificação desativada

@@ -58,7 +58,7 @@ export function ScStatistics({ route, navigation }) {
     data.map((item) => item.date = new Date(item.date))
 
     data.sort(function (a, b) {
-      return a.date.getTime() - b.date.getTime()
+      return b.date.getTime() - a.date.getTime()
     })
 
     setDataT(data)
@@ -166,7 +166,7 @@ export function ScStatistics({ route, navigation }) {
     finalData = finalData.concat(dataTemp)
 
     finalData.sort(function (a, b) {
-      return a.date.getTime() - b.date.getTime()
+      return b.date.getTime() - a.date.getTime()
     })
 
     finalData.map((item) => item.date = formatDate(item.date))
@@ -195,13 +195,13 @@ export function ScStatistics({ route, navigation }) {
         dataTemp = 0
       }
 
-      dataSem[i] = { value: dataTemp, date: `Semana ${i + 1}º (${formatDayMonuth(initialDate)} - ${formatDayMonuth(finalDate2)})` }
+      dataSem[i] = { value: dataTemp, date: `Semana ${4 - i}º (${formatDayMonuth(initialDate)} - ${formatDayMonuth(finalDate2)})` }
 
       finalDate2.setDate(finalDate2.getDate() - 7)
       initialDate.setDate(initialDate.getDate() - 7)
     }
 
-    return dataSem.reverse()
+    return dataSem
   }
 
   function returnDataMensal(data = []) {
