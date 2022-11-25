@@ -116,4 +116,6 @@ dist/
 *.json
 !package.json
 
+./src/backend/OneSignal/passwords.js
+
 # @end expo-cli
