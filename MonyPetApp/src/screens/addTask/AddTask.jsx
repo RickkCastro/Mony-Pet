@@ -17,7 +17,7 @@ import { Loading } from '../../components/Loading';
 import { FilterSelected } from '../../components/FilterSelected/FilterSelected';
 
 import OneSignal from 'react-native-onesignal';
-import { appId, restAPIKey } from '../../Backend/OneSignal/passwords';
+import { appId, restAPIKey } from '../../components/backend/passwords';
 
 export function ScAddTask({ route, navigation }) {
 	const { petId, taskId, screenTitle, clickDate } = route.params

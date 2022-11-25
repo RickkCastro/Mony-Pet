@@ -3,7 +3,9 @@
     "name": "MonyPet",
     "slug": "MonyPet",
     "version": "1.0.0.2",
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",
@@ -35,7 +37,8 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#9690cc"
       },
-      "icon": "./assets/icon.png"
+      "icon": "./assets/icon.png",
+      "versionCode": 3
     }
   }
 }

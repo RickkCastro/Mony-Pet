@@ -11,13 +11,12 @@ import AsyncStorage, { useAsyncStorage } from '@react-native-async-storage/async
 import Toast from 'react-native-toast-message'
 
 import { THEME } from '../../theme';
-import { setPushState } from '../../Backend/setPushState';
 import { ScHelpSlides } from '../../components/HelpSlides';
 import OneSignal from 'react-native-onesignal';
 import * as Animatable from 'react-native-animatable';
 import { Entypo } from '@expo/vector-icons';
 import {Linking} from 'react-native'
-import { appId, restAPIKey } from '../../Backend/OneSignal/passwords';
+import { appId, restAPIKey } from '../../components/backend/passwords';
 
 export function ScSettings({ route, navigation }) {
     const { petId, petType, petImage } = route.params
