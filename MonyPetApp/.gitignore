@@ -116,6 +116,5 @@ dist/
 *.json
 !package.json
 
-src/backend/OneSignal/
 
 # @end expo-cli
