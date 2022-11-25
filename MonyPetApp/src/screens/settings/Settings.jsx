@@ -17,6 +17,7 @@ import OneSignal from 'react-native-onesignal';
 import * as Animatable from 'react-native-animatable';
 import { Entypo } from '@expo/vector-icons';
 import {Linking} from 'react-native'
+import { appId, restAPIKey } from '../../Backend/OneSignal/passwords';
 
 export function ScSettings({ route, navigation }) {
     const { petId, petType, petImage } = route.params
@@ -94,13 +95,13 @@ export function ScSettings({ route, navigation }) {
             method: "POST",
             headers: {
                 accept: "application/json",
-                Authorization: "Basic NWZmODk1ZTktYTc3Zi00Y2I4LTgxYmQtNDU4NDU2MTdiMjFi",
+                Authorization: restAPIKey,
                 "content-type": "application/json",
             },
             body: JSON.stringify({
                 include_player_ids: [userId],
                 contents: { en: "Teste" },
-                app_id: "43517dad-1dea-4573-bbb4-a0135ac4e7f5",
+                app_id: appId,
             }),
         };
 

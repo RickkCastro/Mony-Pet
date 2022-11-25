@@ -17,6 +17,7 @@ import { Loading } from '../../components/Loading';
 import { FilterSelected } from '../../components/FilterSelected/FilterSelected';
 
 import OneSignal from 'react-native-onesignal';
+import { appId, restAPIKey } from '../../Backend/OneSignal/passwords';
 
 export function ScAddTask({ route, navigation }) {
 	const { petId, taskId, screenTitle, clickDate } = route.params
@@ -152,7 +153,7 @@ export function ScAddTask({ route, navigation }) {
 			method: "POST",
 			headers: {
 				accept: "application/json",
-				Authorization: "Basic NWZmODk1ZTktYTc3Zi00Y2I4LTgxYmQtNDU4NDU2MTdiMjFi",
+				Authorization: restAPIKey,
 				"content-type": "application/json",
 			},
 			body: JSON.stringify({
@@ -160,7 +161,7 @@ export function ScAddTask({ route, navigation }) {
 				contents: { en: contents },
 				include_player_ids: [userId],
 				send_after: send_after,
-				app_id: "43517dad-1dea-4573-bbb4-a0135ac4e7f5",
+				app_id: appId,
 			}),
 		};
 
