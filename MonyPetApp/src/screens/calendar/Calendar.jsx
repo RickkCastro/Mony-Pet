@@ -205,10 +205,10 @@ export function ScCalendar({ route, navigation }) {
     function cancelNotification(pushId) {
         const options = {
             method: 'DELETE',
-            headers: { accept: 'application/json', Authorization: 'Basic NWZmODk1ZTktYTc3Zi00Y2I4LTgxYmQtNDU4NDU2MTdiMjFi' }
+            headers: { accept: 'application/json', Authorization: restAPIKey }
         };
 
-        fetch(`https://onesignal.com/api/v1/notifications/${pushId}?app_id=43517dad-1dea-4573-bbb4-a0135ac4e7f5`, options)
+        fetch(`https://onesignal.com/api/v1/notifications/${pushId}?app_id=${appId}`, options)
             .then(response => response.json())
             .then(response => console.log(response))
             .catch(err => console.error(err));
