@@ -20,7 +20,7 @@ import { THEME } from '../../theme';
 import { Loading } from '../../components/Loading';
 
 import OneSignal from 'react-native-onesignal';
-import { appId, restAPIKey } from '../../components/backend/passwords';
+import { appId, restAPIKey } from '../../backend/passwords';
 
 LocaleConfig.locales['br'] = {
     monthNames: [
