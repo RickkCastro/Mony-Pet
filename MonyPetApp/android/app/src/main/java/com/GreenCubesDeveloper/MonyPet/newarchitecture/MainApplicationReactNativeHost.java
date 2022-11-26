@@ -1,4 +1,4 @@
-package com.rickkcastro.MonyPet.newarchitecture;
+package com.GreenCubesDeveloper.MonyPet.newarchitecture;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
@@ -20,9 +20,9 @@ import com.facebook.react.fabric.EmptyReactNativeConfig;
 import com.facebook.react.fabric.FabricJSIModuleProvider;
 import com.facebook.react.fabric.ReactNativeConfig;
 import com.facebook.react.uimanager.ViewManagerRegistry;
-import com.rickkcastro.MonyPet.BuildConfig;
-import com.rickkcastro.MonyPet.newarchitecture.components.MainComponentsRegistry;
-import com.rickkcastro.MonyPet.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
+import com.GreenCubesDeveloper.MonyPet.BuildConfig;
+import com.GreenCubesDeveloper.MonyPet.newarchitecture.components.MainComponentsRegistry;
+import com.GreenCubesDeveloper.MonyPet.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -2,7 +2,7 @@
   "expo": {
     "name": "MonyPet",
     "slug": "MonyPet",
-    "version": "1.0.0.2",
+    "version": "1.0.0.4",
     "assetBundlePatterns": [
       "**/*"
     ],
@@ -21,7 +21,7 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "monypet"
+      "bundleIdentifier": "com.GreenCubesDeveloper.MonyPet"
     },
     "plugins": [
       [
@@ -32,13 +32,13 @@
       ]
     ],
     "android": {
-      "package": "com.rickkcastro.MonyPet",
+      "package": "com.GreenCubesDeveloper.MonyPet",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#9690cc"
       },
       "icon": "./assets/icon.png",
-      "versionCode": 3
+      "versionCode": 2
     }
   }
 }

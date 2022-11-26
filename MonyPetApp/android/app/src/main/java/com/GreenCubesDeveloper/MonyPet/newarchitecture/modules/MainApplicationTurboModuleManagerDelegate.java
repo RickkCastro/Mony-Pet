@@ -1,4 +1,4 @@
-package com.rickkcastro.MonyPet.newarchitecture.modules;
+package com.GreenCubesDeveloper.MonyPet.newarchitecture.modules;
 
 import com.facebook.jni.HybridData;
 import com.facebook.react.ReactPackage;

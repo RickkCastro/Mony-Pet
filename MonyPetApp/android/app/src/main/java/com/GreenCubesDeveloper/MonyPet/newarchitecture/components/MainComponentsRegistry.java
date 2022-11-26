@@ -1,4 +1,4 @@
-package com.rickkcastro.MonyPet.newarchitecture.components;
+package com.GreenCubesDeveloper.MonyPet.newarchitecture.components;
 
 import com.facebook.jni.HybridData;
 import com.facebook.proguard.annotations.DoNotStrip;

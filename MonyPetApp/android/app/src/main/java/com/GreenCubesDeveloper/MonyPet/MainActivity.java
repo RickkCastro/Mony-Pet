@@ -1,4 +1,4 @@
-package com.rickkcastro.MonyPet;
+package com.GreenCubesDeveloper.MonyPet;
 
 import android.os.Build;
 import android.os.Bundle;
