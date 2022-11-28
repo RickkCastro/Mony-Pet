@@ -17,6 +17,7 @@ import * as Animatable from 'react-native-animatable';
 import { Entypo } from '@expo/vector-icons';
 import {Linking} from 'react-native'
 import { appId, restAPIKey } from '../../backend/passwords';
+import { setPushState } from '../../backend/setPushState';
 
 export function ScSettings({ route, navigation }) {
     const { petId, petType, petImage } = route.params
