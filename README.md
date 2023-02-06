@@ -30,6 +30,9 @@ Cada animal tem sua própria home, com seus próprios horários e registros, ass
 
 A análise gráfica é uma das principais propostas do aplicativo, onde de forma intuitiva e rápida haverá uma análise de todos os registros da semana, mês e ano. A agenda é algo simples, com opção de agendar lembretes e eventos do dia, facilitando a organização com a opção de formar lembretes. Os registros são pequenos informativos diários da qualidade de vida do pet, onde se avalia de 1 a 5 o dia a dia do animal em alguns tópicos com diferentes aspectos diários.
 
+## 📖 Monografia
+<./monypet_monografia.pdf>
+
 ## 💻 Tecnologias
 
 **Front-end:** React Native 
