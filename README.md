@@ -68,23 +68,16 @@ Instale my-project com npm
   npm install my-project
   cd my-project
 ```
-    
-## 🗺 Roadmap
-
-- Melhorar o suporte de navegadores
-
-- Adicionar mais integrações
-
 
 ## 👨‍🎓 Autores
 
-- [@octokatherine](https://www.github.com/octokatherine)
-
-
-## 📧 Suporte
-
-Para suporte, mande um email para fake@fake.com ou entre em nosso canal do Slack.
-
+- Arthur Florencio de Atayde ([@Rickkcastro](https://github.com/RickkCastro/))
+- Enzo Vasconcelos de Oliveira Santos
+- Henrique Castro de Matos
+- João Vitor de Almeida Coutinho Conceição
+- Luiz Gabriel de Andrade Dvooranen
+- Luiz Paulo Santos Frutuoso
+- Pedro Henrique Nascimento dos Santos
 
 ## 📃 Licença
 
