@@ -75,13 +75,13 @@ O aplicativo Monypet está disponível exclusivamente na Play Store (andorid)
 
 ## 👨‍🎓 Autores
 
-- Arthur Florencio de Atayde - Desenvolvedor ([@arthur_atayde](https://www.instagram.com/arthur_atayde/))
-- Enzo Vasconcelos de Oliveira Santos - Designer ([@miyo214d](https://www.instagram.com/miyo214d/))
-- Henrique Castro de Matos - Desenvolvedor([@Rickkcastro](https://github.com/RickkCastro/))
-- João Vitor de Almeida Coutinho Conceição - Designer ([@kotod55](https://www.instagram.com/kotod55/))
-- Luiz Gabriel de Andrade Dvooranen - Escritor, pesquisador ([@_luizgd](https://www.instagram.com/_luizgd/))
-- Luiz Paulo Santos Frutuoso - Escritor, pesquisador ([@paulo15frutuoso](https://www.instagram.com/paulo15frutuoso/))
-- Pedro Henrique Nascimento dos Santos - Desenvolvedor ([@predo_sants](https://www.instagram.com/predo_sants/))
+- **Arthur Florencio de Atayde** - Desenvolvedor  ([@arthur_atayde](https://www.instagram.com/arthur_atayde/))
+- **Enzo Vasconcelos de Oliveira Santos** - Designer ([@miyo214d](https://www.instagram.com/miyo214d/))
+- **Henrique Castro de Matos** - Desenvolvedor([@Rickkcastro](https://github.com/RickkCastro/))
+- **João Vitor de Almeida Coutinho Conceição** - Designer ([@kotod55](https://www.instagram.com/kotod55/))
+- **Luiz Gabriel de Andrade Dvooranen** - Escritor, pesquisador ([@_luizgd](https://www.instagram.com/_luizgd/))
+- **Luiz Paulo Santos Frutuoso** - Escritor, pesquisador ([@paulo15frutuoso](https://www.instagram.com/paulo15frutuoso/))
+- **Pedro Henrique Nascimento dos Santos** - Desenvolvedor ([@predo_sants](https://www.instagram.com/predo_sants/))
 
 ## 📃 Licença
 
