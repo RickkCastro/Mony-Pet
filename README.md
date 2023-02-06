@@ -52,10 +52,13 @@ A análise gráfica é uma das principais propostas do aplicativo, onde de forma
 
 ## 🧩 Aprendizados
 
-O que você aprendeu construindo esse projeto? Quais desafios você enfrentou e como você superou-os?
+Ao longo do projeto aprendemos e desenvolvemos muitas skills e soft skills, como tabalho em equipe, foco, liderança, design de aplicativo, programação mobile, react-native, javascript, teoria das cores, etc.
+
+Foi um projeto de grande evolução na carreira de todos os envovidos.
 
 
 ## 📷 Screenshots
+
 <p style="display: flex;">
 	<image width="250px" height="450" src="https://play-lh.googleusercontent.com/bvrPwNzyqH80JPJrl6LytSjkrcUe3f0S2QSbIKHj9D-ZWNWrwXl3g1I-V9XFD99_-w=w2560-h1440-rw"/>
 	<image width="250px" height="450" src="https://play-lh.googleusercontent.com/bbaStO_pzqVuDCPEMnEWW9oQJzn_JYGnAmyBG4oPiJ-eH6BQywFTN5AshqMvPP6xRQ=w2560-h1440-rw"/>
@@ -65,22 +68,20 @@ O que você aprendeu construindo esse projeto? Quais desafios você enfrentou e 
 
 ## 📥 Instalação
 
-Instale my-project com npm
+O aplicativo Monypet está disponível exclusivamente na Play Store (andorid)
 
-```bash
-  npm install my-project
-  cd my-project
-```
+[Baixar app](https://play.google.com/store/apps/details?id=com.GreenCubesDeveloper.MonyPet&hl=pt_BR&gl=US)
+
 
 ## 👨‍🎓 Autores
 
-- Arthur Florencio de Atayde ([@Rickkcastro](https://github.com/RickkCastro/))
-- Enzo Vasconcelos de Oliveira Santos
-- Henrique Castro de Matos
-- João Vitor de Almeida Coutinho Conceição
-- Luiz Gabriel de Andrade Dvooranen
-- Luiz Paulo Santos Frutuoso
-- Pedro Henrique Nascimento dos Santos
+- Arthur Florencio de Atayde - Desenvolvedor ([@arthur_atayde](https://www.instagram.com/arthur_atayde/))
+- Enzo Vasconcelos de Oliveira Santos - Designer ([@miyo214d](https://www.instagram.com/miyo214d/))
+- Henrique Castro de Matos - Desenvolvedor([@Rickkcastro](https://github.com/RickkCastro/))
+- João Vitor de Almeida Coutinho Conceição - Designer ([@kotod55](https://www.instagram.com/kotod55/))
+- Luiz Gabriel de Andrade Dvooranen - Escritor, pesquisador ([@_luizgd](https://www.instagram.com/_luizgd/))
+- Luiz Paulo Santos Frutuoso - Escritor, pesquisador ([@paulo15frutuoso](https://www.instagram.com/paulo15frutuoso/))
+- Pedro Henrique Nascimento dos Santos - Desenvolvedor ([@predo_sants](https://www.instagram.com/predo_sants/))
 
 ## 📃 Licença
 
